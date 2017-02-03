@@ -1,20 +1,15 @@
 var AllUserArray;
-var sheetarray = new Array();//入力欄の内容
-var qarray   = new Array();///質問の内容。２次元配列
-var ansarray = new Array();
-var tmparray = new Array();
-
+var sheetarray = new Array();
+var qarray = new Array();
 //初期動作/////////////////////////////////////////////////////////////////
 $(function() {
+  $('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});//カレンダーから日付を選ぶ
   var userID = $('#userID').val();
   AllUserArray = $('#userlist>option');
-  qarray[0]=[];
-  qarray[0].push({question:'',check:''});
-  //  console.log(qarray);
-  $('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});//カレンダーから日付を選ぶ
+  qarray.push(1);
+
   reloadTable();
 
-  //ファイルアップロード====================================
   $('#file_upload').uploadifive({
     'auto'             : false,
     'checkScript'      : 'check-exists.php',
@@ -38,64 +33,44 @@ $(function() {
     },
     'onCancel' : function(file){ console.log(file)},
     'onQueueComplete': function(file){
+      //  location.href = locationtoreturn;
     }
   });
 
-  //ボタン==================================================
-  //送信ボタンクリック
-  $("#sendbtn").click(function (){
-    send();
-  });
-
-  //ボタンの有効無効
+  //データを配列に入れる====================================
   $('#title,#cont').change(function(){
     if(checkflg()==1){
       $('#sendbtn').removeAttr('disabled');
     }else{
       $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
     }
+    console.log('change');
   });
 
-  //質問追加(アンケート)
+  //ボタン==================================================
+  //送信ボタンクリック
+  $("#sendbtn").click(function (){
+
+  });
+
+  //アンケート===============================================
   $("#qlist").on('click','#addq',function(e) {
-    copytoqarray();
-
-    var n=qarray.length;
-    qarray[n]=[];
-    qarray[n].push({question:'',check:''});
-    //   console.log(qarray);
+    qarray.push(1);
     reloadTable();
   });
 
-  //回答追加(アンケート)
   $("#qlist").on('click','.addask',function(e) {
-    copytoqarray();
-
-    qarray[$(e.target).attr('question')].push({answer:''});
-    //console.log(qarray);
+    $(e.target).attr('question');
+    qarray[$(e.target).attr('question')]=qarray[$(e.target).attr('question')]+1;
     reloadTable();
   });
 
-  function copytoqarray(){
-    var n = qarray.length;//質問数
-    var m;
-    var tmpsum=0;
-    //  qarray=[];//配列を一度空にしてから値を全部入れる。記録はテーブルに残ってる。
+  $("#qlist").on('click','.checkask',function(e){
+   $(e.target).attr('check') 
+    reloadTable();
+  });
 
-    for(var i=0;i<n;i++){
-  //    console.log($(".question:eq("+i+")").val());
-      qarray[i][0]={check:$(".checkask:eq("+i+")").prop('checked'),question:$(".question:eq("+i+")").val()};
-      m=qarray[i].length-1;
-      for(var j=0;j<m;j++){
-     //   console.log($(".answer:eq("+tmpsum+")").val());
-        qarray[i][j+2]={answer:$(".answer:eq("+tmpsum+")").val()};
-        tmpsum=tmpsum+1;
-      }
-    }
-    console.log(qarray);
-  }
-
-  //メンバー選択=============================================
+  //メンバー選択==================================================
   //メンバー全追加ボタンクリック
   $('#addAllItem').click(function() {
     var selectedUserArray = $('#userlist>option');
@@ -142,7 +117,7 @@ $(function() {
   });
 });
 
-//関数//////////////////////////////////////////////////////////////////////
+//関数////////////////////////////////////////////////////////////
 //アンケートを表示する。
 function reloadTable(){
   JSON = $.toJSON(qarray);
@@ -155,42 +130,6 @@ function reloadTable(){
       $('#qlist').html(data);
     }
   );
-}
-
-function send(){
-  sheetarray=[];
-
-  sheetarray.push({'title':$('#title').val()});
-  sheetarray.push({'content':$('#cont').val()});
-  sheetarray.push({'secret':$('#secret').prop('checked',true)});
-  sheetarray.push({"userID":$('#userID').val()});
-  console.log(sheetarray);
-
-  JSON2 = $.toJSON(sheetarray);
-  //DB入力
-  $.post(
-    "DBinput.php",
-    {
-      "qarray":JSON,
-      "id":JSON2
-    },
-    function(data){
-      $('#ppp').html(data);
-    }
-  );
-  /*
-  //メール送信
-  $.post(
-    "helper/sendmail.php",
-    {
-      "id":JSON
-    },
-    function(){
-    }
-  );
-  */
-  //とばすのは全部おわってから
-  //  location.href="./list.php";
 }
 
 //必須項目入力されているかチェック
@@ -232,5 +171,3 @@ function setUserArrayToUserSelector(uarray){
     $('#userlist').append(uarray[i]);
   }
 }
-
-

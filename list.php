@@ -1,4 +1,5 @@
 <?php
+
 //初期==============================================
 session_start();
 require_once('master/prefix.php');
@@ -73,9 +74,11 @@ $body.='</nav>';
 $body.='<div id="topspace" style="height:70px;"></div>';
 
 //クラスと変数=====================================
-$body.='<input id="userID" class="hidden" value="'.$_SESSION['loginid'].'">';
+$body.='<input id="status" class="hidden" value="'.$p->status.'">';
+$body.='<input id="userID" class="hidden" value="'.$p->userID.'">';
 
 //本文///////////////////////////////////////////////////////////////////////////////////
+
 //タイトル=========================================
 $body.='<div class="container-fluid">';
 $body.='<h2 class="toptitle">';
@@ -197,7 +200,9 @@ $body.='<hr>';
 //アンケート=========================================
 $body.='<div style="display:inline-block;width:600px;vertical-align:top;margin:0 50px 0 0;">';
 $body.='<h3>アンケート<small>　</small></h3>';
+
 $body.='<div id="qlist"></div>';
+
 $body.='</div>';
 
 //横線===============================================
@@ -212,7 +217,6 @@ $body .= '<hr />';
 
 //送信ボタン=========================================
 $body.='<button id="sendbtn" class="btn btn-sm btn-primary" disabled="disabled">送信</button>';
-$body.='<div id="ppp"></div>';
 $body.='</div>';
 $body.='</div>';
 
@@ -228,7 +232,6 @@ $header.='<!--
   -->';
 $header.='</style>';
 
-//HTML作成===========================================
 echo html('回覧板',$header, $body);
 
 
