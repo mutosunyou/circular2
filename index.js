@@ -59,18 +59,16 @@ $(function() {
   //質問追加(アンケート)
   $("#qlist").on('click','#addq',function(e) {
     copytoqarray();
-
     var n=qarray.length;
     qarray[n]=[];
     qarray[n].push({question:'',check:''});
-    //   console.log(qarray);
+    //console.log(qarray);
     reloadTable();
   });
 
   //回答追加(アンケート)
-  $("#qlist").on('click','.addask',function(e) {
+  $("#qlist").on('click','.addask',function(e){
     copytoqarray();
-
     qarray[$(e.target).attr('question')].push({answer:''});
     //console.log(qarray);
     reloadTable();
@@ -83,16 +81,16 @@ $(function() {
     //  qarray=[];//配列を一度空にしてから値を全部入れる。記録はテーブルに残ってる。
 
     for(var i=0;i<n;i++){
-  //    console.log($(".question:eq("+i+")").val());
+      console.log($(".question:eq("+i+")").val());
       qarray[i][0]={check:$(".checkask:eq("+i+")").prop('checked'),question:$(".question:eq("+i+")").val()};
       m=qarray[i].length-1;
       for(var j=0;j<m;j++){
      //   console.log($(".answer:eq("+tmpsum+")").val());
-        qarray[i][j+2]={answer:$(".answer:eq("+tmpsum+")").val()};
+        qarray[i][j+1]={answer:$(".answer:eq("+tmpsum+")").val()};
         tmpsum=tmpsum+1;
       }
     }
-    console.log(qarray);
+   // console.log(qarray);
   }
 
   //メンバー選択=============================================
@@ -159,7 +157,6 @@ function reloadTable(){
 
 function send(){
   sheetarray=[];
-
   sheetarray.push({'title':$('#title').val()});
   sheetarray.push({'content':$('#cont').val()});
   sheetarray.push({'secret':$('#secret').prop('checked',true)});

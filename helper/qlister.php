@@ -3,7 +3,7 @@
 session_start();
 
 $js = json_decode($_POST['qarray']);
-//var_dump($js);
+var_dump($js);
 
 $body=' ';
 for($i=0;$i<count($js);$i++){
@@ -19,7 +19,7 @@ for($i=0;$i<count($js);$i++){
   for($j=0;$j<(count($js[$i])-1);$j++){
     $body.='<div class="input-group input-group-sm">';
     $body.='<span class="input-group-addon">回答　'.$j.'</span>';
-    $body.='<input type="text" style="font-size:13px;" class="form-control answer" value="'.$js[$i][$j+2]->answer.'">';
+    $body.='<input type="text" style="font-size:13px;" class="form-control answer" value="'.$js[$i][$j+1]->answer.'">';
     $body.='</div>';
   }
   //回答項目追加ボタン
