@@ -69,13 +69,13 @@ $body.='</div>';
 $body.='</div>';
 $body.='</nav>';
 
-//隙間調整
+//隙間調整=========================================
 $body.='<div id="topspace" style="height:70px;"></div>';
 
 //クラスと変数=====================================
 $body.='<input id="userID" class="hidden" value="'.$_SESSION['loginid'].'">';
 
-//本文///////////////////////////////////////////////////////////////////////////////////
+//本文/////////////////////////////////////////////
 //タイトル=========================================
 $body.='<div class="container-fluid">';
 $body.='<h2 class="toptitle">';
@@ -98,10 +98,10 @@ $body.='<span class="input-group-addon">内　　容</span>';
 $body.='<textarea class="form-control" id="cont" rows="5" cols="90" style="height:150px;"></textarea>';
 $body.='</div>';
 
-//一番上のエリア終わり
+//一番上のエリア終わり=============================
 $body.='</div>';
 
-//左ブロック
+//左ブロック=======================================
 $body.='<div style="display:inline-block;width:520px;vertical-align:top;margin:0 0px 0 0;">';
 
 //回覧対象=========================================
@@ -115,6 +115,7 @@ $body.='<td>';
 
 $mem = new MemberList();
 $bumons = $mem->bumonList(0);
+
 $body.='<select id="bselector" style="height:22px;">';
 $body.='<option value="0">全部門</option>';
 for($i=0;$i<count($bumons);$i++){
@@ -157,7 +158,7 @@ $body.='</tbody>';
 $body.='</table>';
 $body.='</font>';
 
-//左ブロック終わり
+//左ブロック終わり===================================
 $body.='</div>';
 
 //右ブロック=========================================
@@ -166,7 +167,7 @@ $body.='<div style="display:inline-block;width:370px;vertical-align:top;">';
 //添付資料===========================================
 $body .= '<h3> 添付資料<small>　添付資料があれば選択してください</small></h3>';
 
-//fileのアップロード
+//fileのアップロード=================================
 $uploaded = selectData(DB_NAME,'select filepath from files where id = '.$_GET['id']);
 if(!empty($uploaded)){
   $body .='<ul>';

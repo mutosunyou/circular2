@@ -44,6 +44,7 @@ $(function() {
   //ボタン==================================================
   //送信ボタンクリック
   $("#sendbtn").click(function (){
+    copytoqarray();
     send();
   });
 
@@ -74,23 +75,26 @@ $(function() {
     reloadTable();
   });
 
+  //qarray[質問番号][質問、チェックフラグ]
+  //qarray[質問番号][回答1]
+  //qarray[質問番号][回答2]
   function copytoqarray(){
     var n = qarray.length;//質問数
     var m;
     var tmpsum=0;
-    //  qarray=[];//配列を一度空にしてから値を全部入れる。記録はテーブルに残ってる。
+    //qarray=[];//配列を一度空にしてから値を全部入れる。記録はテーブルに残ってる。
 
     for(var i=0;i<n;i++){
       console.log($(".question:eq("+i+")").val());
       qarray[i][0]={check:$(".checkask:eq("+i+")").prop('checked'),question:$(".question:eq("+i+")").val()};
       m=qarray[i].length-1;
       for(var j=0;j<m;j++){
-     //   console.log($(".answer:eq("+tmpsum+")").val());
+      //console.log($(".answer:eq("+tmpsum+")").val());
         qarray[i][j+1]={answer:$(".answer:eq("+tmpsum+")").val()};
         tmpsum=tmpsum+1;
       }
     }
-   // console.log(qarray);
+    //console.log(qarray);
   }
 
   //メンバー選択=============================================
@@ -159,8 +163,9 @@ function send(){
   sheetarray=[];
   sheetarray.push({'title':$('#title').val()});
   sheetarray.push({'content':$('#cont').val()});
-  sheetarray.push({'secret':$('#secret').prop('checked',true)});
   sheetarray.push({"userID":$('#userID').val()});
+  sheetarray.push({'secret':$('#secret').prop('checked')});
+  sheetarray.push(qarray);
   console.log(sheetarray);
 
   JSON2 = $.toJSON(sheetarray);
