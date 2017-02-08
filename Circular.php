@@ -1,11 +1,11 @@
 <?php
 
-session_start();
 require_once('Member.php');
 require_once('File.php');
 require_once('Question.php');
 
 //localのみ
+//session_start();
 $_SESSION['login_name']="武藤　一徳";
 $_SESSION['loginid']=10042;
 
@@ -73,14 +73,16 @@ class Circular
   }
 
   //回覧作成
-  function AddCircular($title,$content,$sdate,$secret,){
-    $sql='insert into circular values (null,'.$_SESSION['loginid'].',"'.$title.'","'.$content.'","'.date('Y-m-d').'",0,'.$secret.')';
-    deleteFrom(DB_NAME,$sql);
+  function AddCircular($title,$content,$secret){
+    $sql='insert into circular values (null,'.$_SESSION['loginid'].',"'.$title.'","'.$content.'","'.date('Y-m-d H:m:s').'",0,'.$secret.')';
+    $this->id=insertAI(DB_NAME,$sql);
+    $this->reload();
   }
 
   //伝票IDを入れてリロードする。
   function reload(){
     $this->initWithID($this->id);
   }
+
 }
 

@@ -32,9 +32,10 @@ for($i=0;$i<count($js);$i++){
   }else{
     $checked='';
   }
+
   $body.='<input type="checkbox" class="checkask" check='.$i.' '.$checked.'>自由解答欄を設ける';
   $body.='</div>';
   $body.='</div>';
 }
-  $body.='<button id="addq" class="btn btn-primary btn-xs" qnum="'.count($js).'" style="float:right;">　+　</button><span style="float:right;">質問追加　</span>';
+$body.='<button id="addq" class="btn btn-primary btn-xs" qnum="'.count($js).'" style="float:right;">　+　</button><span style="float:right;">質問追加　</span>';
 echo $body;

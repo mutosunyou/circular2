@@ -1,6 +1,6 @@
 <?php
-session_start();
-
+//session_start();
+require_once('master/prefix.php');
 class Answer
 {
   public $id;
@@ -19,7 +19,7 @@ class Answer
       $this->qID = $rst[0]['qID'];
       $this->memberID = $rst[0]['memberID'];
       $this->answer = $rst[0]['answer'];
-      $this->description = $rst[0]['description']
+      $this->description = $rst[0]['description'];
     }
   }
 

@@ -33,7 +33,6 @@ function insertAI($db, $sql){
     return $arr;
 }
 
-
 function selectData($db, $sql){
   //接続
   //return DB_PASSWORD;
@@ -45,11 +44,11 @@ function selectData($db, $sql){
         exit();
     }
     if ($result = $mysqli->query($sql)) {
-        
+      
         $bigArray = array();
-        
+       
         while($col = $result->fetch_array(MYSQLI_ASSOC)){
-            
+        
             $smallArray = array();
             foreach ($col as $key => $value){
                 $smallArray[$key] = $value;

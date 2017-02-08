@@ -196,7 +196,7 @@ $body.='</div>';
 $body.='<hr>';
 
 //アンケート=========================================
-$body.='<div style="display:inline-block;width:600px;vertical-align:top;margin:0 50px 0 0;">';
+$body.='<div style="display:inline-block;width:890px;vertical-align:top;margin:0 50px 0 0;">';
 $body.='<h3>アンケート<small>　</small></h3>';
 $body.='<div id="qlist"></div>';
 $body.='</div>';

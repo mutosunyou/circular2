@@ -63,7 +63,6 @@ $(function() {
     var n=qarray.length;
     qarray[n]=[];
     qarray[n].push({question:'',check:''});
-    //console.log(qarray);
     reloadTable();
   });
 
@@ -166,15 +165,16 @@ function send(){
   sheetarray.push({"userID":$('#userID').val()});
   sheetarray.push({'secret':$('#secret').prop('checked')});
   sheetarray.push(qarray);
-  console.log(sheetarray);
 
   JSON2 = $.toJSON(sheetarray);
+  JSON3 = $.toJSON($('#selectedlist>option'));
   //DB入力
+  console.log($('#selectedlist>option'));
   $.post(
     "DBinput.php",
     {
-      "qarray":JSON,
-      "id":JSON2
+      "id":JSON2,
+      "mem":JSON3
     },
     function(data){
       $('#ppp').html(data);

@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
 require_once('Answer.php');
 
 class Question 
@@ -25,4 +25,4 @@ class Question
     $this->initWithQuestionID($this->id);
   }
 
-
+}
