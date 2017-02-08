@@ -4,7 +4,6 @@ require_once('Member.php');
 require_once('File.php');
 require_once('Question.php');
 
-//localのみ
 //session_start();
 $_SESSION['login_name']="武藤　一徳";
 $_SESSION['loginid']=10042;
@@ -57,12 +56,14 @@ class Circular
         $ps->initWithFileID($rst1[$i]['id']);
         $this->files[] = $ps;
       }
+
       $this->members=array();
       for($i=0;$i<count($rst2);$i++){
         $ps = new Member;
         $ps->initWithMemberID($rst2[$i]['id']);
         $this->members[] = $ps;
       }
+      
       $this->questions=array();
       for($i=0;$i<count($rst3);$i++){
         $ps = new Question;
@@ -74,6 +75,11 @@ class Circular
 
   //回覧作成
   function AddCircular($title,$content,$secret){
+    if($secret==true){
+      $secret=1;
+    }else{
+      $secret=0;
+    }
     $sql='insert into circular values (null,'.$_SESSION['loginid'].',"'.$title.'","'.$content.'","'.date('Y-m-d H:m:s').'",0,'.$secret.')';
     $this->id=insertAI(DB_NAME,$sql);
     $this->reload();

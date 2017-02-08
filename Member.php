@@ -23,6 +23,19 @@ class Member
     }
   }
 
+  //回覧ID と メンバーオブジェクト
+  function AddMember($cid,$memOB){
+    $sql='insert into member values ';
+    for($i=0;$i<count($memOB);$i++){
+      $sql.='(null,'.$cid.','.$memOB[$i]->num.',0,"'.date('Y-m-d H:i:s').'")';
+      if($i!=(count($memOB)-1)){
+        $sql.=',';
+      }
+    }
+    $this->id=insertAI(DB_NAME,$sql);
+    $this->reload();
+  }
+
   function reload(){
     $this->initWithMemberID($this->id);
   }

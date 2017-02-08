@@ -1,10 +1,9 @@
 var AllUserArray;
 var sheetarray = new Array();//入力欄の内容
-var qarray   = new Array();///質問の内容。２次元配列
-var ansarray = new Array();
-var tmparray = new Array();
+var qarray     = new Array();///質問の内容。２次元配列
+var memarray   = new Array();
 
-//初期動作/////////////////////////////////////////////////////////////////
+//初期動作///////////////////////////////////////////////////
 $(function() {
   var userID = $('#userID').val();
   AllUserArray = $('#userlist>option');
@@ -84,7 +83,7 @@ $(function() {
     //qarray=[];//配列を一度空にしてから値を全部入れる。記録はテーブルに残ってる。
 
     for(var i=0;i<n;i++){
-      console.log($(".question:eq("+i+")").val());
+   //   console.log($(".question:eq("+i+")").val());
       qarray[i][0]={check:$(".checkask:eq("+i+")").prop('checked'),question:$(".question:eq("+i+")").val()};
       m=qarray[i].length-1;
       for(var j=0;j<m;j++){
@@ -93,7 +92,6 @@ $(function() {
         tmpsum=tmpsum+1;
       }
     }
-    //console.log(qarray);
   }
 
   //メンバー選択=============================================
@@ -143,7 +141,7 @@ $(function() {
   });
 });
 
-//関数//////////////////////////////////////////////////////////////////////
+//関数////////////////////////////////////////////////////////
 //アンケートを表示する。
 function reloadTable(){
   JSON = $.toJSON(qarray);
@@ -167,9 +165,18 @@ function send(){
   sheetarray.push(qarray);
 
   JSON2 = $.toJSON(sheetarray);
-  JSON3 = $.toJSON($('#selectedlist>option'));
+
+  var len=$('#selectedlist>option').length;
+  memarray=[];
+  for(var i=0;i<len;i++){
+  //  console.log($("#selectedlist>option:eq("+i+")").val());
+    memarray[i]={num:$("#selectedlist>option:eq("+i+")").val()};
+ //   console.log(memarray);
+  }
+  JSON3 = $.toJSON(memarray);
+
   //DB入力
-  console.log($('#selectedlist>option'));
+  //console.log($('#selectedlist>option'));
   $.post(
     "DBinput.php",
     {
@@ -180,6 +187,7 @@ function send(){
       $('#ppp').html(data);
     }
   );
+
   /*
   //メール送信
   $.post(

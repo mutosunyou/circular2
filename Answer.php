@@ -25,7 +25,7 @@ class Answer
 
   //伝票IDを入れてリロードする。
   function reload(){
-    $this->initWithFileID($this->id);
+    $this->initWithAnswerID($this->id);
   }
 }
 
