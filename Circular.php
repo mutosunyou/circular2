@@ -11,10 +11,10 @@ $_SESSION['loginid']=10042;
 class Circular 
 {
   public $id;//id
-  public $owner;//作成者
+  public $ownerID;//作成者
   public $title;//表題
   public $content;//内容
-  public $submittime;//回覧開始日
+  public $submitDate;//回覧開始日
   public $status;//0:まだ,1:fin
   public $secret;//非公開にするか
   public $questions;//質問
@@ -30,10 +30,10 @@ class Circular
     $rst = selectData(DB_NAME, $sql);
     
     if($rst!=null){
-      $this->owner = $rst[0]['owner'];
+      $this->ownerID = $rst[0]['ownerID'];
       $this->title = $rst[0]['title'];
       $this->content = $rst[0]['content'];
-      $this->submittime = $rst[0]['submittime'];
+      $this->submitDate = $rst[0]['submitDate'];
       $this->path = $rst[0]['path'];
       $this->status = $rst[0]['status'];
       $this->secret = $rst[0]['secret'];

@@ -55,8 +55,9 @@ $body.='<div class="collapse navbar-collapse" id="nav-menu-1">';
 //左側
 $body.='<ul class="nav navbar-nav">';
 $body.='<li id="listrun" class="bankmenu"><a tabindex="-1">回覧板</a></li>';
-$body.='<li id="input" class="applymenu"><a href="list.php" tabindex="-1">回覧リスト</a></li>';
 $body.='<li id="list" class="active applymenu"><a href="#" tabindex="-1">新規作成</a></li>';
+$body.='<li id="input" class="applymenu"><a href="list.php" tabindex="-1">回覧リスト</a></li>';
+
 $body.='</ul>';
 
 //右側
@@ -78,8 +79,9 @@ $body.='<input id="userID" class="hidden" value="'.$_SESSION['loginid'].'">';
 //本文/////////////////////////////////////////////
 //タイトル=========================================
 $body.='<div class="container-fluid">';
+$body.='<div class="container">';
 $body.='<h2 class="toptitle">';
-$body.='回覧板';
+$body.='回覧 新規作成';
 $body.='</h2><hr />';
 
 //一番上のエリア
@@ -216,7 +218,7 @@ $body.='<button id="sendbtn" class="btn btn-sm btn-primary" disabled="disabled">
 $body.='<div id="ppp"></div>';
 $body.='</div>';
 $body.='</div>';
-
+$body.='</div>';
 $body.='</div>';
 
 //ヘッダー===========================================

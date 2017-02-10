@@ -1,5 +1,4 @@
 <?php
-
 //初期==============================================
 session_start();
 require_once('master/prefix.php');
@@ -12,6 +11,7 @@ $_SESSION['loginid']=10042;
 //ログイン処理======================================
 $sql = "SELECT * FROM employee";
 $rst = selectData('master',$sql);
+
 if (isset($_SESSION["login_name"])){
   $sessionCounter = 0;
   for($i = 0; $i < count($rst); $i++) {
@@ -56,8 +56,8 @@ $body.='<div class="collapse navbar-collapse" id="nav-menu-1">';
 //左側
 $body.='<ul class="nav navbar-nav">';
 $body.='<li id="listrun" class="bankmenu"><a tabindex="-1">回覧板</a></li>';
-$body.='<li id="input" class="applymenu"><a href="list.php" tabindex="-1">回覧リスト</a></li>';
-$body.='<li id="list" class="active applymenu"><a href="#" tabindex="-1">新規作成</a></li>';
+$body.='<li id="list" class="applymenu"><a href="index.php" tabindex="-1">新規作成</a></li>';
+$body.='<li id="input" class="active applymenu"><a href="list.php" tabindex="-1">回覧リスト</a></li>';
 $body.='</ul>';
 
 //右側
@@ -77,153 +77,33 @@ $body.='<div id="topspace" style="height:70px;"></div>';
 $body.='<input id="status" class="hidden" value="'.$p->status.'">';
 $body.='<input id="userID" class="hidden" value="'.$p->userID.'">';
 
-//本文///////////////////////////////////////////////////////////////////////////////////
-
-//タイトル=========================================
+//本文//
+//コンテナ始まり=========================================
 $body.='<div class="container-fluid">';
-$body.='<h2 class="toptitle">';
-$body.='回覧板';
-$body.='</h2><hr />';
+$body.='<div class="container">';
 
-//一番上のエリア
-$body.='<div style="width:900px;">';
+//タイトル===============================================
+//タブ
+$body.='<div class="tabs tabs_default">';
+$body.='<h2 class="toptitle">回覧リスト</h2><br>';
+$body.='<ul class="horizontal" style="margin:0 0 0 0;">';
+$body.='<li><a href="#lister">全部</a></li>';
+$body.='<li><a href="#yet">未確認</a></li>';
+$body.='<li><a href="#own">自分が作成</a></li>';
+$body.='</ul>';
 
-//フォーム=========================================
-$body.='<h3>伝達事項<small>　伝達内容を記入してください</small></h3>';
-
-$body.='<div class="input-group input-group-sm">';
-$body.='<span class="input-group-addon">タイトル</span>';
-$body.='<input type="text" id="title" style="font-size:13px;" class="form-control">';
+$body.='<hr style="margin:0 0 0 0;">';
+$body.='<div id="lister"></div>';
+$body.='<div id="yet"></div>';
+$body.='<div id="own"></div>';
 $body.='</div>';
 
-$body.='<div class="input-group input-group-sm">';
-$body.='<span class="input-group-addon">内　　容</span>';
-$body.='<textarea class="form-control" id="cont" rows="5" cols="90" style="height:150px;"></textarea>';
-$body.='</div>';
-
-//一番上のエリア終わり
-$body.='</div>';
-
-//左ブロック
-$body.='<div style="display:inline-block;width:520px;vertical-align:top;margin:0 0px 0 0;">';
-
-//回覧対象=========================================
-$body.='<h3>回覧対象<small>　回覧対象を選択してください。</small></h3>';
-$body.='<table style="font-size:9pt;">';
-$body.='<tbody>';
-$body.='<tr>';
-$body.='<td><h5>回覧するメンバー</h5></td>';
-$body.='<td></td>';
-$body.='<td>';
-
-$mem = new MemberList();
-$bumons = $mem->bumonList(0);
-$body.='<select id="bselector" style="height:22px;">';
-$body.='<option value="0">全部門</option>';
-for($i=0;$i<count($bumons);$i++){
-  $body.='<option value="'.$bumons[$i]['bid'].'">'.$bumons[$i]['name'].'</option>';
-}
-$body.='</select>';
-$body.='</td>';
-$body.='</tr>';
-//-------------------
-$body.='<tr>';
-$body.='<td >';
-$body.='<select id="selectedlist" multiple size="10" style="width:150px;">';
-$body.='</select>';
-$body.='</td>';
-
-$body.='<td align="center" style="width:100px;">';
-$body.='<a id="addAllItem" class="btn btn-xs btn-default">←全追加</a>';
-$body.='<br><br>';
-$body.='<a id="addSelectedItem" class="btn btn-xs btn-default">←追加</a>';
-$body.='<br><br>';
-$body.='<a id="removeSelectedItem" class="btn btn-xs btn-default">削除→</a>';
-$body.='<br><br>';
-
-$body.='<a id="removeAllItem" class="btn btn-xs btn-default">全削除→</a>';
-$body.='</td>';
-
-$body.='<td>';
-$sql='select * from employee where kairan=1';
-$rst=selectData('master',$sql);
-
-$body.='<select id="userlist" multiple size="8" style="width:150px;">';
-$members = $mem->memberList(0);
-for($i=0;$i<count($members);$i++){
-  $body.=' <option value="'.$members[$i]['id'].'" bumon="'.$members[$i]['bumon_code'].'">'.$members[$i]['short_name'].'</option>';
-}
-$body.='</select>';
-$body.='</td>';
-$body.='</tr>';
-$body.='</tbody>';
-$body.='</table>';
-$body.='</font>';
-
-//左ブロック終わり
-$body.='</div>';
-
-//右ブロック=========================================
-$body.='<div style="display:inline-block;width:370px;vertical-align:top;">';
-
-//添付資料===========================================
-$body .= '<h3> 添付資料<small>　添付資料があれば選択してください</small></h3>';
-
-//fileのアップロード
-$uploaded = selectData(DB_NAME,'select filepath from files where id = '.$_GET['id']);
-if(!empty($uploaded)){
-  $body .='<ul>';
-  for($i=0;$i<count($uploaded);$i++){
-    $body .='<li><a href="'.$uploaded[$i]['filepath'].'">'.$uploaded[$i]['filepath'].'</a></li>';
-  }
-  $body .='</ul>';
-}
-
-$rst = selectData('spec','select max(id) from files');
-$fid = $rst[0]['max(id)'];
-$fid++;
-
-$body .= '<input type="hidden" id="fid" value="'.$fid.'">';
-$body .= '<div id="queue" class="well" style="border: 1px solid #E5E5E5;overflow: auto;margin-bottom: 10px;padding: 0 3px 3px;min-height:150px;">';
-$body .= '<span style="font-weight:bold">ここにファイルをドロップしてください(複数可)';
-$body .= '</span></div>';
-$body .= '<input id="file_upload" name="file_upload" type="file" multiple="true">';
-$body .= '<br />';
-$body .= "<div id='fileup'></div>";
-
-//右ブロック終わり
-$body.='</div>';
-
-//横線===============================================
-$body.='<hr>';
-
-//アンケート=========================================
-$body.='<div style="display:inline-block;width:600px;vertical-align:top;margin:0 50px 0 0;">';
-$body.='<h3>アンケート<small>　</small></h3>';
-
-$body.='<div id="qlist"></div>';
-
-$body.='</div>';
-
-//横線===============================================
-$body .= '<hr />';
-
-//シークレット=======================================
-$body .= '<h3>シークレット<small>　アンケート結果を作成者以外に公開したくないときはチェックを入れてください</small></h3>';
-$body .= '<input type="checkbox" id="secret" />アンケートの結果を公開しない';
-
-//横線===============================================
-$body .= '<hr />';
-
-//送信ボタン=========================================
-$body.='<button id="sendbtn" class="btn btn-sm btn-primary" disabled="disabled">送信</button>';
+//コンテナ終わり
 $body.='</div>';
 $body.='</div>';
 
-$body.='</div>';
-
-//ヘッダー===========================================
-$header ='<script type="text/javascript" src="index.js"></script>';
+//ヘッダー=========================================
+$header ='<script type="text/javascript" src="list.js"></script>';
 $header.='<style type="text/css">';
 $header.='<!--
   .input-group{
@@ -233,5 +113,3 @@ $header.='<!--
 $header.='</style>';
 
 echo html('回覧板',$header, $body);
-
-

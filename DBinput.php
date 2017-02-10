@@ -22,9 +22,7 @@ $c->AddCircular($js2[0]->title,$js2[1]->content,$secret);
 //追加した回覧にメンバーを追加
 $m->AddMember($c->id[1],$js3);
 
-
 //追加した回覧にアンケートを追加
 $q->AddQuestion($c->id[1],$js2[4]);
-
 
 
