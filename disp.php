@@ -1,8 +1,7 @@
 <?php
 //初期==============================================
 session_start();
-require_once('master/prefix.php');
-require_once('MemberList.php');
+require_once('Circular.php');
 
 //localのみ=========================================
 $_SESSION['login_name']="武藤　一徳";
@@ -11,7 +10,6 @@ $_SESSION['loginid']=10042;
 //ログイン処理======================================
 $sql = "SELECT * FROM employee";
 $rst = selectData('master',$sql);
-
 if (isset($_SESSION["login_name"])){
   $sessionCounter = 0;
   for($i = 0; $i < count($rst); $i++) {
@@ -38,7 +36,8 @@ if ($_SESSION['expires'] < time() - 7) {
 $body='<nav class="navbar navbar-default navbar-fixed-top" role="navigation">';
 $body.='<div class="container-fluid">';
 $body.='<div class="navbar-header">';
-$body.='<!-- メニューボタン 
+$body.='<!-- 
+  メニューボタン 
   data-toggle : ボタンを押したときにNavbarを開かせるために必要
   data-target : 複数navbarを作成する場合、ボタンとナビを紐づけるために必要
   -->
@@ -55,8 +54,9 @@ $body.='<div class="collapse navbar-collapse" id="nav-menu-1">';
 //左側
 $body.='<ul class="nav navbar-nav">';
 $body.='<li id="listrun" class="bankmenu"><a tabindex="-1">回覧板</a></li>';
-$body.='<li id="list" class="applymenu"><a href="index.php" tabindex="-1">新規作成</a></li>';
-$body.='<li id="input" class="active applymenu"><a href="list.php" tabindex="-1">回覧リスト</a></li>';
+$body.='<li id="list" class="active applymenu"><a href="#" tabindex="-1">新規作成</a></li>';
+$body.='<li id="input" class="applymenu"><a href="list.php" tabindex="-1">回覧リスト</a></li>';
+
 $body.='</ul>';
 
 //右側
@@ -69,40 +69,75 @@ $body.='</div>';
 $body.='</div>';
 $body.='</nav>';
 
-//隙間調整
+//隙間調整=========================================
 $body.='<div id="topspace" style="height:70px;"></div>';
 
-//クラスと変数===========================================
-$body.='<input id="status" class="hidden" value="'.$p->status.'">';
-$body.='<input id="userID" class="hidden" value="'.$p->userID.'">';
+//クラスと変数=====================================
+$body.='<input id="userID" class="hidden" value="'.$_SESSION['loginid'].'">';
 
-//本文//
-//コンテナ始まり=========================================
+$p=new Circular();
+$p->initWithID($_GET['cid']);
+
+
+//本文/////////////////////////////////////////////
+//タイトル=========================================
 $body.='<div class="container-fluid">';
 $body.='<div class="container">';
+$body.='<h2 class="toptitle">';
+$body.='回覧内容';
+$body.='</h2><hr />';
 
-//タイトル===============================================
-//タブ
-$body.='<div class="tabs tabs_default">';
-$body.='<h2 class="toptitle">回覧リスト</h2><br>';
-$body.='<ul class="horizontal" style="margin:0 0 0 0;">';
-$body.='<li id="alltab"><a href="#lister">全部</a></li>';
-$body.='<li id="yettab"><a href="#yet">未確認</a></li>';
-$body.='<li id="owntab"><a href="#own">発信済み</a></li>';
-$body.='</ul>';
-
-$body.='<hr style="margin:0 0 0 0;">';
-$body.='<div id="lister"></div>';
-$body.='<div id="yet"></div>';
-$body.='<div id="own"></div>';
+//一番上のエリア
+$body.='<div class="panel panel-default">';
+$body.='<div class="panel-heading">タイトル</div>';
+$body.='<div class="panel-body">'.$p->title.'</div>';
 $body.='</div>';
 
-//コンテナ終わり
+$body.='<div class="panel panel-default">';
+$body.='<div class="panel-heading">内容</div>';
+$body.='<div class="panel-body">'.$p->content.'</div>';
+$body.='</div>';
+
+$body.='<div class="panel panel-default">';
+$body.='<div class="panel-heading">添付資料</div>';
+$body.='<div class="panel-body">'.$p->content.'</div>';
+$body.='</div>';
+
+$body.='<div class="panel panel-default">';
+$body.='<div class="panel-heading">閲覧済み</div>';
+$body.='<div class="panel-body">'.$p->content.'</div>';
+$body.='</div>';
+
+$body.='<div class="panel panel-default">';
+$body.='<div class="panel-heading">未確認</div>';
+$body.='<div class="panel-body">'.$p->member.'</div>';
+$body.='</div>';
+
+
+//左ブロック=======================================
+$body.='<div style="display:inline-block;width:520px;vertical-align:top;margin:0 0px 0 0;">';
+
+//左ブロック終わり===================================
+$body.='</div>';
+
+//右ブロック=========================================
+$body.='<div style="display:inline-block;width:370px;vertical-align:top;">';
+
+
+//右ブロック終わり
+$body.='</div>';
+
+
+
+//送信ボタン=========================================
+$body.='<button id="sendbtn" class="btn btn-sm btn-primary">確認</button>';
+$body.='</div>';
+$body.='</div>';
 $body.='</div>';
 $body.='</div>';
 
-//ヘッダー=========================================
-$header ='<script type="text/javascript" src="list.js"></script>';
+//ヘッダー===========================================
+$header ='<script type="text/javascript" src="disp.js"></script>';
 $header.='<style type="text/css">';
 $header.='<!--
   .input-group{
@@ -111,4 +146,7 @@ $header.='<!--
   -->';
 $header.='</style>';
 
+//HTML作成===========================================
 echo html('回覧板',$header, $body);
+
+

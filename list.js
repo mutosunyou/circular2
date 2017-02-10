@@ -1,3 +1,4 @@
+var ownerflg;
 //検索キーワード
 localStorage.pSearchKey = '';
 //並べ替えのキー値
@@ -14,14 +15,15 @@ if (!localStorage.page) {
 }
 
 $(function() {
+   localStorage.page = 1;
+  ownerflg=0;
   $('.tabs').tabslet();
   $('#finderfld').val(localStorage.searchKey);
   $('#ppi').val(localStorage.ppi);
   reloadyet();
-  reloadown();
   reloadall();
 
-//表のソート
+  //表のソート
   $('#lister,#own').on('click', '.sorter', function (ev){
     localStorage.page = 1;
     if (localStorage.pSortKey == $(ev.target).attr('name')) {
@@ -35,7 +37,6 @@ $(function() {
     }
     localStorage.pSortKey = $(ev.target).attr('name');
     reloadall();
-      reloadown();
   });
 
   //ボタン==================================================
@@ -44,14 +45,12 @@ $(function() {
     localStorage.ppi = $('#ppi').val();
     localStorage.page = 1;
     reloadall();
-      reloadown();
   });
 
   //ページ切り替え
   $('#lister,#own').on('click', '.pagebtn', function (ev){
     localStorage.page = $(ev.target).attr('name');
     reloadall();
-      reloadown();
   });
 
   //検索ボタン押された
@@ -59,7 +58,6 @@ $(function() {
     localStorage.pSearchKey = $('#finderfld').val();
     localStorage.page = 1;
     reloadall();
-      reloadown();
   });
 
   //検索フィールドでエンター押された
@@ -68,15 +66,32 @@ $(function() {
       localStorage.pSearchKey = $('#finderfld').val();
       localStorage.page = 1;
       reloadall();
-        reloadown();
       return false;
     }
   });
+
+  $('#lister,#own,#yet').on('click','.dispcontents', function (e) {
+    location.href='disp.php?cid='+$(e.target).attr('name');
+});
+
+
+  $('#owntab').click(function(e){
+    ownerflg= 1;
+    reloadall();
+  });
+
+  $('#yettab,#alltab').click(function(e){
+    ownerflg= 0;
+    reloadall();
+  });
+  
+  
 });
 
 //関数////////////////////////////////////////////////////////////
 //アンケートを表示する。
 function reloadyet(){
+  var mark = '';
   $.post(
     "helper/yet.php",
     {
@@ -92,42 +107,14 @@ function reloadall(){
     "helper/lister.php",
     {
       "page": localStorage.page,
-      "itemsPerPage": $('#ppi').val(),
+      "itemsPerPage": localStorage.ppi,
       "sortKey": localStorage.pSortKey,
       "sortOrder": localStorage.pSortOrder,
       "searchKey": localStorage.pSearchKey,
-      "own":0
+      "own":ownerflg
     },
     function(data){
       $('#lister').html(data);
-      var arr = $('.sorter');
-      for (var i=0; i < arr.length; ++i) {
-        if ($(arr[i]).attr('name') == localStorage.pSortKey) {
-          var mark = '';
-          if (localStorage.pSortOrder == 'asc') {
-            mark = '▲';
-          }else{
-            mark = '▼';
-          }
-          $(arr[i]).html($(arr[i]).html() + mark);
-        }
-      }
-    }
-  );
-}
-
-function reloadown(){
-  $.post(
-    "helper/lister.php",
-    {
-      "page": localStorage.page,
-      "itemsPerPage": $('#ppi').val(),
-      "sortKey": localStorage.pSortKey,
-      "sortOrder": localStorage.pSortOrder,
-      "searchKey": localStorage.pSearchKey,
-      "own":1
-    },
-    function(data){
       $('#own').html(data);
       var arr = $('.sorter');
       for (var i=0; i < arr.length; ++i) {
@@ -144,4 +131,5 @@ function reloadown(){
     }
   );
 }
+
 

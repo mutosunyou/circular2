@@ -30,6 +30,7 @@ if(isset($_POST['sortKey']) && strlen($_POST['sortKey']) > 0){
 }
 $sql .= ' '.$_POST['sortOrder'];
 $cst = selectData(DB_NAME, $sql);
+
 //項目数を取得
 $cr = count($cst);
 if ($_POST['itemsPerPage'] != 0) {
@@ -77,10 +78,11 @@ $body .='</div>';
 $pname = array(
   " "=>"action".' style="text-align:left;width:50px;"',
   "表題"=>"title".' style="text-align:left;"',
-  "状態"=>"status".' style="text-align:left;width:100px;"',
-  "作成者"=>"ownerID".' style="text-align:left;width:100px;"',
-  "回覧開始日"=>"submitDate".' style="text-align:left;width:100px;"'
-);
+  "状態"=>"status".' style="text-align:left;width:100px;"');
+if($_POST['own']==0){
+  $pname["作成者"]="ownerID".' style="text-align:left;width:100px;"';
+}
+  $pname["回覧開始日"]="submitDate".' style="text-align:left;width:100px;"';
 
 //表
 $body .= '<table class="table table-condensed">';
@@ -96,7 +98,7 @@ for($i=0;$i<count($cst);$i++){//指定されたuserIDのデータ全て
     $body .= ' style="background:silver;"';
   }
   $body .= '>';
-  $body .= '<td style="nowrap"><button class="btn btn-default btn-sm">表示</button></td>';
+  $body .= '<td style="nowrap"><button  name="'.$p->id.'" class="dispcontents btn btn-default btn-sm">表示</button></td>';
   $body .= '<td style="nowrap">'.$p->title.'</td>';
   $body .= '<td style="nowrap">';
   if($p->status==1){
@@ -105,7 +107,9 @@ for($i=0;$i<count($cst);$i++){//指定されたuserIDのデータ全て
     $body .= '<font color="red">回覧中</font>';
   }
   $body .= '</td>';
-  $body .= '<td style="nowrap">'.nameFromUserID($p->ownerID).'</td>';
+  if($_POST['own']==0){
+    $body .= '<td style="nowrap">'.nameFromUserID($p->ownerID).'</td>';
+  }
   $body .= '<td style="nowrap">'.date('Y-m-d',strtotime($p->submitDate)).'</td>';
   $body .= '</tr>';
 }

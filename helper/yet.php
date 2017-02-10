@@ -34,10 +34,10 @@ $cst = selectData(DB_NAME, $sql);
 //var_dump($sql);
 //有効なプロミス項目を並べて表示
 $pname = array(
-  "　"=>"action".' style="text-align:left;width:50px;"',
-  "表題"=>"title".' style="text-align:left;"',
-  "作成者"=>"sender".' style="text-align:left;width:100px;"',
-  "回覧開始日"=>"startday".' style="text-align:left;width:100px;"'
+  "　"=>"aaa".' style="text-align:left;width:50px;"',
+  "表題"=>"bbb".' style="text-align:left;"',
+  "作成者"=>"ccc".' style="text-align:left;width:100px;"',
+  "回覧開始日"=>"ddd".' style="text-align:left;width:100px;"'
 );
 
 //表
@@ -51,7 +51,7 @@ for($i=0;$i<count($cst);$i++){//指定されたuserIDのデータ全て
     $body .= ' style="background:silver;"';
   }
   $body .= '>';
-  $body .= '<td style="nowrap"><button class="btn btn-default btn-sm">表示</button></td>';
+  $body .= '<td style="nowrap"><button name="'.$cst[$i]['id'].'" class="dispcontents btn btn-default btn-sm">表示</button></td>';
   $body .= '<td style="nowrap">'.$cst[$i]['title'].'</td>';
 
   $body .= '<td style="nowrap">'.nameFromUserID($cst[$i]['ownerID']).'</td>';
