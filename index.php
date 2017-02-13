@@ -140,7 +140,6 @@ $body.='<a id="addSelectedItem" class="btn btn-xs btn-default">←追加</a>';
 $body.='<br><br>';
 $body.='<a id="removeSelectedItem" class="btn btn-xs btn-default">削除→</a>';
 $body.='<br><br>';
-
 $body.='<a id="removeAllItem" class="btn btn-xs btn-default">全削除→</a>';
 $body.='</td>';
 
@@ -183,35 +182,40 @@ $rst = selectData('spec','select max(id) from files');
 $fid = $rst[0]['max(id)'];
 $fid++;
 
-$body .= '<input type="hidden" id="fid" value="'.$fid.'">';
-$body .= '<div id="queue" class="well" style="border: 1px solid #E5E5E5;overflow: auto;margin-bottom: 10px;padding: 0 3px 3px;min-height:150px;">';
-$body .= '<span style="font-weight:bold">ここにファイルをドロップしてください(複数可)';
-$body .= '</span></div>';
-$body .= '<input id="file_upload" name="file_upload" type="file" multiple="true">';
-$body .= '<br />';
-$body .= "<div id='fileup'></div>";
+$body.='<input type="hidden" id="fid" value="'.$fid.'">';
+$body.='<div id="queue" class="well" style="border: 1px solid #E5E5E5;overflow: auto;margin-bottom: 10px;padding: 0 3px 3px;min-height:150px;">';
+$body.='<span style="font-weight:bold">ここにファイルをドロップしてください(複数可)';
+$body.='</span></div>';
+$body.='<input id="file_upload" name="file_upload" type="file" multiple="true">';
+$body.='<br />';
+$body.="<div id='fileup'></div>";
 
 //右ブロック終わり
 $body.='</div>';
 
 //横線===============================================
 $body.='<hr>';
+$body.='<input type="checkbox" id="enablequestionnaire" />アンケートを作成する<br>';
 
 //アンケート=========================================
+$body.='<div id="questionnaire">';
 $body.='<div style="display:inline-block;width:890px;vertical-align:top;margin:0 50px 0 0;">';
 $body.='<h3>アンケート<small>　</small></h3>';
 $body.='<div id="qlist"></div>';
 $body.='</div>';
 
 //横線===============================================
-$body .= '<hr />';
+$body.='<hr />';
 
 //シークレット=======================================
-$body .= '<h3>シークレット<small>　アンケート結果を作成者以外に公開したくないときはチェックを入れてください</small></h3>';
-$body .= '<input type="checkbox" id="secret" />アンケートの結果を公開しない';
+$body.='<h3>シークレット<small>　アンケート結果を作成者以外に公開したくないときはチェックを入れてください</small></h3>';
+$body.='<input type="checkbox" id="secret" />アンケートの結果を公開しない';
 
 //横線===============================================
-$body .= '<hr />';
+$body.='<hr />';
+
+//アンケートなしなら隠すところ
+$body.='</div>';
 
 //送信ボタン=========================================
 $body.='<button id="sendbtn" class="btn btn-sm btn-primary" disabled="disabled">送信</button>';

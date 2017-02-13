@@ -12,7 +12,7 @@ $rst=selectData(DB_NAME,$sql);
 
 $sql = 'select id from circular where';
 if($_POST['own']==1){
-  $sql.=' ownerID='.$_SESSION['loginid'].' and';
+  $sql.=' ownerID='.$_SESSION['loginid'].' or';
 }
 $sql.= ' id in (';
 for($i=0;$i<count($rst);$i++){
@@ -98,7 +98,7 @@ for($i=0;$i<count($cst);$i++){//指定されたuserIDのデータ全て
     $body .= ' style="background:silver;"';
   }
   $body .= '>';
-  $body .= '<td style="nowrap"><button  name="'.$p->id.'" class="dispcontents btn btn-default btn-sm">表示</button></td>';
+  $body .= '<td style="nowrap"><button  name="'.$p->id.'" class="dispcontents btn btn-default btn-xs">表示</button></td>';
   $body .= '<td style="nowrap">'.$p->title.'</td>';
   $body .= '<td style="nowrap">';
   if($p->status==1){

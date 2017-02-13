@@ -17,6 +17,7 @@ class Circular
   public $submitDate;//回覧開始日
   public $status;//0:まだ,1:fin
   public $secret;//非公開にするか
+
   public $questions;//質問
   public $members;//回覧メンバー
   public $files;//ファイル
@@ -31,20 +32,15 @@ class Circular
     
     if($rst!=null){
       $this->ownerID = $rst[0]['ownerID'];
-      $this->title = $rst[0]['title'];
+      $this->title   = $rst[0]['title'];
       $this->content = $rst[0]['content'];
       $this->submitDate = $rst[0]['submitDate'];
-      $this->path = $rst[0]['path'];
       $this->status = $rst[0]['status'];
       $this->secret = $rst[0]['secret'];
 
-      $this->files = $rst[0]['files'];
-      $this->members = $rst[0]['members'];
-      $this->questions = $rst[0]['questions'];
-
       $sql1 = 'select id from files where circularID = '.$this->id;
-      $sql2 = 'select id from members where circularID = '.$this->id;
-      $sql3 = 'select id from questions where circularID = '.$this->id;
+      $sql2 = 'select id from member where circularID = '.$this->id;
+      $sql3 = 'select id from question where circularID = '.$this->id;
 
       $rst1 = selectData(DB_NAME, $sql1);
       $rst2 = selectData(DB_NAME, $sql2);

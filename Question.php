@@ -8,6 +8,7 @@ class Question
   public $circularID;
   public $content;
   public $freespace;
+  public $candidates;
 
   function initWithQuestionID($id)//8桁(期+6桁)の伝票番号で初期化
   {
@@ -18,6 +19,13 @@ class Question
       $this->circularID = $rst[0]['circularID'];
       $this->content = $rst[0]['content'];
       $this->freespace = $rst[0]['freespace'];
+
+      $sql1 = 'select item from candidate where qid = '.$this->id;
+      $rst1 = selectData(DB_NAME, $sql1);
+      $this->candidates=array();
+      for($i=0;$i<count($rst1);$i++){
+        $this->candidates[] = $rst1[$i]['item'];
+      }
     }
   }
 

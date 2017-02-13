@@ -16,7 +16,7 @@ if (!localStorage.page) {
 
 $(function() {
    localStorage.page = 1;
-  ownerflg=0;
+  ownerflg=1;
   $('.tabs').tabslet();
   $('#finderfld').val(localStorage.searchKey);
   $('#ppi').val(localStorage.ppi);
@@ -48,7 +48,7 @@ $(function() {
   });
 
   //ページ切り替え
-  $('#lister,#own').on('click', '.pagebtn', function (ev){
+  $('#lister,#own').on('click','.pagebtn', function (ev){
     localStorage.page = $(ev.target).attr('name');
     reloadall();
   });
@@ -75,12 +75,12 @@ $(function() {
 });
 
 
-  $('#owntab').click(function(e){
+  $('#owntab,#alltab').click(function(e){
     ownerflg= 1;
     reloadall();
   });
 
-  $('#yettab,#alltab').click(function(e){
+  $('#yettab').click(function(e){
     ownerflg= 0;
     reloadall();
   });

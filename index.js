@@ -5,6 +5,7 @@ var memarray   = new Array();
 
 //初期動作///////////////////////////////////////////////////
 $(function() {
+  $('#questionnaire').hide();
   var userID = $('#userID').val();
   AllUserArray = $('#userlist>option');
   qarray[0]=[];
@@ -47,6 +48,15 @@ $(function() {
     send();
   });
 
+  //送信ボタンクリック
+  $('#enablequestionnaire').change(function(){
+    if($("#enablequestionnaire").prop('checked')){
+      $('#questionnaire').show();
+    }else{
+      $('#questionnaire').hide();
+    }
+  });
+
   //ボタンの有効無効
   $('#title,#cont').change(function(){
     if(checkflg()==1){
@@ -83,7 +93,7 @@ $(function() {
     //qarray=[];//配列を一度空にしてから値を全部入れる。記録はテーブルに残ってる。
 
     for(var i=0;i<n;i++){
-   //   console.log($(".question:eq("+i+")").val());
+    //console.log($(".question:eq("+i+")").val());
       qarray[i][0]={check:$(".checkask:eq("+i+")").prop('checked'),question:$(".question:eq("+i+")").val()};
       m=qarray[i].length-1;
       for(var j=0;j<m;j++){
@@ -169,9 +179,9 @@ function send(){
   var len=$('#selectedlist>option').length;
   memarray=[];
   for(var i=0;i<len;i++){
-  //  console.log($("#selectedlist>option:eq("+i+")").val());
+    //  console.log($("#selectedlist>option:eq("+i+")").val());
     memarray[i]={num:$("#selectedlist>option:eq("+i+")").val()};
- //   console.log(memarray);
+    //   console.log(memarray);
   }
   JSON3 = $.toJSON(memarray);
 

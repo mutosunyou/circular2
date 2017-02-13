@@ -6,7 +6,7 @@ require_once('Circular.php');
 //localのみ=========================================
 $_SESSION['login_name']="武藤　一徳";
 $_SESSION['loginid']=10042;
-
+/*
 //ログイン処理======================================
 $sql = "SELECT * FROM employee";
 $rst = selectData('master',$sql);
@@ -31,7 +31,7 @@ if ($_SESSION['expires'] < time() - 7) {
   session_regenerate_id(true);//sessionIDを生成しなおす
   $_SESSION['expires'] = time();
 }
-
+ */
 //ナビバー=========================================
 $body='<nav class="navbar navbar-default navbar-fixed-top" role="navigation">';
 $body.='<div class="container-fluid">';
@@ -54,9 +54,9 @@ $body.='<div class="collapse navbar-collapse" id="nav-menu-1">';
 //左側
 $body.='<ul class="nav navbar-nav">';
 $body.='<li id="listrun" class="bankmenu"><a tabindex="-1">回覧板</a></li>';
-$body.='<li id="list" class="active applymenu"><a href="#" tabindex="-1">新規作成</a></li>';
+$body.='<li id="list" class="applymenu"><a href="index.php" tabindex="-1">新規作成</a></li>';
 $body.='<li id="input" class="applymenu"><a href="list.php" tabindex="-1">回覧リスト</a></li>';
-
+$body.='<li id="display" class="active applymenu"><a href="#" tabindex="-1">回覧内容確認</a></li>';
 $body.='</ul>';
 
 //右側
@@ -72,12 +72,13 @@ $body.='</nav>';
 //隙間調整=========================================
 $body.='<div id="topspace" style="height:70px;"></div>';
 
+$p = new Circular();
+$p->initWithID($_GET['cid']);
+//var_dump($p);
+
 //クラスと変数=====================================
 $body.='<input id="userID" class="hidden" value="'.$_SESSION['loginid'].'">';
-
-$p=new Circular();
-$p->initWithID($_GET['cid']);
-
+$body.='<input id="cid" class="hidden" value="'.$p->id.'">';
 
 //本文/////////////////////////////////////////////
 //タイトル=========================================
@@ -100,37 +101,72 @@ $body.='</div>';
 
 $body.='<div class="panel panel-default">';
 $body.='<div class="panel-heading">添付資料</div>';
-$body.='<div class="panel-body">'.$p->content.'</div>';
+$body.='<div class="panel-body"></div>';
 $body.='</div>';
 
-$body.='<div class="panel panel-default">';
+//アンケート集計結果
+for($i=0;$i<count($p->members);$i++){
+  //作成者もしくは回覧メンバーに入っていて、公開、回答済みのとき結果を出す
+  if($_SESSION['loginid']==$p->ownerID || ($_SESSION['loginid']==$p->members[$i]->userID && $p->members[$i]->checked==1)){
+    $body.='<div id="resultlist"></div>';
+    break;
+  }
+}
+for($i=0;$i<count($p->members);$i++){
+  //ユーザーがメンバーに入っていて、未回答であれば回答フォームを出す
+  if(($_SESSION['loginid']==$p->members[$i]->userID) && $p->members[$i]->checked==0){
+    $body.='<div id="replylist"></div>';
+  }
+}
+
+//閲覧済みチェック//////////////////////////
+$body.='<div class="row">';
+
+$body.='<div class="col-md-6">';
+$body.='<div class="panel panel-default" style="margin:0 0 0 15px;">';
 $body.='<div class="panel-heading">閲覧済み</div>';
-$body.='<div class="panel-body">'.$p->content.'</div>';
+$body.='<div class="panel-body">';
+for($i=0;$i<count($p->members);$i++){
+   if($p->members[$i]->checked==1){
+     $body.=nameFromUserID($p->members[$i]->userID).'<br>';
+   }
+}
 $body.='</div>';
+$body.='</div>';//パネル終わり
+$body.='</div>';//col-md-6終わり
 
+$body.='<div class="col-md-6">';
 $body.='<div class="panel panel-default">';
 $body.='<div class="panel-heading">未確認</div>';
-$body.='<div class="panel-body">'.$p->member.'</div>';
+$body.='<div class="panel-body">';
+for($i=0;$i<count($p->members);$i++){
+  if($p->members[$i]->checked==0){
+    $body.=nameFromUserID($p->members[$i]->userID).'<br>';
+  }
+}
+$body.='</div>';
+$body.='</div>';//パネル終わり
+$body.='</div>';//col-md-6終わり
+
+$body.='</div>';//row終わり
+/////////////////////////////////////////////
+
+
 $body.='</div>';
 
-
 //左ブロック=======================================
-$body.='<div style="display:inline-block;width:520px;vertical-align:top;margin:0 0px 0 0;">';
-
+$body.='<div style="display:inline-block;width:520px;vertical-align:top;margin:0 0 0 0;">';
 //左ブロック終わり===================================
 $body.='</div>';
 
 //右ブロック=========================================
 $body.='<div style="display:inline-block;width:370px;vertical-align:top;">';
-
-
 //右ブロック終わり
 $body.='</div>';
 
-
-
 //送信ボタン=========================================
 $body.='<button id="sendbtn" class="btn btn-sm btn-primary">確認</button>';
+
 $body.='</div>';
 $body.='</div>';
 $body.='</div>';
@@ -148,5 +184,3 @@ $header.='</style>';
 
 //HTML作成===========================================
 echo html('回覧板',$header, $body);
-
-

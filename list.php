@@ -56,7 +56,7 @@ $body.='<div class="collapse navbar-collapse" id="nav-menu-1">';
 $body.='<ul class="nav navbar-nav">';
 $body.='<li id="listrun" class="bankmenu"><a tabindex="-1">回覧板</a></li>';
 $body.='<li id="list" class="applymenu"><a href="index.php" tabindex="-1">新規作成</a></li>';
-$body.='<li id="input" class="active applymenu"><a href="list.php" tabindex="-1">回覧リスト</a></li>';
+$body.='<li id="input" class="active applymenu"><a href="#" tabindex="-1">回覧リスト</a></li>';
 $body.='</ul>';
 
 //右側

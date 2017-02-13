@@ -51,7 +51,7 @@ for($i=0;$i<count($cst);$i++){//指定されたuserIDのデータ全て
     $body .= ' style="background:silver;"';
   }
   $body .= '>';
-  $body .= '<td style="nowrap"><button name="'.$cst[$i]['id'].'" class="dispcontents btn btn-default btn-sm">表示</button></td>';
+  $body .= '<td style="nowrap"><button name="'.$cst[$i]['id'].'" class="dispcontents btn btn-default btn-xs">表示</button></td>';
   $body .= '<td style="nowrap">'.$cst[$i]['title'].'</td>';
 
   $body .= '<td style="nowrap">'.nameFromUserID($cst[$i]['ownerID']).'</td>';
