@@ -3,24 +3,20 @@ var sheetarray = new Array();//入力欄の内容
 var qarray     = new Array();///質問の内容。２次元配列
 var memarray   = new Array();
 
-//初期動作///////////////////////////////////////////////////
+//初期動作====================================================
 $(function() {
-  $('#questionnaire').hide();
   var userID = $('#userID').val();
+  $('#questionnaire').hide();
+  $('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});//カレンダーから日付を選ぶ
+  //回覧メンバー
   AllUserArray = $('#userlist>option');
-  if(qarray==''){
-    console.log(qarray);
-  }
   //はじめにqarray
   qarray[0]=[];
   qarray[0].push({question:'',check:''});
-  if(qarray==null){
-  //  console.log(qarray);
-  }
-  $('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});//カレンダーから日付を選ぶ
   reloadTable();
 
-  //ファイルアップロード====================================
+//=============================================================
+  //ファイルアップロード=======================================
   $('#file_upload').uploadifive({
     'auto'             : false,
     'checkScript'      : 'check-exists.php',
@@ -50,7 +46,6 @@ $(function() {
   //ボタン==================================================
   //送信ボタンクリック
   $("#sendbtn").click(function (){
-    console.log(qarray);
     copytoqarray();
     send();
   });
@@ -66,24 +61,16 @@ $(function() {
 
   //削除ボタン
   $('#qlist').on('click','.delq', function(e){
-    console.log(qarray);
     qarray.splice($(e.target).attr('delqnum'),1);
-    console.log(qarray);
     reloadTable();
   });
 
   //削除ボタン
   $('#qlist').on('click','.delcan', function(e){
-    console.log(qarray);
     qarray.splice($(e.target).attr('delnum'),1);
-    console.log(qarray);
     reloadTable();
   });
 
-  $('#qlist').on('keypress', function(e){
-    copytoqarray();
-    reloadTable();
-});
   //ボタンの有効無効
   $('#title,#cont').change(function(){
     if(checkflg()==1){
@@ -95,43 +82,46 @@ $(function() {
 
   //質問追加(アンケート)
   $("#qlist").on('click','#addq',function(e) {
-    copytoqarray();
+    copytoqarray();//現状をデータに反映させる。
     var n=qarray.length;
-    //最後尾に質問を追加
+    //最後尾に空の質問を追加
     qarray[n]=[];
-    qarray[n].push({question:'',check:''});
+    qarray[n].push({question:'',check:'',stype:''});
     reloadTable();
   });
 
   //回答追加(アンケート)
   $("#qlist").on('click','.addask',function(e){
     copytoqarray();
-    //最後尾に回答を追加
+    //最後尾に空の回答を追加
     qarray[$(e.target).attr('question')].push({answer:''});
-    //console.log(qarray);
     reloadTable();
+
   });
 
-  //qarray[質問番号][質問、チェックフラグ]
-  //qarray[質問番号][回答1]
-  //qarray[質問番号][回答2]
+  //質問、回答の数を勝手に数えて配列に入れる。質問数だけはわかっておく必要ある。
   function copytoqarray(){
     var n = qarray.length;//質問数
     var m;
     var tmpsum=0;
-    //qarray=[];//配列を一度空にしてから値を全部入れる。記録はテーブルに残ってる。
 
     for(var i=0;i<n;i++){
-    //console.log($(".question:eq("+i+")").val());
-      qarray[i][0]={check:$(".checkask:eq("+i+")").prop('checked'),question:$(".question:eq("+i+")").val()};
+      console.log($('input[name="selecttype"]:eq('+i+')'));
       m=qarray[i].length-1;
+      qarray[i]=[];
+      qarray[i][0]={stype:$('input[name="selecttype"]:eq('+i+')').prop('checked'),check:$(".checkask:eq("+i+")").prop('checked'),question:$(".question:eq("+i+")").val()};
+      $('input[name=selecttype]:eq('+i+')').val(['radio']);
       for(var j=0;j<m;j++){
-      //console.log($(".answer:eq("+tmpsum+")").val());
+        qarray[i][j+1]=[];
         qarray[i][j+1]={answer:$(".answer:eq("+tmpsum+")").val()};
         tmpsum=tmpsum+1;
       }
     }
+    console.log(qarray);
   }
+  //qarray[質問番号][0][質問、チェックフラグ]
+  //qarray[質問番号][1][回答1]
+  //qarray[質問番号][2][回答2]
 
   //メンバー選択=============================================
   //メンバー全追加ボタンクリック
@@ -196,12 +186,13 @@ function reloadTable(){
 }
 
 function send(){
-//登録データ
+  //登録データ
   sheetarray=[];
   sheetarray.push({'title':$('#title').val()});//表題
   sheetarray.push({'content':$('#cont').val()});//内容
   sheetarray.push({"userID":$('#userID').val()});//投稿者
   sheetarray.push({'secret':$('#secret').prop('checked')});//隠すか否か
+
   if(qarray[0][0]['question']!='""'){
     sheetarray.push(qarray);//アンケートの内容
   }

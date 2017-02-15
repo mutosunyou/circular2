@@ -19,11 +19,11 @@ for($i=0;$i<count($js);$i++){
   $body.='</div>';
 
   $body.='<div class="panel-body">';
-  if(count($js[$i])>2){
-    $body.='<input type="radio" name="selecttype'.$i.'" value="radio"><label>ひとつだけ選べる</label>';
-    $body.='<input type="radio" name="selecttype'.$i.'" value="check" style="margin:0 0 0 30px;"><label>複数選べる</label>';
+  if(count($js[$i])>1){
+    $body.='<input type="radio" name="selecttype'.$i.'" value="radio" checked><label>　ひとつだけ選べる</label>';//stype=0:ラジオボックス
+    $body.='<input type="radio" name="selecttype'.$i.'" value="check" style="margin:0 0 0 30px;"><label>　複数選べる</label>';//stype=1:チェックボックス
   }
-  
+
   for($j=0;$j<(count($js[$i])-1);$j++){
     $body.='<div class="input-group input-group-sm">';
     $body.='<span class="input-group-addon">回答　'.$j.'</span>';
