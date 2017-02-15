@@ -8,9 +8,15 @@ $(function() {
   $('#questionnaire').hide();
   var userID = $('#userID').val();
   AllUserArray = $('#userlist>option');
+  if(qarray==''){
+    console.log(qarray);
+  }
+  //はじめにqarray
   qarray[0]=[];
   qarray[0].push({question:'',check:''});
+  if(qarray==null){
   //  console.log(qarray);
+  }
   $('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});//カレンダーから日付を選ぶ
   reloadTable();
 
@@ -44,6 +50,7 @@ $(function() {
   //ボタン==================================================
   //送信ボタンクリック
   $("#sendbtn").click(function (){
+    console.log(qarray);
     copytoqarray();
     send();
   });
@@ -57,6 +64,26 @@ $(function() {
     }
   });
 
+  //削除ボタン
+  $('#qlist').on('click','.delq', function(e){
+    console.log(qarray);
+    qarray.splice($(e.target).attr('delqnum'),1);
+    console.log(qarray);
+    reloadTable();
+  });
+
+  //削除ボタン
+  $('#qlist').on('click','.delcan', function(e){
+    console.log(qarray);
+    qarray.splice($(e.target).attr('delnum'),1);
+    console.log(qarray);
+    reloadTable();
+  });
+
+  $('#qlist').on('keypress', function(e){
+    copytoqarray();
+    reloadTable();
+});
   //ボタンの有効無効
   $('#title,#cont').change(function(){
     if(checkflg()==1){
@@ -70,6 +97,7 @@ $(function() {
   $("#qlist").on('click','#addq',function(e) {
     copytoqarray();
     var n=qarray.length;
+    //最後尾に質問を追加
     qarray[n]=[];
     qarray[n].push({question:'',check:''});
     reloadTable();
@@ -78,6 +106,7 @@ $(function() {
   //回答追加(アンケート)
   $("#qlist").on('click','.addask',function(e){
     copytoqarray();
+    //最後尾に回答を追加
     qarray[$(e.target).attr('question')].push({answer:''});
     //console.log(qarray);
     reloadTable();
@@ -167,21 +196,22 @@ function reloadTable(){
 }
 
 function send(){
+//登録データ
   sheetarray=[];
-  sheetarray.push({'title':$('#title').val()});
-  sheetarray.push({'content':$('#cont').val()});
-  sheetarray.push({"userID":$('#userID').val()});
-  sheetarray.push({'secret':$('#secret').prop('checked')});
-  sheetarray.push(qarray);
-
+  sheetarray.push({'title':$('#title').val()});//表題
+  sheetarray.push({'content':$('#cont').val()});//内容
+  sheetarray.push({"userID":$('#userID').val()});//投稿者
+  sheetarray.push({'secret':$('#secret').prop('checked')});//隠すか否か
+  if(qarray[0][0]['question']!='""'){
+    sheetarray.push(qarray);//アンケートの内容
+  }
   JSON2 = $.toJSON(sheetarray);
 
+  //メンバー
   var len=$('#selectedlist>option').length;
   memarray=[];
   for(var i=0;i<len;i++){
-    //  console.log($("#selectedlist>option:eq("+i+")").val());
     memarray[i]={num:$("#selectedlist>option:eq("+i+")").val()};
-    //   console.log(memarray);
   }
   JSON3 = $.toJSON(memarray);
 

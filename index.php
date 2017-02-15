@@ -214,11 +214,11 @@ $body.='<input type="checkbox" id="secret" />アンケートの結果を公開�
 //横線===============================================
 $body.='<hr />';
 
-//アンケートなしなら隠すところ
+
 $body.='</div>';
 
 //送信ボタン=========================================
-$body.='<button id="sendbtn" class="btn btn-sm btn-primary" disabled="disabled">送信</button>';
+$body.='<button id="sendbtn" class="btn btn-sm btn-success" style="float:right;" disabled="disabled">送信</button>';
 $body.='<div id="ppp"></div>';
 $body.='</div>';
 $body.='</div>';

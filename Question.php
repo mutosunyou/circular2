@@ -8,6 +8,7 @@ class Question
   public $circularID;
   public $content;
   public $freespace;
+  public $stype;
   public $candidates;
 
   function initWithQuestionID($id)//8桁(期+6桁)の伝票番号で初期化
@@ -19,6 +20,7 @@ class Question
       $this->circularID = $rst[0]['circularID'];
       $this->content = $rst[0]['content'];
       $this->freespace = $rst[0]['freespace'];
+      $this->stype = $rst[0]['stype'];
 
       $sql1 = 'select item from candidate where qid = '.$this->id;
       $rst1 = selectData(DB_NAME, $sql1);
@@ -37,7 +39,7 @@ class Question
       }else{
         $check=0;
       }
-      $sql='insert into question values (null,'.$cid.',"'.$qarray[$i][0]->question.'",'.$check.')';
+      $sql='insert into question values (null,'.$cid.',"'.$qarray[$i][0]->question.'",'.$check.',0)';
       $this->id=insertAI(DB_NAME,$sql);
       $this->reload();
       if(count($qarray[$i])>1){

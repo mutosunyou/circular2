@@ -72,7 +72,7 @@ for ($i=1; $i <= $countofpage; $i++){
 }
 $body .= '</ul>';
 $body .= '</nav>';
-$body .='</div>';
+$body .= '</div>';
 
 //有効なプロミス項目を並べて表示
 $pname = array(
@@ -82,7 +82,7 @@ $pname = array(
 if($_POST['own']==0){
   $pname["作成者"]="ownerID".' style="text-align:left;width:100px;"';
 }
-  $pname["回覧開始日"]="submitDate".' style="text-align:left;width:100px;"';
+$pname["回覧開始日"]="submitDate".' style="text-align:left;width:100px;"';
 
 //表
 $body .= '<table class="table table-condensed">';

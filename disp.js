@@ -1,29 +1,39 @@
+var qarray     = new Array();///質問の内容。２次元配列
+
 $(function() {
   reloadTable();
 
-  /*
-      $('.charts').highcharts({
+  $(window).resize(function(){
+    var w = $(window).width();
+    if (w <= 980) {
+      $('#topspace').hide();
+    }else{
+      $('#topspace').show();
+    }
+  });
+
+  $('.charts').highcharts({
     chart: {
       width:900,
-        height:300,
-        type:'pie'
+      height:300,
+      type:'pie'
     },
-      title: {
-        text: $('.charttitle').val(),
-      },
-      tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-      },
-      plotOptions: {
-        pie: {
-          allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-              enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                style: {
-                  color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                }
+    title: {
+      text: $('.charttitle').val(),
+    },
+    tooltip: {
+      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+      pie: {
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+          enabled: true,
+          format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+          style: {
+            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+          }
         }
       }
     },
@@ -44,19 +54,24 @@ $(function() {
       },{
         name: 'Safari',
         y: 4.77
-     },{
-       name: 'Proprietary or Undetectable',
-       y: 0.2
-     }]
+      },{
+        name: 'Proprietary or Undetectable',
+        y: 0.2
+      }]
     }]
   });
-*/
-
 
   //ボタン==================================================
   //ページあたりの表示数変更
   $('#sendbtn').click( function (){
-    
+    $.post(
+      "replyDB.php",
+      {
+        cid:$('#cid').val()
+      },
+      function(data){
+      }
+    );
   });
 
 });
@@ -64,23 +79,6 @@ $(function() {
 //関数////////////////////////////////////////////////////////////
 //アンケートを表示する。
 function reloadTable(){
-  $.post(
-    "result.php",
-    {
-    },
-    function(data){
-      $('#resultlist').html(data);
-    }
-  );
-  
-  $.post(
-    "reply.php",
-    {
-      cid:$('#cid').val() 
-    },
-    function(data){
-      $('#replylist').html(data);
-    }
-  );
+
 }
 

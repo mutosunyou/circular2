@@ -1,5 +1,11 @@
 <?php
+//初期==============================================
 //session_start();
+require_once('Circular.php');
+
+//localのみ=========================================
+$_SESSION['login_name']="武藤　一徳";
+$_SESSION['loginid']=10042;
 
 class Member 
 {
@@ -34,6 +40,11 @@ class Member
     }
     $this->id=insertAI(DB_NAME,$sql);
     $this->reload();
+  }
+
+  function setCheckflg($cid){
+    $sql='update member set checked=1 where circularID='.$cid.' and userID='.$_SESSION['loginid'];
+    deleteFrom(DB_NAME,$sql);
   }
 
   function reload(){
