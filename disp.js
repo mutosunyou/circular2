@@ -1,7 +1,39 @@
 var qarray     = new Array();///質問の内容。２次元配列
 
 $(function() {
+  qarray=[];
+  console.log($('#qcount').val());
   reloadTable();
+$('*').click(function(){
+  for(var i=0;i<$('#qcount').val();i++){
+    console.log($('input[name="optionsRadios'+i+'"]:checked').val());
+  }
+
+});
+  /*
+  $().click(function(){
+
+  });
+
+
+    for(var i=0;i<n;i++){
+      m=qarray[i].length-1;
+      qarray[i]=[];
+      if($('#qlist input[name="selecttype'+i+'"]:radio:checked').val()=="check"){
+        selecttype=1;//チェックボックスであれば1
+      }else{
+        selecttype=0;//ラジオボタンであれば0もしくは初期値は0
+      }
+      qarray[i][0]={stype:selecttype,check:$(".checkask:eq("+i+")").prop('checked'),question:$(".question:eq("+i+")").val()};
+      for(var j=0;j<m;j++){
+        qarray[i][j+1]=[];
+        qarray[i][j+1]={answer:$(".answer:eq("+tmpsum+")").val()};
+        tmpsum=tmpsum+1;
+      }
+    }
+*/
+
+
 
   $(window).resize(function(){
     var w = $(window).width();

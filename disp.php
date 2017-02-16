@@ -79,6 +79,7 @@ $p->initWithID($_GET['cid']);
 //クラスと変数=====================================
 $body.='<input id="userID" class="hidden" value="'.$_SESSION['loginid'].'">';
 $body.='<input id="cid" class="hidden" value="'.$p->id.'">';
+$body.='<input id="qcount" class="hidden" value="'.count($p->questions).'">';
 
 //本文/////////////////////////////////////////////
 //タイトル=========================================
@@ -159,7 +160,6 @@ for($i=0;$i<count($p->members);$i++){
     $body.='<div class="panel panel-default">';
     $body.='<div class="panel-heading">アンケート</div>';
     $body.='<table class="table table-bordered">';
-//var_dump($p);
     for($j=0;$j<count($p->questions);$j++){
       $body.='<thead><tr><td colspan="2" class="info">'.$p->questions[$j]->content.'</td></tr></thead>';
       $body.='<tbody>';

@@ -49,24 +49,15 @@ $(function() {
     send();
   });
 
-$('*').change(function(){
+  $('*').change(function(){
     copytoqarray();
     if(checkflg()==1){
       $('#sendbtn').removeAttr('disabled');
     }else{
       $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
     }
-});
-$('*').click(function(){
-    copytoqarray();
-    if(checkflg()==1){
-      $('#sendbtn').removeAttr('disabled');
-    }else{
-      $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
-    }
-});
-  //ボタンの有効無効
-  $('#title,#cont').change(function(){
+  });
+  $('*').click(function(){
     copytoqarray();
     if(checkflg()==1){
       $('#sendbtn').removeAttr('disabled');
@@ -98,7 +89,6 @@ $('*').click(function(){
     reloadTable();
   });
 
-
   //質問追加(アンケート)
   $("#qlist").on('click','#addq',function(e) {
     copytoqarray();//現状をデータに反映させる。
@@ -115,7 +105,6 @@ $('*').click(function(){
     //最後尾に空の回答を追加
     qarray[$(e.target).attr('question')].push({answer:''});
     reloadTable();
-
   });
 
   //質問、回答の数を勝手に数えて配列に入れる。質問数だけはわかっておく必要ある。
@@ -241,7 +230,6 @@ function send(){
       $('#ppp').html(data);
     }
   );
-
   /*
   //メール送信
   $.post(
@@ -304,5 +292,3 @@ function setUserArrayToUserSelector(uarray){
     $('#userlist').append(uarray[i]);
   }
 }
-
-

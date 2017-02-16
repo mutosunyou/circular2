@@ -4,8 +4,8 @@ require_once('master/prefix.php');
 class Answer
 {
   public $id;
-  public $qID;
   public $memberID;
+  public $qID;
   public $answer;
   public $description;
 
@@ -21,6 +21,22 @@ class Answer
       $this->answer = $rst[0]['answer'];
       $this->description = $rst[0]['description'];
     }
+  }
+
+  function addAnswer($uid,$qid,$answer,$desc){
+    if($desc==null){
+      $d=null;
+    }else{
+      $d='"'.$desc.'"';
+    }
+    if($answer==null){
+      $a=null;
+    }else{
+      $a=$answer;
+    }
+    $sql = 'insert into answer values(null,'.$uid.','.$qid.','.$a.','.$d.')';
+    $this->id=insertAI(DB_NAME,$sql);
+    $this->reload();
   }
 
   //伝票IDを入れてリロードする。
