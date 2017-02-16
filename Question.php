@@ -39,7 +39,13 @@ class Question
       }else{
         $check=0;
       }
-      $sql='insert into question values (null,'.$cid.',"'.$qarray[$i][0]->question.'",'.$check.','.$qarray[$i]['stype'].')';
+      $sql='insert into question values (null,'.$cid.',"'.$qarray[$i][0]->question.'",';
+      if($qarray[$i][0]->check==true){
+        $sql.=1;
+      }else{
+        $sql.=0;
+      }
+      $sql.=','.$qarray[$i][0]->stype.')';
       $this->id=insertAI(DB_NAME,$sql);
       $this->reload();
       if(count($qarray[$i])>1){

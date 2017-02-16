@@ -222,30 +222,11 @@ $body.='</table>';
 
 $body.='</div>';//パネル終わり
 
-
-
-/////////////////////////////////////////////
-
 //送信ボタン=========================================
 $body.='<button id="sendbtn" class="btn btn-sm btn-primary">確認</button>';
-$body.='</div>';
-/*
-//左ブロック=======================================
-$body.='<div style="display:inline-block;width:520px;vertical-align:top;margin:0 0 0 0;">';
-//左ブロック終わり===================================
-$body.='</div>';
 
-//右ブロック=========================================
-$body.='<div style="display:inline-block;width:370px;vertical-align:top;">';
-//右ブロック終わり
-$body.='</div>';
-*/
-
-
-$body.='</div>';
-$body.='</div>';
-$body.='</div>';
-$body.='</div>';
+$body.='</div>';//container
+$body.='</div>';//container-fluid
 
 //ヘッダー===========================================
 $header ='<script type="text/javascript" src="disp.js"></script>';

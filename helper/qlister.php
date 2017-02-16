@@ -26,11 +26,10 @@ for($i=0;$i<count($js);$i++){
     }
     $body.='><label>　ひとつだけ選べる</label>';//stype=0:ラジオボックス
     $body.='<input type="radio" name="selecttype'.$i.'" value="check" style="margin:0 0 0 30px;"';
-        if($js[$i][0]->stype==1){
+    if($js[$i][0]->stype==1){
       $body.=' checked';
     }
-
-$body.='><label>　複数選べる</label>';//stype=1:チェックボックス
+    $body.='><label>　複数選べる</label>';//stype=1:チェックボックス
   }
 
   for($j=0;$j<(count($js[$i])-1);$j++){
@@ -38,22 +37,21 @@ $body.='><label>　複数選べる</label>';//stype=1:チェックボックス
     $body.='<span class="input-group-addon">回答　'.$j.'</span>';
     $body.='<input type="text" style="font-size:13px;" class="form-control answer" value="'.$js[$i][$j+1]->answer.'" aria-describedby="sizing-addon3">';
     $body.='<span class="input-group-btn">';
-    $body.='<button type="button" style="margin:0 0 0 5px;" class="btn-danger btn-xs delcan" delqnum="'.$i.'" delnum="'.$j.'">削除</button>';
+    $body.='<button type="button" style="margin:0 0 0 5px;" class="btn-danger btn-xs delcan" delqnum="'.$i.'" delnum="'.($j+1).'">削除</button>';
     $body.='</span>';
     $body.='</div>';
   }
   $body.='<div style="height:20px;"></div>';
-  
+
   //回答項目追加ボタン
   $body.='<button class="btn btn-primary btn-xs addask" question="'.$i.'" style="float:right;">　+　</button><span style="float:right;">回答項目追加　</span>';
- 
- //自由記入チェックボックス
+
+  //自由記入チェックボックス
   if($js[$i][0]->check=="true"){
     $checked='checked';
   }else{
     $checked='';
   }
-
   $body.='<input type="checkbox" class="checkask" check='.$i.' '.$checked.'>自由解答欄を設ける';
   $body.='</div>';
   $body.='</div>';

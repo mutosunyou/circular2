@@ -100,8 +100,7 @@ $body.='<span class="input-group-addon">内　　容</span>';
 $body.='<textarea class="form-control" id="cont" rows="5" cols="90" style="height:150px;"></textarea>';
 $body.='</div>';
 
-//一番上のエリア終わり=============================
-$body.='</div>';
+$body.='</div>';//一番上のエリア終わり
 
 //左ブロック=======================================
 $body.='<div style="display:inline-block;width:520px;vertical-align:top;margin:0 0px 0 0;">';
@@ -159,8 +158,7 @@ $body.='</tbody>';
 $body.='</table>';
 $body.='</font>';
 
-//左ブロック終わり===================================
-$body.='</div>';
+$body.='</div>';//左ブロック終わり
 
 //右ブロック=========================================
 $body.='<div style="display:inline-block;width:370px;vertical-align:top;">';
@@ -190,8 +188,7 @@ $body.='<input id="file_upload" name="file_upload" type="file" multiple="true">'
 $body.='<br />';
 $body.="<div id='fileup'></div>";
 
-//右ブロック終わり
-$body.='</div>';
+$body.='</div>';//右ブロック終わり
 
 //横線===============================================
 $body.='<hr>';
@@ -215,15 +212,14 @@ $body.='<input type="checkbox" id="secret" />アンケートの結果を公開�
 $body.='<hr />';
 
 
-$body.='</div>';
+$body.='</div>';//div id=questionnaire
 
 //送信ボタン=========================================
-$body.='<button id="sendbtn" class="btn btn-sm btn-success" style="float:right;" disabled="disabled">送信</button>';
-$body.='<div id="ppp"></div>';
-$body.='</div>';
-$body.='</div>';
-$body.='</div>';
-$body.='</div>';
+$body.='<button id="sendbtn" class="btn btn-sm btn-success pull-right" disabled="disabled">送信</button>';
+$body.='<div id="ppp"></div>';//デバッグ用
+
+$body.='</div>';//container
+$body.='</div>';//container-fluid
 
 //ヘッダー===========================================
 $header ='<script type="text/javascript" src="index.js"></script>';

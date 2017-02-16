@@ -61,13 +61,15 @@ $(function() {
 
   //削除ボタン
   $('#qlist').on('click','.delq', function(e){
+    copytoqarray();//現状をデータに反映させる。
     qarray.splice($(e.target).attr('delqnum'),1);
     reloadTable();
   });
 
   //削除ボタン
   $('#qlist').on('click','.delcan', function(e){
-    qarray.splice($(e.target).attr('delnum'),1);
+    copytoqarray();//現状をデータに反映させる。
+    qarray[$(e.target).attr('delqnum')].splice($(e.target).attr('delnum'),1);
     reloadTable();
   });
 
