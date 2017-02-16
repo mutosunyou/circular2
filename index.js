@@ -2,7 +2,6 @@ var AllUserArray;
 var sheetarray = new Array();//入力欄の内容
 var qarray     = new Array();///質問の内容。２次元配列
 var memarray   = new Array();
-
 //初期動作====================================================
 $(function() {
   var userID = $('#userID').val();
@@ -50,7 +49,33 @@ $(function() {
     send();
   });
 
-  //送信ボタンクリック
+$('*').change(function(){
+    copytoqarray();
+    if(checkflg()==1){
+      $('#sendbtn').removeAttr('disabled');
+    }else{
+      $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
+    }
+});
+$('*').click(function(){
+    copytoqarray();
+    if(checkflg()==1){
+      $('#sendbtn').removeAttr('disabled');
+    }else{
+      $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
+    }
+});
+  //ボタンの有効無効
+  $('#title,#cont').change(function(){
+    copytoqarray();
+    if(checkflg()==1){
+      $('#sendbtn').removeAttr('disabled');
+    }else{
+      $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
+    }
+  });
+
+  //アンケートフォーム有効
   $('#enablequestionnaire').change(function(){
     if($("#enablequestionnaire").prop('checked')){
       $('#questionnaire').show();
@@ -73,14 +98,6 @@ $(function() {
     reloadTable();
   });
 
-  //ボタンの有効無効
-  $('#title,#cont').change(function(){
-    if(checkflg()==1){
-      $('#sendbtn').removeAttr('disabled');
-    }else{
-      $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
-    }
-  });
 
   //質問追加(アンケート)
   $("#qlist").on('click','#addq',function(e) {
@@ -123,7 +140,7 @@ $(function() {
         tmpsum=tmpsum+1;
       }
     }
-    console.log(qarray);
+  //  console.log(qarray);
   }
   //qarray[質問番号][0][質問、チェックフラグ]
   //qarray[質問番号][1][回答1]
@@ -243,10 +260,18 @@ function send(){
 //必須項目入力されているかチェック
 function checkflg(){
   var flg=0;
-  if($('#title').val().length>0 && $('#cont').val().length>0) {
+  var n=qarray.length;
+  var tmp=0,ready=1;
+  //自由解答欄を設けるか、選択肢が１つ作らないといけない
+  for(var i=0;i<n;i++){
+    if(qarray[i][0]['check']==true || qarray[i].length>1){
+      tmp=1;
+    }else{tmp=0;}
+    ready=ready*tmp;
+  }
+  if($('#title').val().length>0 && $('#cont').val().length>0 && ($('#enablequestionnaire').prop('checked')==false || ($('#enablequestionnaire').prop('checked')==true && ready==1))) {
     flg=1;
   }
-//  console.log(flg);
   return flg;
 }
 
