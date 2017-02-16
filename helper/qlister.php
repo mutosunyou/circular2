@@ -20,8 +20,17 @@ for($i=0;$i<count($js);$i++){
 
   $body.='<div class="panel-body">';
   if(count($js[$i])>1){
-    $body.='<input type="radio" name="selecttype'.$i.'" value="radio" checked><label>　ひとつだけ選べる</label>';//stype=0:ラジオボックス
-    $body.='<input type="radio" name="selecttype'.$i.'" value="check" style="margin:0 0 0 30px;"><label>　複数選べる</label>';//stype=1:チェックボックス
+    $body.='<input type="radio" name="selecttype'.$i.'" value="radio"';
+    if($js[$i][0]->stype==0){
+      $body.=' checked';
+    }
+    $body.='><label>　ひとつだけ選べる</label>';//stype=0:ラジオボックス
+    $body.='<input type="radio" name="selecttype'.$i.'" value="check" style="margin:0 0 0 30px;"';
+        if($js[$i][0]->stype==1){
+      $body.=' checked';
+    }
+
+$body.='><label>　複数選べる</label>';//stype=1:チェックボックス
   }
 
   for($j=0;$j<(count($js[$i])-1);$j++){

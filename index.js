@@ -86,7 +86,7 @@ $(function() {
     var n=qarray.length;
     //最後尾に空の質問を追加
     qarray[n]=[];
-    qarray[n].push({question:'',check:'',stype:''});
+    qarray[n].push({question:'',check:'',stype:0});
     reloadTable();
   });
 
@@ -104,13 +104,17 @@ $(function() {
     var n = qarray.length;//質問数
     var m;
     var tmpsum=0;
+    var selecttype;
 
     for(var i=0;i<n;i++){
-      console.log($('input[name="selecttype"]:eq('+i+')'));
       m=qarray[i].length-1;
       qarray[i]=[];
-      qarray[i][0]={stype:$('input[name="selecttype"]:eq('+i+')').prop('checked'),check:$(".checkask:eq("+i+")").prop('checked'),question:$(".question:eq("+i+")").val()};
-      $('input[name=selecttype]:eq('+i+')').val(['radio']);
+      if($('#qlist input[name="selecttype'+i+'"]:radio:checked').val()=="check"){
+        selecttype=1;//チェックボックスであれば1
+      }else{
+        selecttype=0;//ラジオボタンであれば0もしくは初期値は0
+      }
+      qarray[i][0]={stype:selecttype,check:$(".checkask:eq("+i+")").prop('checked'),question:$(".question:eq("+i+")").val()};
       for(var j=0;j<m;j++){
         qarray[i][j+1]=[];
         qarray[i][j+1]={answer:$(".answer:eq("+tmpsum+")").val()};
@@ -240,7 +244,7 @@ function checkflg(){
   if($('#title').val().length>0 && $('#cont').val().length>0) {
     flg=1;
   }
-  console.log(flg);
+//  console.log(flg);
   return flg;
 }
 
