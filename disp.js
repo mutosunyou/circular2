@@ -4,18 +4,30 @@ $(function() {
   qarray=[];
   console.log($('#qcount').val());
   reloadTable();
-$('*').click(function(){
-  for(var i=0;i<$('#qcount').val();i++){
-    console.log($('input[name="optionsRadios'+i+'"]:checked').val());
-  }
-
-});
+  
+  $('#replylist input').click(function(){
+    for(var i=0;i<$('#qcount').val();i++){
+      if($('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid')==null){
+        $('#replylist input[name="optionsRadios'+i+'"]:checked').each(function(){
+          console.log($('#replylist input[name="optionsRadios'+i+'"]:checked').val());
+        });
+      }else{
+        console.log($('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid'));
+      }
+    }
+    /*
+    for(var i=0;i<$('#qcount').val();i++){
+      if($('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid')==null){
+          console.log($('#replylist input[name="optionsRadios'+i+'"]:checked').val());
+      }else{
+        console.log($('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid'));
+      }
+    }
+    */
+  });
   /*
   $().click(function(){
-
   });
-
-
     for(var i=0;i<n;i++){
       m=qarray[i].length-1;
       qarray[i]=[];
@@ -32,8 +44,6 @@ $('*').click(function(){
       }
     }
 */
-
-
 
   $(window).resize(function(){
     var w = $(window).width();

@@ -180,7 +180,7 @@ for($i=0;$i<count($p->members);$i++){
         }else{
           $body.='checkbox'; 
         }
-        $body.='" name="optionsRadios'.$j.'">'.$p->questions[$j]->candidates[$k].'<br>';
+        $body.='" name="optionsRadios'.$j.'" value="'.$j.$k.'" qid="'.$p->questions[$j]->id.'">'.$p->questions[$j]->candidates[$k].'<br>';
         $body.='</label>';
         $body.=' </div>';
         $body.='</td>';
