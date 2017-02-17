@@ -1,8 +1,8 @@
 <?php
-require_once('../master/prefix.php');
+
+require_once('../File.php');
 
 $ev = new File();
-$ev->initWithID($_POST['fid']);
-$ev->addFile($_POST['cid'],$_POST['path'],$_POST['did']);
+$ev->addFile($_POST['cid'],$_POST['path']);
 
 

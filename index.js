@@ -30,8 +30,7 @@ $(function() {
         'helper/addfile.php',
         {
           'path': file.xhr.responseText,
-          'fid' : $('#fid').val(),
-          'sender' :$('#userID').val()
+          'cid' : $('#cid').val()
         },
         function(data){
           console.log(data);
@@ -219,7 +218,6 @@ function send(){
   JSON3 = $.toJSON(memarray);
 
   //DB入力
-  //console.log($('#selectedlist>option'));
   $.post(
     "DBinput.php",
     {

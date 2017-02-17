@@ -74,7 +74,7 @@ $body.='<div id="topspace" style="height:70px;"></div>';
 
 $p = new Circular();
 $p->initWithID($_GET['cid']);
-//var_dump($p);
+var_dump($p);
 
 //クラスと変数=====================================
 $body.='<input id="userID" class="hidden" value="'.$_SESSION['loginid'].'">';
@@ -119,13 +119,16 @@ for($i=0;$i<count($p->members);$i++){
       $body.='<tr><div class="charts"></div></tr>';
       $body.='<tr><th width="100px">集計</th><th>項目</th><th>メンバー</th></tr></thead>';
       $body.='<tbody>';
-      //k番目の回答とその数を数える。
+      $p->questions[$j]->answers[$k];
+      //k番目の回答とその数を数える
       for($k=0;$k<count($p->questions[$j]->candidates);$k++){
         $body.='<tr>';
         $body.='<td>';
         //ここに集計結果が入る。k番目の回答がいくつか。
         $body.='</td>';
-        $body.='<td>'.$p->questions[$j]->candidates[$k].'</td>';
+        $body.='<td>';
+        $body.= $p->questions[$j]->candidates[$k];
+        $body.='</td>';
         $body.='<td>';
         //k番目の回答を選択したメンバーの名前を羅列する。
         $sql='select * from answer where qID='.$p->questions[$j]->id.' and answer='.$k;
@@ -153,6 +156,7 @@ for($i=0;$i<count($p->members);$i++){
     break;
   }
 }
+
 for($i=0;$i<count($p->members);$i++){
   //ユーザーがメンバーに入っていて、未回答であれば回答フォームを出す
   if(($_SESSION['loginid']==$p->members[$i]->userID) && $p->members[$i]->checked==0 && count($p->questions)>0){
@@ -180,7 +184,7 @@ for($i=0;$i<count($p->members);$i++){
         }else{
           $body.='checkbox'; 
         }
-        $body.='" name="optionsRadios'.$j.'" value="'.$j.$k.'" qid="'.$p->questions[$j]->id.'">'.$p->questions[$j]->candidates[$k].'<br>';
+        $body.='" name="optionsRadios'.$j.'" value="'.$k.'" qid="'.$p->questions[$j]->id.'">'.$p->questions[$j]->candidates[$k].'<br>';
         $body.='</label>';
         $body.=' </div>';
         $body.='</td>';
@@ -192,9 +196,7 @@ for($i=0;$i<count($p->members);$i++){
       $body.='</tbody>';
     }
     $body.='</table>';
-
     $body.='</div>';
-
     $body.='</div>';
   }
 }

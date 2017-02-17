@@ -1,49 +1,30 @@
-var qarray     = new Array();///質問の内容。２次元配列
+var qarray = new Array();///質問の内容。２次元配列
+var j;
 
-$(function() {
-  qarray=[];
-  console.log($('#qcount').val());
-  reloadTable();
-  
+$(function(){
+
   $('#replylist input').click(function(){
+    qarray=[];
+    j=0;
     for(var i=0;i<$('#qcount').val();i++){
-      if($('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid')==null){
+      if($('#replylist input[name="optionsRadios'+i+'"]:radio').attr('qid')==null){
+        //チェックボックスのとき
         $('#replylist input[name="optionsRadios'+i+'"]:checked').each(function(){
-          console.log($('#replylist input[name="optionsRadios'+i+'"]:checked').val());
+          //console.log($('#replylist input[name="optionsRadios'+i+'"]:checked:eq('+j+')').val());
+          qarray.push({qid:$('#replylist input[name="optionsRadios'+i+'"]:checked').attr('qid'),cid:$('#replylist input[name="optionsRadios'+i+'"]:checked:eq('+j+')').val()});
+          j=j+1;
         });
       }else{
-        console.log($('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid'));
+        //ラジオボタンのとき
+        if($('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid')!=null){
+          //console.log($('#replylist input[name="optionsRadios'+i+'"]:radio:checked').val());
+          //console.log($('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid'));
+          qarray.push({qid:$('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid'),cid:$('#replylist input[name="optionsRadios'+i+'"]:radio:checked').val()});
+        }
       }
     }
-    /*
-    for(var i=0;i<$('#qcount').val();i++){
-      if($('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid')==null){
-          console.log($('#replylist input[name="optionsRadios'+i+'"]:checked').val());
-      }else{
-        console.log($('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid'));
-      }
-    }
-    */
+    console.log(qarray);
   });
-  /*
-  $().click(function(){
-  });
-    for(var i=0;i<n;i++){
-      m=qarray[i].length-1;
-      qarray[i]=[];
-      if($('#qlist input[name="selecttype'+i+'"]:radio:checked').val()=="check"){
-        selecttype=1;//チェックボックスであれば1
-      }else{
-        selecttype=0;//ラジオボタンであれば0もしくは初期値は0
-      }
-      qarray[i][0]={stype:selecttype,check:$(".checkask:eq("+i+")").prop('checked'),question:$(".question:eq("+i+")").val()};
-      for(var j=0;j<m;j++){
-        qarray[i][j+1]=[];
-        qarray[i][j+1]={answer:$(".answer:eq("+tmpsum+")").val()};
-        tmpsum=tmpsum+1;
-      }
-    }
-*/
 
   $(window).resize(function(){
     var w = $(window).width();
@@ -103,25 +84,23 @@ $(function() {
     }]
   });
 ////////////////////////////////////////////////////////////////
-
   //ボタン==================================================
   //ページあたりの表示数変更
   $('#sendbtn').click( function (){
+    JSON=$.toJSON(qarray);
     $.post(
       "replyDB.php",
       {
-        cid:$('#cid').val()
+        "cid":$('#cid').val(),
+        "aarray":JSON
       },
       function(data){
+        console.log(data);
       }
     );
   });
 
 });
 
-//関数////////////////////////////////////////////////////////////
-//アンケートを表示する。
-function reloadTable(){
 
-}
 

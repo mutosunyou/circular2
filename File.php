@@ -1,6 +1,6 @@
 <?php
 //session_start();
-
+//require_once('../master/prefix.php');
 class File
 {
   public $id;
@@ -24,14 +24,14 @@ class File
   }
 
   //ファイル追加
-  function addFile($filepath){
+  function addFile($cid,$filepath){
     $arr = explode('.', $filePath);
     $ext = $arr[(count($arr) - 1)];
     $fp = str_replace('/Volumes','http://192.168.100.209/mnt',$filepath);
     if($did==NULL){
       $did="NULL";
     }
-    $sql = 'insert into files (id,circularID, filepath, uptime,isalived) values (null,'.$this->circularID.',"'.$fp.'","'.date('Y-m-d').'",1)';
+    $sql = 'insert into files (id,circularID, filepath, uptime,isalived) values (null,'.$cid.',"'.$fp.'","'.date('Y-m-d H:i:s').'",1)';
     deleteFrom(DB_NAME, $sql);
     $this->reload();
   }
@@ -41,4 +41,3 @@ class File
     $this->initWithFileID($this->id);
   }
 }
-
