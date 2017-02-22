@@ -11,19 +11,20 @@ $(function(){
     },
     function(data){
       a=$.parseJSON(data);
-      console.log(a);
+      //console.log(a);
       for(var i=0;i<a.questions.length;i++){
         var sum= new Array();
+        var darr=new Array();
+
         for(var j=0;j<a.questions[i].candidates.length;j++){
           sum[j]=0;
           for(var k=0;k<a.questions[i].answers.length;k++){
-            if(a.questions[i].answers[k]==j){
+            if(a.questions[i].answers[k].answer==j){
               sum[j]++;
             }
           }
-          console.log(sum[j]);
+          darr.push({name:a.questions[i].candidates[j],y:sum[j]});
         }
-        
         $('.charts'+i).highcharts({
           chart: {
             width:600,
@@ -52,19 +53,7 @@ $(function(){
           series: [{
             name: 'Questionaire',
             colorByPoint: true,
-            data: [{
-              name: a.questions[i].candidates[a.questions[i].answers[0].answer],
-              y: 56.33
-            },{
-              name: 'Chrome',
-              y: 24.03,
-            },{
-              name: 'Firefox',
-              y: 10.38
-            },{
-              name: 'Safari',
-              y: 4.77
-            }]
+            data: darr
           }]
         });
       }

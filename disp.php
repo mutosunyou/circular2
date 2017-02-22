@@ -117,7 +117,7 @@ if($p->secret==0){
       //j番目の質問とそれぞれの集計結果を示す。
       for($j=0;$j<count($p->questions);$j++){//j: 質問番号
         $body.='<thead><tr><td colspan="3" class="info">'.$p->questions[$j]->content.'</td></tr>';
-        $body.='<tr><div class="charts'.$j.'"></div><hr></tr>';
+        $body.='<tr><td colspan="3"><div class="charts'.$j.'"></div></td></tr>';
         $body.='<tr><th width="100px">集計</th><th>項目</th><th>メンバー</th></tr></thead>';
         $body.='<tbody>';
         //k番目の回答とその数を数える
