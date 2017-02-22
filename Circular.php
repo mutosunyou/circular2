@@ -59,7 +59,7 @@ class Circular
         $ps->initWithMemberID($rst2[$i]['id']);
         $this->members[] = $ps;
       }
-      
+
       $this->questions=array();
       for($i=0;$i<count($rst3);$i++){
         $ps = new Question;
@@ -80,6 +80,7 @@ class Circular
     $this->id=insertAI(DB_NAME,$sql);
     $this->reload();
   }
+
 
   //伝票IDを入れてリロードする。
   function reload(){

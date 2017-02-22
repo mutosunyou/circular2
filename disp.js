@@ -11,11 +11,10 @@ $(function(){
     },
     function(data){
       a=$.parseJSON(data);
-      //console.log(a);
+      
       for(var i=0;i<a.questions.length;i++){
         var sum= new Array();
         var darr=new Array();
-
         for(var j=0;j<a.questions[i].candidates.length;j++){
           sum[j]=0;
           for(var k=0;k<a.questions[i].answers.length;k++){
@@ -57,8 +56,7 @@ $(function(){
           }]
         });
       }
-    }
-  );
+    });
 
   $(window).resize(function(){
     var w = $(window).width();
@@ -69,27 +67,29 @@ $(function(){
     }
   }); 
 
-  $('#replylist input').click(function(){
+  $('#replylist input').change(function(){
     qarray=[];
     j=0;
     for(var i=0;i<$('#qcount').val();i++){
       if($('#replylist input[name="optionsRadios'+i+'"]:radio').attr('qid')==null){
-        //チェックボックスのとき
+        //チェックボックスのとき→チェックが入っている項目を全部配列に入れる（質問ID、回答ID)
         $('#replylist input[name="optionsRadios'+i+'"]:checked').each(function(){
           qarray.push({qid:$('#replylist input[name="optionsRadios'+i+'"]:checked').attr('qid'),cid:$('#replylist input[name="optionsRadios'+i+'"]:checked:eq('+j+')').val()});
           j=j+1;
         });
       }else{
-        //ラジオボタンのとき
+        //ラジオボタンのとき→配列にチェックが入っている情報のみ入れる
         if($('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid')!=null){
           qarray.push({qid:$('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid'),cid:$('#replylist input[name="optionsRadios'+i+'"]:radio:checked').val()});
         }
+      }
+      if($('#replylist input[name="fs'+i+'"]').val()!=null){
+          qarray.push({qid:$('#replylist input[name="fs'+i+'"]').attr('qid'),desc:$('#replylist input[name="fs'+i+'"]').val()});
       }
     }
     console.log(qarray);
   });
 
-  ////////////////////////////////////////////////////////////////
   //ボタン==================================================
   //ページあたりの表示数変更
   $('#sendbtn').click( function (){
@@ -102,15 +102,9 @@ $(function(){
       },
       function(data){
         console.log(data);
+        location.href="list.php";
       }
     );
   });
-
 });
-
-
-
-
-
-
 

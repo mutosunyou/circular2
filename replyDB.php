@@ -1,22 +1,37 @@
 <?php
 //初期==============================================
 session_start();
-require_once('Member.php');
-require_once('Answer.php');
+require_once('Circular.php');
 
 //localのみ=========================================
 $_SESSION['login_name']="武藤　一徳";
 $_SESSION['loginid']=10042;
 
-
 //回答=======================================
 $js = json_decode($_POST['aarray']);
-//var_dump($js);
+
 $a = new Answer();
 for($i=0;$i<count($js);$i++){
-  $a->addAnswer($_SESSION['loginid'],$js[$i]->qid,$js[$i]->cid,"");
+  if($js[$i]->cid!=null){
+    $cid=$js[$i]->cid;
+  }else{
+    $cid="";
+  }
+  if($js[$i]->desc!=null){
+    $desc=$js[$i]->desc;
+  }else{
+    $desc="";
+  }
+  $a->addAnswer($_SESSION['loginid'],$js[$i]->qid,$cid,$desc);
 }
 
 //回覧メンバー===============================
 $m = new Member();
 $m->setCheckflg($_POST['cid']);
+
+$sql= 'select * from member where id='.$_POST['cid'] .'and checked=0';
+if(selectData(DB_NAME,$sql)==null){
+  $sql='update circular set status=1 where id='.$_POST['cid'];
+  deleteFrom(DB_NAME,$sql);
+}
+

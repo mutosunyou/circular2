@@ -74,12 +74,11 @@ $body.='<div id="topspace" style="height:70px;"></div>';
 
 $p = new Circular();
 $p->initWithID($_GET['cid']);
-//var_dump($p);
 
 //クラスと変数=====================================
 $body.='<input id="userID" class="hidden" value="'.$_SESSION['loginid'].'">';
 $body.='<input id="cid" class="hidden" value="'.$p->id.'">';
-//$body.='<input id="qcount" class="hidden" value="'.count($p->questions).'">';
+$body.='<input id="qcount" class="hidden" value="'.count($p->questions).'">';
 
 //本文/////////////////////////////////////////////
 //タイトル=========================================
@@ -151,7 +150,14 @@ if($p->secret==0){
           $body.='</tr>';
         }
         if($p->questions[$j]->freespace==1){
-          $body.='<tr><td colspan="2">自由記入欄</td></tr>';
+          $body.='<tr><td colspan="3">自由記入欄</td></tr>';
+          for($k=0;$k<count($p->questions[$j]->answers);$k++){
+            if($p->questions[$j]->answers[$k]->description!=null){
+              $body.='<tr><td colspan="3">';
+              $body.=shortNameFromUserID($p->questions[$j]->answers[$k]->memberID).': '.$p->questions[$j]->answers[$k]->description;
+              $body.='</td></tr>';
+            }
+          }
         }
         $body.='</tbody>';
       }
@@ -163,48 +169,53 @@ if($p->secret==0){
   }
 }
 
+$author=0;
 for($i=0;$i<count($p->members);$i++){
-  //ユーザーがメンバーに入っていて、未回答であれば回答フォームを出す
-  if(($_SESSION['loginid']==$p->members[$i]->userID) && $p->members[$i]->checked==0 && count($p->questions)>0){
-    $body.='<div id="replylist">';
-    $body.='<div class="panel panel-default">';
-    $body.='<div class="panel-heading">アンケート</div>';
-    $body.='<table class="table table-bordered">';
-    for($j=0;$j<count($p->questions);$j++){
-      $body.='<thead><tr><td colspan="2" class="info">'.$p->questions[$j]->content.'</td></tr></thead>';
-      $body.='<tbody>';
-      for($k=0;$k<count($p->questions[$j]->candidates);$k++){
-        $body.='<tr>';
-        $body.='<td>';
-        $body.='<div class="';
-        if($p->questions[$j]->stype==0){
-          $body.='radio';
-        }else{
-          $body.='checkbox'; 
-        }
-        $body.='" style="margin:0 0 0 0;">';
-        $body.='<label>';
-        $body.='<input type="';
-        if($p->questions[$j]->stype==0){
-          $body.='radio';
-        }else{
-          $body.='checkbox'; 
-        }
-        $body.='" name="optionsRadios'.$j.'" value="'.$k.'" qid="'.$p->questions[$j]->id.'">'.$p->questions[$j]->candidates[$k].'<br>';
-        $body.='</label>';
-        $body.=' </div>';
-        $body.='</td>';
-        $body.='</tr>';
-      }
-      if($p->questions[$j]->freespace==1){
-        $body.='<tr><td colspan="2">自由記入欄<input type="text" class="form-control"></td></tr>';
-      }
-      $body.='</tbody>';
-    }
-    $body.='</table>';
-    $body.='</div>';
-    $body.='</div>';
+  if(($_SESSION['loginid']==$p->members[$i]->userID) && $p->members[$i]->checked==0){
+    $yetanswer=1;
   }
+}
+
+//ユーザーがメンバーに入っていて、未回答であれば回答フォームを出す
+if($yetanswer==1 && count($p->questions)>0){
+  $body.='<div id="replylist">';
+  $body.='<div class="panel panel-default">';
+  $body.='<div class="panel-heading">アンケート</div>';
+  $body.='<table class="table table-bordered">';
+  for($j=0;$j<count($p->questions);$j++){
+    $body.='<thead><tr><td colspan="2" class="info">'.$p->questions[$j]->content.'</td></tr></thead>';
+    $body.='<tbody>';
+    for($k=0;$k<count($p->questions[$j]->candidates);$k++){
+      $body.='<tr>';
+      $body.='<td>';
+      $body.='<div class="';
+      if($p->questions[$j]->stype==0){
+        $body.='radio';
+      }else{
+        $body.='checkbox'; 
+      }
+      $body.='" style="margin:0 0 0 0;">';
+      $body.='<label>';
+      $body.='<input type="';
+      if($p->questions[$j]->stype==0){
+        $body.='radio';
+      }else{
+        $body.='checkbox'; 
+      }
+      $body.='" name="optionsRadios'.$j.'" value="'.$k.'" qid="'.$p->questions[$j]->id.'">'.$p->questions[$j]->candidates[$k].'<br>';
+      $body.='</label>';
+      $body.=' </div>';
+      $body.='</td>';
+      $body.='</tr>';
+    }
+    if($p->questions[$j]->freespace==1){
+      $body.='<tr><td colspan="2">自由記入欄<input type="text" class="form-control freespace" name="fs'.$j.'" qid="'.$p->questions[$j]->id.'"></td></tr>';
+    }
+    $body.='</tbody>';
+  }
+  $body.='</table>';
+  $body.='</div>';
+  $body.='</div>';
 }
 
 //閲覧済みチェック//////////////////////////
@@ -231,7 +242,9 @@ $body.='</table>';
 $body.='</div>';//パネル終わり
 
 //送信ボタン=========================================
-$body.='<button id="sendbtn" class="btn btn-sm btn-primary">確認</button>';
+if($yetanswer==1){
+  $body.='<button id="sendbtn" class="btn btn-sm btn-primary">確認</button>';
+}
 
 $body.='</div>';//container
 $body.='</div>';//container-fluid
