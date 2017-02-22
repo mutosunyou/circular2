@@ -12,7 +12,7 @@ class Question
   public $candidates;//回答候補
   public $answers;//答え
 
-  function initWithQuestionID($id)//8桁(期+6桁)の伝票番号で初期化
+  function initWithQuestionID($id)//初期化
   {
     $this->id= $id;
     $sql = 'select * from question where id = '.$this->id;
@@ -29,11 +29,14 @@ class Question
       for($i=0;$i<count($rst1);$i++){
         $this->candidates[] = $rst1[$i]['item'];
       }
+
       $sql2 = 'select id from answer where questionID = '.$this->id;
       $rst2 = selectData(DB_NAME, $sql2);
       $this->answers=array();
       for($i=0;$i<count($rst2);$i++){
-        $this->answers[]=$rst2[$i]['answer'];
+        $ps = new Answer;
+        $ps->initWithAnswerID($rst2[$i]['id']);
+        $this->answers[] = $ps;
       }
     }
   }

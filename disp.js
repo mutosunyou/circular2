@@ -1,7 +1,21 @@
 var qarray = new Array();///質問の内容。２次元配列
 var j;
+var obj;
 
-$(function(){
+$(function(){ 
+  obj=js->value;
+
+
+  console.log(obj);
+ 
+  $(window).resize(function(){
+    var w = $(window).width();
+    if (w <= 980) {
+      $('#topspace').hide();
+    }else{
+      $('#topspace').show();
+    }
+  }); 
 
   $('#replylist input').click(function(){
     qarray=[];
@@ -10,15 +24,12 @@ $(function(){
       if($('#replylist input[name="optionsRadios'+i+'"]:radio').attr('qid')==null){
         //チェックボックスのとき
         $('#replylist input[name="optionsRadios'+i+'"]:checked').each(function(){
-          //console.log($('#replylist input[name="optionsRadios'+i+'"]:checked:eq('+j+')').val());
           qarray.push({qid:$('#replylist input[name="optionsRadios'+i+'"]:checked').attr('qid'),cid:$('#replylist input[name="optionsRadios'+i+'"]:checked:eq('+j+')').val()});
           j=j+1;
         });
       }else{
         //ラジオボタンのとき
         if($('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid')!=null){
-          //console.log($('#replylist input[name="optionsRadios'+i+'"]:radio:checked').val());
-          //console.log($('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid'));
           qarray.push({qid:$('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid'),cid:$('#replylist input[name="optionsRadios'+i+'"]:radio:checked').val()});
         }
       }
@@ -26,20 +37,12 @@ $(function(){
     console.log(qarray);
   });
 
-  $(window).resize(function(){
-    var w = $(window).width();
-    if (w <= 980) {
-      $('#topspace').hide();
-    }else{
-      $('#topspace').show();
-    }
-  });
-
-  $('.charts').highcharts({
-    chart: {
-      width:900,
-      height:300,
-      type:'pie'
+  for(var i=0;i<$('#qcount').val();i++){
+    $('.charts').highcharts({
+      chart: {
+        width:600,
+        height:300,
+        type:'pie'
     },
     title: {
       text: $('.charttitle').val(),
@@ -82,7 +85,8 @@ $(function(){
         y: 0.2
       }]
     }]
-  });
+    });
+  }
 ////////////////////////////////////////////////////////////////
   //ボタン==================================================
   //ページあたりの表示数変更
@@ -101,6 +105,10 @@ $(function(){
   });
 
 });
+
+
+
+
 
 
 

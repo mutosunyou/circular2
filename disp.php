@@ -74,12 +74,13 @@ $body.='<div id="topspace" style="height:70px;"></div>';
 
 $p = new Circular();
 $p->initWithID($_GET['cid']);
-var_dump($p);
+//var_dump($p);
 
 //クラスと変数=====================================
 $body.='<input id="userID" class="hidden" value="'.$_SESSION['loginid'].'">';
 $body.='<input id="cid" class="hidden" value="'.$p->id.'">';
 $body.='<input id="qcount" class="hidden" value="'.count($p->questions).'">';
+$body.='<input id="js" class="hidden" value="'.json_encode($p->questions).'">';
 
 //本文/////////////////////////////////////////////
 //タイトル=========================================
@@ -106,54 +107,60 @@ $body.='<div class="panel-body"></div>';
 $body.='</div>';
 
 //アンケート集計結果
-for($i=0;$i<count($p->members);$i++){
-  //作成者もしくは回覧メンバーに入っていて、公開、回答済みのとき結果を出す
-  if(($_SESSION['loginid']==$p->ownerID || ($_SESSION['loginid']==$p->members[$i]->userID && $p->members[$i]->checked==1)) && count($p->questions)>0){
-    $body.='<div id="resultlist">';
-    $body.='<div class="panel panel-default">';
-    $body.='<div class="panel-heading">アンケート結果</div>';
-    $body.='<table class="table table-bordered">';
-    //j番目の質問とそれぞれの集計結果を示す。
-    for($j=0;$j<count($p->questions);$j++){
-      $body.='<thead><tr><td colspan="3" class="info">'.$p->questions[$j]->content.'</td></tr>';
-      $body.='<tr><div class="charts"></div></tr>';
-      $body.='<tr><th width="100px">集計</th><th>項目</th><th>メンバー</th></tr></thead>';
-      $body.='<tbody>';
-      $p->questions[$j]->answers[$k];
-      //k番目の回答とその数を数える
-      for($k=0;$k<count($p->questions[$j]->candidates);$k++){
-        $body.='<tr>';
-        $body.='<td>';
-        //ここに集計結果が入る。k番目の回答がいくつか。
-        $body.='</td>';
-        $body.='<td>';
-        $body.= $p->questions[$j]->candidates[$k];
-        $body.='</td>';
-        $body.='<td>';
-        //k番目の回答を選択したメンバーの名前を羅列する。
-        $sql='select * from answer where qID='.$p->questions[$j]->id.' and answer='.$k;
-        $rst=selectData(DB_NAME,$sql);
-        //l番目の
-        for($l=0;$l<count($rst);$l++){
-          if($rst[$l]['answer']==$i){
-            $body.=nameFromUserID($rst[$l]['memberID']);
-            if($l!=(count($rst)-1)){
-              $body.=',';
+if($p->secret==0){
+  for($i=0;$i<count($p->members);$i++){
+    //作成者もしくは回覧メンバーに入っていて、公開、回答済みのとき結果を出す
+    if(($_SESSION['loginid']==$p->ownerID || ($_SESSION['loginid']==$p->members[$i]->userID && $p->members[$i]->checked==1)) && count($p->questions)>0){
+      $body.='<div id="resultlist">';
+      $body.='<div class="panel panel-default">';
+      $body.='<div class="panel-heading">アンケート結果</div>';
+      $body.='<table class="table table-bordered">';
+      //j番目の質問とそれぞれの集計結果を示す。
+      for($j=0;$j<count($p->questions);$j++){//j: 質問番号
+        $body.='<thead><tr><td colspan="3" class="info">'.$p->questions[$j]->content.'</td></tr>';
+        $body.='<tr><div class="charts'.$k.'"></div></tr>';
+        $body.='<tr><th width="100px">集計</th><th>項目</th><th>メンバー</th></tr></thead>';
+        $body.='<tbody>';
+        //k番目の回答とその数を数える
+        for($k=0;$k<count($p->questions[$j]->candidates);$k++){//k: 候補番号
+          $body.='<tr>';
+          $body.='<td>';
+          $sql='select answer,count(*) from answer where questionID='.$p->questions[$j]->id.' and answer='.$k.' group by answer';
+          $rst=selectData(DB_NAME,$sql);
+          if($rst!=null){
+            $body.=$rst[0]['count(*)'];
+          }else{
+            $body.='0';
+          }
+          $body.='</td>';
+          $body.='<td>';
+          $body.='<div class="charttitle'.$k.'" value="'.$p->questions[$j]->candidates[$k].'">'.$p->questions[$j]->candidates[$k].'</div>';
+          $body.='</td>';
+          $body.='<td style="font-size:small;">';
+          //k番目の回答を選択したメンバーの名前を羅列する。
+          $sql='select memberID from answer where questionID='.$p->questions[$j]->id.' and answer='.$k;
+          $rst=selectData(DB_NAME,$sql);
+          for($l=0;$l<count($rst);$l++){
+            if($rst[$l]['answer']==$i){
+              $body.=shortNameFromUserID($rst[$l]['memberID']);
+              if($l!=(count($rst)-1)){
+                $body.=', ';
+              }
             }
           }
+          $body.='</td>';
+          $body.='</tr>';
         }
-        $body.='</td>';
-        $body.='</tr>';
+        if($p->questions[$j]->freespace==1){
+          $body.='<tr><td colspan="2">自由記入欄</td></tr>';
+        }
+        $body.='</tbody>';
       }
-      if($p->questions[$j]->freespace==1){
-        $body.='<tr><td colspan="2">自由記入欄</td></tr>';
-      }
-      $body.='</tbody>';
+      $body.='</table>';
+      $body.='</div>';
+      $body.='</div>';
+      break;
     }
-    $body.='</table>';
-    $body.='</div>';
-    $body.='</div>';
-    break;
   }
 }
 
@@ -208,9 +215,9 @@ $body.='<table class="table table-bordered">';
 $body.='<tr><th width="50%">閲覧済み</th><th>未確認</th></tr>';
 $body.='<tr><td>';
 for($i=0;$i<count($p->members);$i++){
-   if($p->members[$i]->checked==1){
-     $body.=nameFromUserID($p->members[$i]->userID).'<br>';
-   }
+  if($p->members[$i]->checked==1){
+    $body.=nameFromUserID($p->members[$i]->userID).'<br>';
+  }
 }
 $body.='</td>';
 $body.='<td>';
