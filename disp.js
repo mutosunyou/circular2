@@ -1,13 +1,76 @@
 var qarray = new Array();///質問の内容。２次元配列
 var j;
 var obj;
+var a;
 
 $(function(){ 
-  obj=js->value;
+  $.post(
+    "jsondata.php",
+    {
+      "cid":$('#cid').val()
+    },
+    function(data){
+      a=$.parseJSON(data);
+      console.log(a);
+      for(var i=0;i<a.questions.length;i++){
+        var sum= new Array();
+        for(var j=0;j<a.questions[i].candidates.length;j++){
+          sum[j]=0;
+          for(var k=0;k<a.questions[i].answers.length;k++){
+            if(a.questions[i].answers[k]==j){
+              sum[j]++;
+            }
+          }
+          console.log(sum[j]);
+        }
+        
+        $('.charts'+i).highcharts({
+          chart: {
+            width:600,
+            height:300,
+            type:'pie'
+          },
+          title: {
+            text: a.questions[i].content,
+          },
+          tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+          },
+          plotOptions: {
+            pie: {
+              allowPointSelect: true,
+              cursor: 'pointer',
+              dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                style: {
+                  color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+              }
+            }
+          },
+          series: [{
+            name: 'Questionaire',
+            colorByPoint: true,
+            data: [{
+              name: a.questions[i].candidates[a.questions[i].answers[0].answer],
+              y: 56.33
+            },{
+              name: 'Chrome',
+              y: 24.03,
+            },{
+              name: 'Firefox',
+              y: 10.38
+            },{
+              name: 'Safari',
+              y: 4.77
+            }]
+          }]
+        });
+      }
+    }
+  );
 
-
-  console.log(obj);
- 
   $(window).resize(function(){
     var w = $(window).width();
     if (w <= 980) {
@@ -37,57 +100,7 @@ $(function(){
     console.log(qarray);
   });
 
-  for(var i=0;i<$('#qcount').val();i++){
-    $('.charts').highcharts({
-      chart: {
-        width:600,
-        height:300,
-        type:'pie'
-    },
-    title: {
-      text: $('.charttitle').val(),
-    },
-    tooltip: {
-      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    plotOptions: {
-      pie: {
-        allowPointSelect: true,
-        cursor: 'pointer',
-        dataLabels: {
-          enabled: true,
-          format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-          style: {
-            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-          }
-        }
-      }
-    },
-    series: [{
-      name: 'Brands',
-      colorByPoint: true,
-      data: [{
-        name: 'Microsoft Internet Explorer',
-        y: 56.33
-      },{
-        name: 'Chrome',
-        y: 24.03,
-        sliced: true,
-        selected: true
-      },{
-        name: 'Firefox',
-        y: 10.38
-      },{
-        name: 'Safari',
-        y: 4.77
-      },{
-        name: 'Proprietary or Undetectable',
-        y: 0.2
-      }]
-    }]
-    });
-  }
-////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////
   //ボタン==================================================
   //ページあたりの表示数変更
   $('#sendbtn').click( function (){
