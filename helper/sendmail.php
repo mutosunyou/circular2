@@ -1,23 +1,31 @@
 <?php
 //初期==============================================
-session_start();
-require_once('../Circular.php');
+//session_start();
+require_once('../master/prefix.php');
 
 $js2 = json_decode($_POST['id']);
 $js3 = json_decode($_POST['mem']);
 
-$p = new Circular();
+mb_language("Japanese");
+mb_internal_encoding("UTF-8");
 
-/*
-$sql = 'select distinct member.userID from member, circular where member.checked = 0 and member.circularID = circular.id and circular.status = 0 order by member.userID desc';
-$result = selectData('circular', $sql);
-print_r($result);
-$mem = new MemberList();
-$uarray = array();
-for ($i=0; $i < count($result); $i++) { 
-  $uarray[] = $mem->mailAddress($result[$i]['userID']);
+$to='';
+for($i=0;$i<count($js3);$i++){
+  $to = mailFromUserID($js3[$i]->num);
+  if($i!=(count($js3)-1)){
+    $to.=', ';
+  }
 }
+$subject = '【回覧通知】'.$js2[0]->title;
+$message = '回覧が来ています。下記URLより、回覧内容をご確認ください。'."\r\n";
+$message.= 'http://192.168.100.209/circular2/disp.php?cid='.$_POST['cid']."\r\n";
+$message.= '表題：'.$js2[0]->title."\r\n";
+$headers = 'From: System <remote_manager@sunyou.co.jp>'."\r\n";
+/*
+echo $subject;
+echo $message;
+echo $headers;
+var_dump($js3);
+*/
+mb_send_mail($to, $subject, $message, $headers);
 
-$p->mailing($uarray, '【回覧通知】未確認の回覧があります', '未確認の回覧があります。'.PHP_EOL.'システムで確認してください。'.PHP_EOL.'http://192.168.100.209/circular2/list.php');
-
- */

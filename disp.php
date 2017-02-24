@@ -1,6 +1,6 @@
 <?php
 //初期==============================================
-session_start();
+//session_start();
 require_once('Circular.php');
 
 //localのみ=========================================
@@ -192,7 +192,6 @@ for($i=0;$i<count($p->members);$i++){
 //ユーザーがメンバーに入っていて、未回答であれば回答フォームを出す
 if($yetanswer==1 && count($p->questions)>0){
   $body.='<div id="replylist">';
-
   for($j=0;$j<count($p->questions);$j++){
     $body.='<div class="panel panel-default">';
     $body.='<div class="panel-heading">アンケート</div>';
@@ -218,7 +217,7 @@ if($yetanswer==1 && count($p->questions)>0){
       }
       $body.='" name="optionsRadios'.$j.'" value="'.$k.'" qid="'.$p->questions[$j]->id.'">'.$p->questions[$j]->candidates[$k].'<br>';
       $body.='</label>';
-      $body.=' </div>';
+      $body.='</div>';
       $body.='</td>';
       $body.='</tr>';
     }

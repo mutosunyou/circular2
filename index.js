@@ -2,8 +2,11 @@ var AllUserArray;
 var sheetarray = new Array();//入力欄の内容
 var qarray     = new Array();///質問の内容。２次元配列
 var memarray   = new Array();
+var wait;
+
 //初期動作====================================================
 $(function() {
+  wait=0;
   var userID = $('#userID').val();
   $('#questionnaire').hide();
   $('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});//カレンダーから日付を選ぶ
@@ -22,7 +25,7 @@ $(function() {
     'onUpload'         : function(file) {},
     'queueID'          : 'queue',
     'buttonClass'      : 'urlbtn',
-    'uploadScript'     : 'uploadifive.php',
+    'uploadScript'     : 'master/uploadifive.php',
     'onUpload'         : function(file) {},
     'onUploadError'    : function (){},
     'onUploadComplete' : function(file, data) {
@@ -76,7 +79,6 @@ $(function() {
   function send(){
     JSON2 = $.toJSON(sheetarray);
     JSON3 = $.toJSON(memarray);
-    
     //DB入力
     $.post(
       "DBinput.php",
@@ -85,22 +87,24 @@ $(function() {
         "mem":JSON3
       },
       function(data){
-        $('#ppp').html(data);
+        //メール送信
+        console.log(data);
+        //wait=data;
+        $.post(
+          "helper/sendmail.php",
+          {
+            "cid":data,
+            "id" :JSON2,
+            "mem":JSON3
+          },
+          function(data){
+            $('#ppp').html(data);
+          }
+        );
       }
     );
 
-    //メール送信
-    $.post(
-      "helper/sendmail.php",
-      {
-        "id" :JSON2,
-        "mem":JSON3
-      },
-      function(data){
-        $('#ppp').html(data);
-      }
-    );
-    location.href="./list.php";
+    //  location.href="./list.php";
   } //回覧開始ボタンの終わり
 
   $('*').change(function(){
@@ -162,14 +166,6 @@ $(function() {
     qarray[$(e.target).attr('question')].push({answer:''});
     reloadTable();
   });
-  /*
-  //確認→回覧開始
-  $("#confirm").on('click','#gocircular',function(e){
-    copytoqarray();
-  //最後尾に空の回答を追加
-    qarray[$(e.target).attr('question')].push({answer:''});
-  });
-  */
 
   //回覧キャンセル
   $("#confirm").on('click','#cancel',function(e){

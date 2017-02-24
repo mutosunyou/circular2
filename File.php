@@ -1,6 +1,5 @@
 <?php
 //session_start();
-//require_once('../master/prefix.php');
 class File
 {
   public $id;
@@ -25,14 +24,11 @@ class File
 
   //ファイル追加
   function addFile($cid,$filepath){
-    $arr = explode('.', $filePath);
+    $arr = explode('.', $filepath);
     $ext = $arr[(count($arr) - 1)];
     $fp = str_replace('/Volumes','http://192.168.100.209/mnt',$filepath);
-    if($did==NULL){
-      $did="NULL";
-    }
     $sql = 'insert into files (id,circularID, filepath, uptime,isalived) values (null,'.$cid.',"'.myescape($fp).'","'.date('Y-m-d H:i:s').'",1)';
-    deleteFrom(DB_NAME, $sql);
+    deleteFrom2(DB_NAME, $sql);
     $this->reload();
   }
   
@@ -40,4 +36,19 @@ class File
   function reload(){
     $this->initWithFileID($this->id);
   }
+}
+
+function deleteFrom2($db, $sql){
+    //接続
+    $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, $db);
+    /* 接続状況をチェックします */
+    if ($mysqli->connect_errno) {
+        printf("Connect failed: %s\n", $mysqli->connect_error);
+        exit();
+    }
+    $addresult = $mysqli->query($sql) or die("クエリの送信に失敗しました。<br />SQL:".$sql);
+    
+    $mysqli->close();
+    
+    return $addresult;
 }

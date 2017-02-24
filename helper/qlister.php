@@ -1,9 +1,8 @@
 <?php
 //初期==============================================
-session_start();
+//session_start();
 
 $js = json_decode($_POST['qarray']);
-//var_dump($js);
 
 $body=' ';
 for($i=0;$i<count($js);$i++){

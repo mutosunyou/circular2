@@ -1,6 +1,6 @@
 <?php
 //初期==============================================
-session_start();
+//session_start();
 require_once('Circular.php');
 
 $js2 = json_decode($_POST['id']);
@@ -25,4 +25,4 @@ $m->AddMember($c->id[1],$js3);
 //追加した回覧にアンケートを追加
 $q->AddQuestion($c->id[1],$js2[4]);
 
-
+echo $c->id[1];
