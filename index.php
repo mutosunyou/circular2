@@ -146,6 +146,7 @@ $sql='select * from employee where kairan=1';
 $rst=selectData('master',$sql);
 
 $body.='<select id="userlist" multiple size="8" style="width:150px;">';
+
 $members = $mem->memberList(0);
 for($i=0;$i<count($members);$i++){
   $body.=' <option value="'.$members[$i]['id'].'" bumon="'.$members[$i]['bumon_code'].'">'.$members[$i]['short_name'].'</option>';
@@ -212,12 +213,22 @@ $body.='<hr />';
 
 $body.='</div>';//div id=questionnaire
 
+
+
 //送信ボタン=========================================
 $body.='<button id="sendbtn" class="btn btn-sm btn-success pull-right" disabled="disabled">送信</button>';
-$body.='<div id="ppp"></div>';//デバッグ用
+//$body.='<div id="ppp"></div>';//デバッグ用
 
 $body.='</div>';//container
+
+//確認画面
+$body.='<div id="hiddenwall" style="display:none;width:100%;height:100%;background-color:rgba(10,10,10,0.5);position:fixed;top:0px;z-index:99;">';
+$body.='<div id="confirm" style="margin-top:1%;text-align:center;width:750px;height:1000px;margin-left:auto;margin-right:auto;overflow:auto;">';
+$body.='</div>';
+$body.='</div>';//確認画面終わり
+
 $body.='</div>';//container-fluid
+
 
 //ヘッダー===========================================
 $header ='<script type="text/javascript" src="index.js"></script>';
@@ -231,5 +242,3 @@ $header.='</style>';
 
 //HTML作成===========================================
 echo html('回覧板',$header, $body);
-
-

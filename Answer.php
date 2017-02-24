@@ -33,7 +33,7 @@ class Answer
     }else{
       $a=$answer;
     }
-    $sql = 'insert into answer values(null,'.$uid.','.$qid.','.$a.','.$d.')';
+    $sql = 'insert into answer values(null,'.$uid.','.$qid.','.$a.','.myescape($d).')';
     $this->id=insertAI(DB_NAME,$sql);
     $this->reload();
   }

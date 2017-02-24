@@ -10,7 +10,7 @@ for($i=0;$i<count($js);$i++){
   $body.='<div class="panel panel-info">';
   $body.='<div class="panel-heading">';
   $body.='<div class="input-group input-group-sm">';
-  $body.='<span class="input-group-addon">質問　'.$i.'</span>';
+  $body.='<span class="input-group-addon">質問　'.($i+1).'</span>';
   $body.='<input type="text" style="font-size:13px;" class="form-control question '.$i.'" value="'.$js[$i][0]->question.'" aria-describedby="sizing-addon3">';
   $body.='<span class="input-group-btn">';
   $body.='<button type="button" style="margin:0 0 0 5px;" class="btn-danger btn-xs delq" delqnum="'.$i.'">削除</button>';
@@ -24,17 +24,17 @@ for($i=0;$i<count($js);$i++){
     if($js[$i][0]->stype==0){
       $body.=' checked';
     }
-    $body.='><label>　ひとつだけ選べる</label>';//stype=0:ラジオボックス
+    $body.='><label>　択一</label>';//stype=0:ラジオボックス
     $body.='<input type="radio" name="selecttype'.$i.'" value="check" style="margin:0 0 0 30px;"';
     if($js[$i][0]->stype==1){
       $body.=' checked';
     }
-    $body.='><label>　複数選べる</label>';//stype=1:チェックボックス
+    $body.='><label>　複数選択可</label>';//stype=1:チェックボックス
   }
 
   for($j=0;$j<(count($js[$i])-1);$j++){
     $body.='<div class="input-group input-group-sm">';
-    $body.='<span class="input-group-addon">回答　'.$j.'</span>';
+    $body.='<span class="input-group-addon">回答　'.($j+1).'</span>';
     $body.='<input type="text" style="font-size:13px;" class="form-control answer" value="'.$js[$i][$j+1]->answer.'" aria-describedby="sizing-addon3">';
     $body.='<span class="input-group-btn">';
     $body.='<button type="button" style="margin:0 0 0 5px;" class="btn-danger btn-xs delcan" delqnum="'.$i.'" delnum="'.($j+1).'">削除</button>';

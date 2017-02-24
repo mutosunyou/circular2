@@ -110,47 +110,60 @@ if($p->secret==0){
     //作成者もしくは回覧メンバーに入っていて、公開、回答済みのとき結果を出す
     if(($_SESSION['loginid']==$p->ownerID || ($_SESSION['loginid']==$p->members[$i]->userID && $p->members[$i]->checked==1)) && count($p->questions)>0){
       $body.='<div id="resultlist">';
-      $body.='<div class="panel panel-default">';
-      $body.='<div class="panel-heading">アンケート結果</div>';
-      $body.='<table class="table table-bordered">';
       //j番目の質問とそれぞれの集計結果を示す。
       for($j=0;$j<count($p->questions);$j++){//j: 質問番号
-        $body.='<thead><tr><td colspan="3" class="info">'.$p->questions[$j]->content.'</td></tr>';
-        $body.='<tr><td colspan="3"><div class="charts'.$j.'"></div></td></tr>';
-        $body.='<tr><th width="100px">集計</th><th>項目</th><th>メンバー</th></tr></thead>';
+        $body.='<div class="panel panel-default">';
+        $body.='<div class="panel-heading">アンケート結果 '.($j+1).'</div>';
+        $body.='<table class="table table-bordered">';
+        $chartflg=0;
+        for($k=0;$k<count($p->questions[$j]->answers);$k++){
+          if($p->questions[$j]->answers[$k]->answer!=null){
+            $chartflg=1;
+          }
+        }
+        $body.='<thead><tr><td colspan="3">'.$p->questions[$j]->content.'</td></tr>';
+        if($chartflg==1){
+          $body.='<tr><td colspan="3" class="info">グラフ</td></tr>';
+          $body.='<tr><td colspan="3"><div class="charts'.$j.'"></div></td></tr>';
+          $body.='<tr><td colspan="3" class="info">集計結果</td></tr>';
+          $body.='<tr><th style="width:100px;">集計</th><th>項目</th><th>メンバー</th></tr></thead>';
+        }
         $body.='<tbody>';
         //k番目の回答とその数を数える
-        for($k=0;$k<count($p->questions[$j]->candidates);$k++){//k: 候補番号
-          $body.='<tr>';
-          $body.='<td>';
-          $sql='select answer,count(*) from answer where questionID='.$p->questions[$j]->id.' and answer='.$k.' group by answer';
-          $rst=selectData(DB_NAME,$sql);
-          if($rst!=null){
-            $body.=$rst[0]['count(*)'];
-          }else{
-            $body.='0';
-          }
-          $body.='</td>';
-          $body.='<td>';
-          $body.='<div class="charttitle'.$k.'" value="'.$p->questions[$j]->candidates[$k].'">'.$p->questions[$j]->candidates[$k].'</div>';
-          $body.='</td>';
-          $body.='<td style="font-size:small;">';
-          //k番目の回答を選択したメンバーの名前を羅列する。
-          $sql='select memberID from answer where questionID='.$p->questions[$j]->id.' and answer='.$k;
-          $rst=selectData(DB_NAME,$sql);
-          for($l=0;$l<count($rst);$l++){
-            if($rst[$l]['answer']==$i){
-              $body.=shortNameFromUserID($rst[$l]['memberID']);
-              if($l!=(count($rst)-1)){
-                $body.=', ';
+        if($chartflg==1){
+
+          for($k=0;$k<count($p->questions[$j]->candidates);$k++){//k: 候補番号
+            $body.='<tr>';
+            $body.='<td>';
+            $sql='select answer,count(*) from answer where questionID='.$p->questions[$j]->id.' and answer='.$k.' group by answer';
+            $rst=selectData(DB_NAME,$sql);
+            if($rst!=null){
+              $body.=$rst[0]['count(*)'];
+            }else{
+              $body.='0';
+            }
+            $body.='</td>';
+            $body.='<td>';
+            $body.='<div class="charttitle'.$k.'" value="'.$p->questions[$j]->candidates[$k].'">'.$p->questions[$j]->candidates[$k].'</div>';
+            $body.='</td>';
+            $body.='<td style="font-size:small;">';
+            //k番目の回答を選択したメンバーの名前を羅列する。
+            $sql='select memberID from answer where questionID='.$p->questions[$j]->id.' and answer='.$k;
+            $rst=selectData(DB_NAME,$sql);
+            for($l=0;$l<count($rst);$l++){
+              if($rst[$l]['answer']==$i){
+                $body.=shortNameFromUserID($rst[$l]['memberID']);
+                if($l!=(count($rst)-1)){
+                  $body.=', ';
+                }
               }
             }
+            $body.='</td>';
+            $body.='</tr>';
           }
-          $body.='</td>';
-          $body.='</tr>';
         }
         if($p->questions[$j]->freespace==1){
-          $body.='<tr><td colspan="3">自由記入欄</td></tr>';
+          $body.='<tr><td colspan="3" class="info">自由記入欄</td></tr>';
           for($k=0;$k<count($p->questions[$j]->answers);$k++){
             if($p->questions[$j]->answers[$k]->description!=null){
               $body.='<tr><td colspan="3">';
@@ -160,9 +173,9 @@ if($p->secret==0){
           }
         }
         $body.='</tbody>';
+        $body.='</table>';
+        $body.='</div>';
       }
-      $body.='</table>';
-      $body.='</div>';
       $body.='</div>';
       break;
     }
@@ -179,10 +192,11 @@ for($i=0;$i<count($p->members);$i++){
 //ユーザーがメンバーに入っていて、未回答であれば回答フォームを出す
 if($yetanswer==1 && count($p->questions)>0){
   $body.='<div id="replylist">';
-  $body.='<div class="panel panel-default">';
-  $body.='<div class="panel-heading">アンケート</div>';
-  $body.='<table class="table table-bordered">';
+
   for($j=0;$j<count($p->questions);$j++){
+    $body.='<div class="panel panel-default">';
+    $body.='<div class="panel-heading">アンケート</div>';
+    $body.='<table class="table table-bordered">';
     $body.='<thead><tr><td colspan="2" class="info">'.$p->questions[$j]->content.'</td></tr></thead>';
     $body.='<tbody>';
     for($k=0;$k<count($p->questions[$j]->candidates);$k++){
@@ -212,9 +226,11 @@ if($yetanswer==1 && count($p->questions)>0){
       $body.='<tr><td colspan="2">自由記入欄<input type="text" class="form-control freespace" name="fs'.$j.'" qid="'.$p->questions[$j]->id.'"></td></tr>';
     }
     $body.='</tbody>';
+    $body.='</table>';
+    $body.='</div>';
+
   }
-  $body.='</table>';
-  $body.='</div>';
+
   $body.='</div>';
 }
 

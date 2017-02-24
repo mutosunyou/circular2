@@ -22,8 +22,9 @@ for($i=0;$i<count($rst);$i++){
   }
 }
 $sql.=')';
+
 if (isset($_POST['searchKey']) && strlen($_POST['searchKey']) > 0) {
-  $sql .= ' and (title like "%'.$_POST['searchKey'].'%" or content like "%'.$_POST['searchKey'].'%")';
+  $sql .= ' and (title like "%'.myescape($_POST['searchKey']).'%" or content like "%'.myescape($_POST['searchKey']).'%")';
 }
 if(isset($_POST['sortKey']) && strlen($_POST['sortKey']) > 0){
   $sql .= ' order by '.$_POST['sortKey'];

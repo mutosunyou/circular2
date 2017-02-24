@@ -76,7 +76,7 @@ class Circular
     }else{
       $secret=0;
     }
-    $sql='insert into circular values (null,'.$_SESSION['loginid'].',"'.$title.'","'.$content.'","'.date('Y-m-d H:m:s').'",0,'.$secret.')';
+    $sql='insert into circular values (null,'.$_SESSION['loginid'].',"'.myescape($title).'","'.myescape($content).'","'.date('Y-m-d H:m:s').'",0,'.$secret.')';
     $this->id=insertAI(DB_NAME,$sql);
     $this->reload();
   }

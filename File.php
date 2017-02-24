@@ -31,7 +31,7 @@ class File
     if($did==NULL){
       $did="NULL";
     }
-    $sql = 'insert into files (id,circularID, filepath, uptime,isalived) values (null,'.$cid.',"'.$fp.'","'.date('Y-m-d H:i:s').'",1)';
+    $sql = 'insert into files (id,circularID, filepath, uptime,isalived) values (null,'.$cid.',"'.myescape($fp).'","'.date('Y-m-d H:i:s').'",1)';
     deleteFrom(DB_NAME, $sql);
     $this->reload();
   }

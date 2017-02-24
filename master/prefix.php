@@ -34,4 +34,10 @@ function mailFromUserID($id){
   return $name[0]['mail'];
 }
 
+function myescape($comment){
+  $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+  $string = mysqli_real_escape_string($mysqli ,$comment);
+  $mysqli->close();
+  return $string;
+}
 ?>

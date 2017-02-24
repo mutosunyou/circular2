@@ -24,9 +24,12 @@ $(function(){
           }
           darr.push({name:a.questions[i].candidates[j],y:sum[j]});
         }
+    //    console.log(a);
+        if(a.questions[i].answers.length>0){
+        if(a.questions[i].answers[0].answer!=null){
         $('.charts'+i).highcharts({
           chart: {
-            width:600,
+            width:500,
             height:300,
             type:'pie'
           },
@@ -54,9 +57,11 @@ $(function(){
             colorByPoint: true,
             data: darr
           }]
-        });
+        });//highcharts終わり
+        }
       }
-    });
+      }//for i終わり
+    });//postスクリプトで送る内容終わり
 
   $(window).resize(function(){
     var w = $(window).width();
@@ -105,6 +110,6 @@ $(function(){
         location.href="list.php";
       }
     );
-  });
-});
+  });//送信ボタンクリック動作終わり
+});//スクリプト終わり
 

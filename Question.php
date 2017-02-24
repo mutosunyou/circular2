@@ -29,7 +29,7 @@ class Question
       for($i=0;$i<count($rst1);$i++){
         $this->candidates[] = $rst1[$i]['item'];
       }
-
+      
       $sql2 = 'select id from answer where questionID = '.$this->id;
       $rst2 = selectData(DB_NAME, $sql2);
       $this->answers=array();
@@ -49,7 +49,7 @@ class Question
       }else{
         $check=0;
       }
-      $sql='insert into question values (null,'.$cid.',"'.$qarray[$i][0]->question.'",';
+      $sql='insert into question values (null,'.$cid.',"'.myescape($qarray[$i][0]->question).'",';
       if($qarray[$i][0]->check==true){
         $sql.=1;
       }else{
@@ -60,8 +60,9 @@ class Question
       $this->reload();
       if(count($qarray[$i])>1){
         $sql='insert into candidate values ';
+        
         for($j=1;$j<count($qarray[$i]);$j++){
-          $sql.='(null,'.$this->id[1].',"'.$qarray[$i][$j]->answer.'")';
+          $sql.='(null,'.$this->id[1].',"'.myescape($qarray[$i][$j]->answer).'")';
           if($j!=(count($qarray[$i])-1)){
             $sql.=',';
           }

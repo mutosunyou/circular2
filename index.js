@@ -14,7 +14,7 @@ $(function() {
   qarray[0].push({question:'',check:''});
   reloadTable();
 
-//=============================================================
+  //=============================================================
   //ファイルアップロード=======================================
   $('#file_upload').uploadifive({
     'auto'             : false,
@@ -45,8 +45,62 @@ $(function() {
   //送信ボタンクリック
   $("#sendbtn").click(function (){
     copytoqarray();
+    //登録データ
+    sheetarray=[];
+    sheetarray.push({'title':$('#title').val().replace(/\r?\n/g, '<br>')});//[0]表題
+    sheetarray.push({'content':$('#cont').val().replace(/\r?\n/g, '<br>')});//[1]内容
+    sheetarray.push({"userID":$('#userID').val()});//[2]投稿者
+    sheetarray.push({'secret':$('#secret').prop('checked')});//[3]隠すか否か
+    if($("#enablequestionnaire").prop('checked')){
+      if(qarray[0][0]['question']!='""'){
+        sheetarray.push(qarray);//[4]アンケートの内容
+      }
+    }
+    JSON2 = $.toJSON(sheetarray);
+
+    var len=$('#selectedlist>option').length;
+    memarray=[];
+    for(var i=0;i<len;i++){
+      memarray[i]={num:$("#selectedlist>option:eq("+i+")").val()};
+    }
+    JSON3 = $.toJSON(memarray);
+    confirmation();
+    $('#hiddenwall').show(); 
+  });
+
+  //回覧内容確認→スタートボタン
+  $('#confirm').on('click','#gocircular',function(){
+    console.log("a");
     send();
   });
+
+  function send(){
+    console.log("b");
+    JSON2 = $.toJSON(sheetarray);
+    JSON3 = $.toJSON(memarray);
+    //DB入力
+    $.post(
+      "DBinput.php",
+      {
+        "id" :JSON2,
+        "mem":JSON3
+      },
+      function(data){
+        $('#ppp').html(data);
+      }
+    );
+    //メール送信
+    $.post(
+      "helper/sendmail.php",
+      {
+        "id":JSON
+      },
+      function(data){
+        $('#ppp').html(data);
+      }
+    );
+    location.href="./list.php";
+  } //回覧開始ボタンの終わり
 
   $('*').change(function(){
     copytoqarray();
@@ -56,6 +110,8 @@ $(function() {
       $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
     }
   });
+
+
   $('*').click(function(){
     copytoqarray();
     if(checkflg()==1){
@@ -105,6 +161,24 @@ $(function() {
     qarray[$(e.target).attr('question')].push({answer:''});
     reloadTable();
   });
+  /*
+  //確認→回覧開始
+  $("#confirm").on('click','#gocircular',function(e){
+    copytoqarray();
+  //最後尾に空の回答を追加
+    qarray[$(e.target).attr('question')].push({answer:''});
+  });
+  */
+
+  //回覧キャンセル
+  $("#confirm").on('click','#cancel',function(e){
+    $("#hiddenwall").hide();
+  });
+
+  //回覧キャンセル
+  $("#hiddenwall").click(function(){
+    $("#hiddenwall").hide();
+  });
 
   //質問、回答の数を勝手に数えて配列に入れる。質問数だけはわかっておく必要ある。
   function copytoqarray(){
@@ -128,7 +202,7 @@ $(function() {
         tmpsum=tmpsum+1;
       }
     }
-  //  console.log(qarray);
+    //  console.log(qarray);
   }
   //qarray[質問番号][0][質問、チェックフラグ]
   //qarray[質問番号][1][回答1]
@@ -138,7 +212,7 @@ $(function() {
   //メンバー全追加ボタンクリック
   $('#addAllItem').click(function() {
     var selectedUserArray = $('#userlist>option');
-    console.log(selectedUserArray);
+    //console.log(selectedUserArray);
     setUserArrayToSelectedSelector(selectedUserArray.clone());
   });
 
@@ -196,53 +270,6 @@ function reloadTable(){
   );
 }
 
-function send(){
-  //登録データ
-  sheetarray=[];
-  sheetarray.push({'title':$('#title').val()});//表題
-  sheetarray.push({'content':$('#cont').val()});//内容
-  sheetarray.push({"userID":$('#userID').val()});//投稿者
-  sheetarray.push({'secret':$('#secret').prop('checked')});//隠すか否か
-
-  if(qarray[0][0]['question']!='""'){
-    sheetarray.push(qarray);//アンケートの内容
-  }
-  JSON2 = $.toJSON(sheetarray);
-
-  //メンバー
-  var len=$('#selectedlist>option').length;
-  memarray=[];
-  for(var i=0;i<len;i++){
-    memarray[i]={num:$("#selectedlist>option:eq("+i+")").val()};
-  }
-  JSON3 = $.toJSON(memarray);
-
-  //DB入力
-  $.post(
-    "DBinput.php",
-    {
-      "id":JSON2,
-      "mem":JSON3
-    },
-    function(data){
-      $('#ppp').html(data);
-    }
-  );
-  /*
-  //メール送信
-  $.post(
-    "helper/sendmail.php",
-    {
-      "id":JSON
-    },
-    function(){
-    }
-  );
-  */
-  //とばすのは全部おわってから
-  //  location.href="./list.php";
-}
-
 //必須項目入力されているかチェック
 function checkflg(){
   var flg=0;
@@ -261,7 +288,7 @@ function checkflg(){
   return flg;
 }
 
-//メンバー選定
+
 function setUserArrayToSelectedSelector(uarray){
   for (var i=0; i < uarray.length; i++) {
     var arr = $('#selectedlist>option[value="'+$(uarray[i]).val()+'"]');
@@ -289,4 +316,18 @@ function setUserArrayToUserSelector(uarray){
   for (var i=0; i < uarray.length; i++) {
     $('#userlist').append(uarray[i]);
   }
+}
+
+//確認画面
+function confirmation(){
+  $.post(
+    "helper/confirm.php",
+    {
+      "qarray":JSON2,
+      "mem":JSON3
+    },
+    function(data){
+      $('#confirm').html(data);
+    }
+  );
 }
