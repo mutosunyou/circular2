@@ -1,10 +1,12 @@
 <?php
-require_once("../master/prefix.php");
+//初期==============================================
+session_start();
 require_once('../Circular.php');
-$p = new Circular();
 
 $js2 = json_decode($_POST['id']);
-var_dump($js2);
+$js3 = json_decode($_POST['mem']);
+
+$p = new Circular();
 
 /*
 $sql = 'select distinct member.userID from member, circular where member.checked = 0 and member.circularID = circular.id and circular.status = 0 order by member.userID desc';

@@ -70,14 +70,13 @@ $(function() {
 
   //回覧内容確認→スタートボタン
   $('#confirm').on('click','#gocircular',function(){
-    console.log("a");
     send();
   });
 
   function send(){
-    console.log("b");
     JSON2 = $.toJSON(sheetarray);
     JSON3 = $.toJSON(memarray);
+    
     //DB入力
     $.post(
       "DBinput.php",
@@ -89,11 +88,13 @@ $(function() {
         $('#ppp').html(data);
       }
     );
+
     //メール送信
     $.post(
       "helper/sendmail.php",
       {
-        "id":JSON
+        "id" :JSON2,
+        "mem":JSON3
       },
       function(data){
         $('#ppp').html(data);
