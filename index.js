@@ -98,6 +98,7 @@ $(function() {
           },
           function(data){
             $('#ppp').html(data);
+            console.log(data);
           }
         );
       }
