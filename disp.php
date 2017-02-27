@@ -3,10 +3,6 @@
 session_start();
 require_once('Circular.php');
 
-//localのみ=========================================
-$_SESSION['login_name']="武藤　一徳";
-$_SESSION['loginid']=10042;
-/*
 //ログイン処理======================================
 $sql = "SELECT * FROM employee";
 $rst = selectData('master',$sql);
@@ -31,7 +27,7 @@ if ($_SESSION['expires'] < time() - 7) {
   session_regenerate_id(true);//sessionIDを生成しなおす
   $_SESSION['expires'] = time();
 }
- */
+ 
 //ナビバー=========================================
 $body='<nav class="navbar navbar-default navbar-fixed-top" role="navigation">';
 $body.='<div class="container-fluid">';
