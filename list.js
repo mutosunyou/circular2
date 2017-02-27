@@ -15,10 +15,10 @@ if (!localStorage.cirpage) {
 }
 
 $(function() {
-   localStorage.cirpage = 1;
+  localStorage.cirpage = 1;
   ownerflg=1;
   $('.tabs').tabslet();
-  $('#finderfld').val(localStorage.SearchKey);
+  $('#finderfld').val(localStorage.cirSearchKey);
   $('#ppi').val(localStorage.cirppi);
   reloadyet();
   reloadall();
@@ -84,8 +84,7 @@ $(function() {
     ownerflg= 0;
     reloadall();
   });
-  
-  
+
 });
 
 //関数////////////////////////////////////////////////////////////
