@@ -23,4 +23,4 @@ $message.= '表題：'.$js2[0]->title."\r\n";
 $headers = 'From: System <remote_manager@sunyou.co.jp>'."\r\n";
 
 echo mb_send_mail($to, $subject, $message, $headers);
-
+phpinfo();
