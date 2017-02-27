@@ -6,8 +6,7 @@ require_once('../master/prefix.php');
 $js2 = json_decode($_POST['id']);
 $js3 = json_decode($_POST['mem']);
 
-mb_language("Japanese");
-mb_internal_encoding("UTF-8");
+
 
 $to='';
 for($i=0;$i<count($js3);$i++){
