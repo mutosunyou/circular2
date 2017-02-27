@@ -19,5 +19,5 @@ $message = '回覧が来ています。下記URLより、回覧内容をご確�
 $message.= 'http://192.168.100.209/circular2/disp.php?cid='.$_POST['cid'];
 $message.= '表題：'.$js2[0]->title;
 $headers = 'System<remote_manager@sunyou.co.jp>';
-sendmail('remote_manager@sunyou.co.jp,muto@sunyou.co.jp','',$subject,$message,$headers);
+sendmail($to,'',$subject,$message,$headers);
 
