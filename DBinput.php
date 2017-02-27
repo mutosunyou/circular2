@@ -9,7 +9,6 @@ $js3 = json_decode($_POST['mem']);
 $c=new Circular();
 $m=new Member();
 $q=new Question();
-//$can= new Candidate();
 
 //回覧追加
 if($js2[3]->secret==true){
