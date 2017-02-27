@@ -4,9 +4,7 @@ require_once('Member.php');
 require_once('File.php');
 require_once('Question.php');
 
-//session_start();
-$_SESSION['login_name']="武藤　一徳";
-$_SESSION['loginid']=10042;
+
 
 class Circular 
 {

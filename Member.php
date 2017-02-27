@@ -1,10 +1,6 @@
 <?php
 //初期==============================================
-//session_start();
-
-//localのみ=========================================
-$_SESSION['login_name']="武藤　一徳";
-$_SESSION['loginid']=10042;
+session_start();
 
 class Member 
 {
