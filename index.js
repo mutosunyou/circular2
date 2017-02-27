@@ -89,7 +89,6 @@ $(function() {
       function(data){
         //メール送信
         console.log(data);
-        //wait=data;
         $.post(
           "helper/sendmail.php",
           {

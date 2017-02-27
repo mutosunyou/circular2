@@ -1,6 +1,6 @@
 <?php
 //初期==============================================
-//session_start();
+session_start();
 require_once('../master/prefix.php');
 
 $js2 = json_decode($_POST['id']);
