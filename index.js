@@ -88,7 +88,6 @@ $(function() {
       },
       function(data){
         //メール送信
-        console.log(data);
         $.post(
           "helper/sendmail.php",
           {
@@ -96,14 +95,14 @@ $(function() {
             "id" :JSON2,
             "mem":JSON3
           },
-          function(data){
-            //$('#ppp').html(data);
-            console.log(data);
+          function(dat){
+            $('#ppp').html(dat);
+            console.log(dat);
           }
         );
       }
     );
-    location.href="./list.php";
+    //location.href="./list.php";
   } //回覧開始ボタンの終わり
 
   $('*').change(function(){

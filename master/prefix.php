@@ -14,7 +14,6 @@ function userIDFromName($name){
 function shortNameFromUserID($id){
     $name = selectData('master', 'select * from employee where id = '.$id);
     return $name[0]['short_name'];
-
 }
 
 function nameFromUserID($id){

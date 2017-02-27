@@ -61,4 +61,6 @@ function weekInJapanese($week){
     break;
   }
 }
-
+function sendmail($madd, $cc, $title, $cont, $from){
+  exec("nohup php -c '' '/var/www/Documents/mailmanager/fromcontroller.php' '".$madd."' '".$title."' '".$cont."' '".$from."' '".$cc."'> /dev/null &");
+}
