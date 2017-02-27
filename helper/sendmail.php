@@ -15,9 +15,11 @@ for($i=0;$i<count($js3);$i++){
 }
 
 $subject = '【回覧通知】'.$js2[0]->title;
-$message = '回覧が来ています。下記URLより、回覧内容をご確認ください。';
-$message.= 'http://192.168.100.209/circular2/disp.php?cid='.$_POST['cid'];
+$message = '回覧が来ています。下記URLより、回覧内容をご確認ください。<br>';
+$message.= 'http://192.168.100.209/circular2/disp.php?cid='.$_POST['cid'].'<br><br>';
+
 $message.= '表題：'.$js2[0]->title;
-$headers = 'System<remote_manager@sunyou.co.jp>';
+$headers = 'remote_manager@sunyou.co.jp';
+
 sendmail($to,'',$subject,$message,$headers);
 
