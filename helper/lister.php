@@ -57,7 +57,7 @@ for ($i=1; $i < 11; $i++) {
   $body.='>'.($i * 20).'</option>';
 }
 $body .='</select>件　　';
-$body .='<input id="finderfld" class="form-control" type="text">';
+$body .='<input id="finderfld" class="form-control" type="text" value="'.$_POST['searchKey'].'">';
 $body .='<button id="finderbtn" class="btn btn-default btn-sm">検索</button>';
 $body .='<div class="clearfix"></div>';
 
