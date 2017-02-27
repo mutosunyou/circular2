@@ -26,14 +26,14 @@ class Answer
     if($desc==null){
       $d='null';
     }else{
-      $d='"'.$desc.'"';
+      $d='"'.myescape($desc).'"';
     }
     if($answer==null){
       $a='null';
     }else{
       $a=$answer;
     }
-    $sql = 'insert into answer values(null,'.$uid.','.$qid.','.$a.','.myescape($d).')';
+    $sql = 'insert into answer values(null,'.$uid.','.$qid.','.$a.','.$d.')';
     $this->id=insertAI(DB_NAME,$sql);
     $this->reload();
   }

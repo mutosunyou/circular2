@@ -17,7 +17,7 @@ $(function() {
   qarray[0].push({question:'',check:''});
   reloadTable();
 
-  //=============================================================
+//=============================================================
   //ファイルアップロード=======================================
   $('#file_upload').uploadifive({
     'auto'             : false,
@@ -103,8 +103,7 @@ $(function() {
         );
       }
     );
-
-    //  location.href="./list.php";
+    location.href="./list.php";
   } //回覧開始ボタンの終わり
 
   $('*').change(function(){
@@ -115,7 +114,6 @@ $(function() {
       $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
     }
   });
-
 
   $('*').click(function(){
     copytoqarray();
@@ -199,7 +197,6 @@ $(function() {
         tmpsum=tmpsum+1;
       }
     }
-    //console.log(qarray);
   }
   //qarray[質問番号][0][質問、チェックフラグ]
   //qarray[質問番号][1][回答1]

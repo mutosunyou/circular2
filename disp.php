@@ -131,7 +131,6 @@ if($p->secret==0){
         $body.='<tbody>';
         //k番目の回答とその数を数える
         if($chartflg==1){
-
           for($k=0;$k<count($p->questions[$j]->candidates);$k++){//k: 候補番号
             $body.='<tr>';
             $body.='<td>';
@@ -227,9 +226,7 @@ if($yetanswer==1 && count($p->questions)>0){
     $body.='</tbody>';
     $body.='</table>';
     $body.='</div>';
-
   }
-
   $body.='</div>';
 }
 
