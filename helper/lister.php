@@ -3,7 +3,7 @@ session_start();
 require_once('../Circular.php');
 
 //回覧メンバーに選ばれている回覧IDを検索する
-$sql='select * from member where userID='.$_SESSION['loginid'];
+$sql='select * from member where (userID='.$_SESSION['loginid'];
 $rst=selectData(DB_NAME,$sql);
 
 $sql = 'select id from circular where';
@@ -17,7 +17,7 @@ for($i=0;$i<count($rst);$i++){
     $sql .= ',';
   }
 }
-$sql.=')';
+$sql.='))';
 
 if (isset($_POST['searchKey']) && strlen($_POST['searchKey']) > 0) {
   $sql .= ' and (title like "%'.$_POST['searchKey'].'%" or content like "%'.$_POST['searchKey'].'%")';
