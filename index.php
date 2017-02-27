@@ -4,9 +4,7 @@ session_start();
 require_once('master/prefix.php');
 require_once('MemberList.php');
 
-//localのみ=========================================
-$_SESSION['login_name']="武藤　一徳";
-$_SESSION['loginid']=10042;
+
 
 //ログイン処理======================================
 $sql = "SELECT * FROM employee";
