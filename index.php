@@ -5,7 +5,6 @@ require_once('master/prefix.php');
 require_once('MemberList.php');
 
 
-
 //ログイン処理======================================
 $sql = "SELECT * FROM employee";
 $rst = selectData('master',$sql);

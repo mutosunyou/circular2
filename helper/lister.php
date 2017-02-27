@@ -2,10 +2,6 @@
 session_start();
 require_once('../Circular.php');
 
-//localのみ=========================================
-$_SESSION['login_name']="武藤　一徳";
-$_SESSION['loginid']=10042;
-
 //回覧メンバーに選ばれている回覧IDを検索する
 $sql='select * from member where userID='.$_SESSION['loginid'];
 $rst=selectData(DB_NAME,$sql);
