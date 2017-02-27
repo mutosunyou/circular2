@@ -27,7 +27,7 @@ if(isset($_POST['sortKey']) && strlen($_POST['sortKey']) > 0){
 }
 $sql .= ' '.$_POST['sortOrder'];
 $cst = selectData(DB_NAME, $sql);
-var_dump($sql);
+//var_dump($sql);
 //項目数を取得
 $cr = count($cst);
 if ($_POST['itemsPerPage'] != 0) {
