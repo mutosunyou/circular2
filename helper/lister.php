@@ -3,10 +3,10 @@ session_start();
 require_once('../Circular.php');
 
 //回覧メンバーに選ばれている回覧IDを検索する
-$sql='select * from member where (userID='.$_SESSION['loginid'];
+$sql='select * from member where userID='.$_SESSION['loginid'];
 $rst=selectData(DB_NAME,$sql);
 
-$sql = 'select id from circular where';
+$sql = 'select id from circular where (';
 if($_POST['own']==1){
   $sql.=' ownerID='.$_SESSION['loginid'].' or';
 }
