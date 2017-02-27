@@ -97,13 +97,13 @@ $(function() {
             "mem":JSON3
           },
           function(data){
-            $('#ppp').html(data);
+            //$('#ppp').html(data);
             console.log(data);
           }
         );
       }
     );
-    //location.href="./list.php";
+    location.href="./list.php";
   } //回覧開始ボタンの終わり
 
   $('*').change(function(){
