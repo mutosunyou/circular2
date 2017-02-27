@@ -167,6 +167,7 @@ $body.='<div style="display:inline-block;width:370px;vertical-align:top;">';
 $body .= '<h3> 添付資料<small>　添付資料があれば選択してください</small></h3>';
 
 //fileのアップロード=================================
+/*
 $uploaded = selectData(DB_NAME,'select filepath from files where id = '.$_GET['id']);
 if(!empty($uploaded)){
   $body .='<ul>';
@@ -175,17 +176,23 @@ if(!empty($uploaded)){
   }
   $body .='</ul>';
 }
-
-$rst = selectData('spec','select max(id) from files');
+$rst = selectData(DB_NAME,'select max(id) from files');
 $fid = $rst[0]['max(id)'];
 $fid++;
-
 $body.='<input type="hidden" id="fid" value="'.$fid.'">';
+ */
+
+$rst = selectData(DB_NAME,'select max(id) from circular');
+$cid = $rst[0]['max(id)'];
+$cid++;
+$body.='<input type="hidden" id="cid" value="'.$cid.'">';
+
 $body.='<div id="queue" class="well" style="border: 1px solid #E5E5E5;overflow: auto;margin-bottom: 10px;padding: 0 3px 3px;min-height:150px;">';
 $body.='<span style="font-weight:bold">ここにファイルをドロップしてください(複数可)';
 $body.='</span></div>';
 $body.='<input id="file_upload" name="file_upload" type="file" multiple="true">';
 $body.='<br />';
+
 $body.="<div id='fileup'></div>";
 
 $body.='</div>';//右ブロック終わり
@@ -213,10 +220,9 @@ $body.='<hr />';
 
 $body.='</div>';//div id=questionnaire
 
-
-
 //送信ボタン=========================================
 $body.='<button id="sendbtn" class="btn btn-sm btn-success pull-right" disabled="disabled">送信</button>';
+
 $body.='<div id="ppp"></div>';//デバッグ用
 
 $body.='</div>';//container

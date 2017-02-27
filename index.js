@@ -199,7 +199,7 @@ $(function() {
         tmpsum=tmpsum+1;
       }
     }
-    //  console.log(qarray);
+    //console.log(qarray);
   }
   //qarray[質問番号][0][質問、チェックフラグ]
   //qarray[質問番号][1][回答1]
@@ -284,7 +284,6 @@ function checkflg(){
   }
   return flg;
 }
-
 
 function setUserArrayToSelectedSelector(uarray){
   for (var i=0; i < uarray.length; i++) {

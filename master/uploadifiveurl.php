@@ -21,18 +21,13 @@ if (!empty($_FILES) && $_POST['token'] == $verifyToken) {
   //echo $uploadDir;
   // Validate the filetype
   if (in_array(strtolower($fileParts['extension']), $fileTypes)) {
-
     // Save the file
     move_uploaded_file($tempFile, $targetFile);
     //echo $fname;
-    
     echo 'http://192.168.100.209/mnt/share/system/circular/'.$fname;
-
   } else {
-
     // The file type wasn't allowed
     echo 'Invalid file type.';
-
   }
 }
 ?>
