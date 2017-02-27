@@ -20,5 +20,12 @@ $message.= 'http://192.168.100.209/circular2/disp.php?cid='.$_POST['cid'];
 $message.= '表題：'.$js2[0]->title;
 $headers = 'remote_manager@sunyou.co.jp';
 
+echo $to;
+echo $subject;
+echo $message;
+echo $headers;
+
+
+
 sendmail($to,'', $subject,$message,$headers);
 
