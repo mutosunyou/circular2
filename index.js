@@ -26,7 +26,7 @@ $(function() {
     'buttonClass'      : 'urlbtn',
     'uploadScript'     : 'uploadifive.php',
     'onSelect' : function(queue) {
-      console.log(queue.selected);
+      console.log(queue);
     },
     'onUpload'         : function(file) {},
     'onUploadError'    : function (){},
