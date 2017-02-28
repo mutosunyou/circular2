@@ -43,6 +43,7 @@ $(function() {
     },
     'onCancel' : function(file){ console.log(file)},
     'onQueueComplete': function(file){
+console.log(file)
     }
   });
 
