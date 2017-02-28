@@ -24,7 +24,7 @@ $(function() {
     'checkScript'      : 'check-exists.php',
     'queueID'          : 'queue',
     'buttonClass'      : 'urlbtn',
-    'uploadScript'     : 'uploadifive.php'
+    'uploadScript'     : 'uploadifive.php',
     'onSelect' : function(queue) {
       alert(queue.queued + ' files were added to the queue.');
     },
