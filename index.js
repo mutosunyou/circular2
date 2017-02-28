@@ -77,7 +77,7 @@ $(function() {
     var filenum=$('#file_upload').uploadifive('debug').fileID;
     filearray=[];
     for(var i=0;i<filenum;i++){
-      filearray.push({'name':$(".uploadifive-queue-item:eq("+i+")").val()});
+      filearray.push({'name':$(".uploadifive-queue-item .filename:eq("+i+")").val()});
     }
     console.log(filearray);
 
