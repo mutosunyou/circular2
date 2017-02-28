@@ -4,6 +4,7 @@ var qarray     = new Array();///質問の内容。２次元配列
 var memarray   = new Array();
 var filearray  = new Array();
 var wait;
+var filenum=0;
 
 //初期動作====================================================
 $(function() {
@@ -44,9 +45,11 @@ $(function() {
     },
     'onCancel' : function(file){ 
       console.log(file.name);
+      filenum--;
     },//ファイルを取り消したとき
     'onAddQueueItem': function(file){ 
       console.log(file.name);
+      filenum++;
     }//ファイルを選択したとき
   });
 
@@ -74,8 +77,6 @@ $(function() {
     }
     JSON3 = $.toJSON(memarray);
 
-   // var filenum=$('#file_upload').uploadifive('debug').fileID;
-    console.log($('#file_upload').uploadifive('debug').fileID);
     filearray=[];
     for(var i=0;i<filenum;i++){
       filearray.push({'name':$(".uploadifive-queue-item .filename:eq("+i+")").val()});
