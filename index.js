@@ -27,7 +27,7 @@ $(function() {
     'uploadScript'     : 'uploadifive.php',
     'onSelect' : function(queue) {
       alert(queue.selected + ' files were added to the queue.');
-      console.log(queue);
+      console.log(queue.selected);
     },
     'onUpload'         : function(file) {},
     'onUploadError'    : function (){},
