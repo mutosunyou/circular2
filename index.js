@@ -53,7 +53,6 @@ $(function() {
   //ボタン==================================================
   //送信内容確認ボタンクリック
   $("#sendbtn").click(function (){
-    $('#file_upload').uploadifive('debug');
     copytoqarray();
     //登録データ
     sheetarray=[];
@@ -74,6 +73,14 @@ $(function() {
       memarray[i]={num:$("#selectedlist>option:eq("+i+")").val()};
     }
     JSON3 = $.toJSON(memarray);
+
+    var filenum=$('#file_upload').uploadifive('debug').fileID;
+    filearray=[];
+    for(var i=0;i<filenum;i++){
+      filearray.push({'name':$(".uploadifive-queue-item:eq("+i+")").val()});
+    }
+    console.log(filearray);
+
     confirmation();
     $('#hiddenwall').show(); 
   });
