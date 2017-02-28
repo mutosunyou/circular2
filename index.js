@@ -53,13 +53,15 @@ $(function() {
   //ボタン==================================================
   //送信内容確認ボタンクリック
   $("#sendbtn").click(function (){
- $('#file_upload').uploadifive({
-  'onQueueComplete' : function(uploads) {
-    console.log(uploads);
-  }
- });
-    copytoqarray();
-    //登録データ
+
+    $('#file_upload').uploadifive({
+      'uploadScript'    : '/uploadifive.php'
+      'onQueueComplete' : function(uploads) {
+        alert(uploads.successful + ' files were uploaded successfully.');
+      }
+    }); 
+  copytoqarray();
+  //登録データ
     sheetarray=[];
     sheetarray.push({'title':$('#title').val().replace(/\r?\n/g, '<br>')});//[0]表題
     sheetarray.push({'content':$('#cont').val().replace(/\r?\n/g, '<br>')});//[1]内容
