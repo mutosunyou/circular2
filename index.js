@@ -42,7 +42,7 @@ $(function() {
         });
     },
     'onCancel' : function(file){ console.log(file)},
-    'onProgress': function(file){ console.log(file)}
+    'onAddQueueItem': function(file){ console.log(file)}
   });
 
   //ボタン==================================================
