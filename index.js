@@ -23,11 +23,11 @@ $(function() {
     'auto'             : false,
     'checkScript'      : 'check-exists.php',
     'queueID'          : 'queue',
-    'onSelect' : function(queue) {
-            alert(queue.queued + ' files were added to the queue.');
-        },
     'buttonClass'      : 'urlbtn',
-    'uploadScript'     : 'uploadifive.php',
+    'uploadScript'     : 'uploadifive.php'
+    'onSelect' : function(queue) {
+      alert(queue.queued + ' files were added to the queue.');
+    },
     'onUpload'         : function(file) {},
     'onUploadError'    : function (){},
     'onUploadComplete' : function(file, data) {
