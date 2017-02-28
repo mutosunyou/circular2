@@ -3,7 +3,7 @@
 UploadiFive
 Copyright (c) 2012 Reactive Apps, Ronnie Garcia
 */
-require_once("prefix.php");
+require_once("master/prefix.php");
 // Set the uplaod directory
 $uploadDir = '/Volumes/share/system/circular/';
 

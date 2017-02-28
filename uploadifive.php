@@ -1,5 +1,5 @@
 <?php
-require_once("prefix.php");
+require_once("master/prefix.php");
 // Set the uplaod director
 $uploadDir = '/Volumes/share/system/circular/';
 

@@ -218,7 +218,7 @@ $body.='<hr />';
 $body.='</div>';//div id=questionnaire
 
 //送信ボタン=========================================
-$body.='<button id="sendbtn" class="btn btn-sm btn-success pull-right" disabled="disabled">送信</button>';
+$body.='<button id="sendbtn" class="btn btn-sm btn-success pull-right" disabled="disabled">送信内容確認</button>';
 
 $body.='<div id="ppp"></div>';//デバッグ用
 

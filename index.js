@@ -25,7 +25,7 @@ $(function() {
     'onUpload'         : function(file) {},
     'queueID'          : 'queue',
     'buttonClass'      : 'urlbtn',
-    'uploadScript'     : 'master/uploadifive.php',
+    'uploadScript'     : 'uploadifive.php',
     'onUpload'         : function(file) {},
     'onUploadError'    : function (){},
     'onUploadComplete' : function(file, data) {
@@ -45,7 +45,7 @@ $(function() {
   });
 
   //ボタン==================================================
-  //送信ボタンクリック
+  //送信内容確認ボタンクリック
   $("#sendbtn").click(function (){
     copytoqarray();
     //登録データ
@@ -77,7 +77,7 @@ $(function() {
   });
 
   function send(){
-     $('#file_upload').uploadifive('upload');
+    $('#file_upload').uploadifive('upload');
     JSON2 = $.toJSON(sheetarray);
     JSON3 = $.toJSON(memarray);
     //DB入力
