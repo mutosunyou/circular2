@@ -23,7 +23,9 @@ $(function() {
     'auto'             : false,
     'checkScript'      : 'check-exists.php',
     'queueID'          : 'queue',
-    'fileObjName'      : 'the_files',
+    'onSelect' : function(queue) {
+            alert(queue.queued + ' files were added to the queue.');
+        }
     'buttonClass'      : 'urlbtn',
     'uploadScript'     : 'uploadifive.php',
     'onUpload'         : function(file) {},
