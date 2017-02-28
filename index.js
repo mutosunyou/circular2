@@ -77,6 +77,7 @@ $(function() {
   });
 
   function send(){
+     $('#file_upload').uploadifive('upload');
     JSON2 = $.toJSON(sheetarray);
     JSON3 = $.toJSON(memarray);
     //DB入力
