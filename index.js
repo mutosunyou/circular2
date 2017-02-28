@@ -18,7 +18,7 @@ $(function() {
   qarray[0].push({question:'',check:''});
   reloadTable();
 
-//=============================================================
+  //=============================================================
   //ファイルアップロード=======================================
   $('#file_upload').uploadifive({
     'auto'             : false,
@@ -53,15 +53,9 @@ $(function() {
   //ボタン==================================================
   //送信内容確認ボタンクリック
   $("#sendbtn").click(function (){
-
-    $('#file_upload').uploadifive({
-      'uploadScript'    : '/uploadifive.php'
-      'onQueueComplete' : function(uploads) {
-        alert(uploads.successful + ' files were uploaded successfully.');
-      }
-    }); 
-  copytoqarray();
-  //登録データ
+    $('#file_upload').uploadifive('debug');
+    copytoqarray();
+    //登録データ
     sheetarray=[];
     sheetarray.push({'title':$('#title').val().replace(/\r?\n/g, '<br>')});//[0]表題
     sheetarray.push({'content':$('#cont').val().replace(/\r?\n/g, '<br>')});//[1]内容
@@ -73,7 +67,7 @@ $(function() {
       }
     }
     JSON2 = $.toJSON(sheetarray);
-
+    
     var len=$('#selectedlist>option').length;
     memarray=[];
     for(var i=0;i<len;i++){
