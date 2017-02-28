@@ -70,7 +70,7 @@ $body.='<div id="topspace" style="height:70px;"></div>';
 
 $p = new Circular();
 $p->initWithID($_GET['cid']);
-
+var_dump($p);
 //クラスと変数=====================================
 $body.='<input id="userID" class="hidden" value="'.$_SESSION['loginid'].'">';
 $body.='<input id="cid" class="hidden" value="'.$p->id.'">';
