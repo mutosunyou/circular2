@@ -25,7 +25,7 @@ $(function() {
     'queueID'          : 'queue',
     'onSelect' : function(queue) {
             alert(queue.queued + ' files were added to the queue.');
-        }
+        },
     'buttonClass'      : 'urlbtn',
     'uploadScript'     : 'uploadifive.php',
     'onUpload'         : function(file) {},
