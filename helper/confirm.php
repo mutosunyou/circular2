@@ -37,7 +37,7 @@ $body.='<td>';
 for($i=0;$i<count($);$i++){
   $body.='';
 }*/
-var_dump($_POST['the_files']);
+var_dump($_FILES['the_files']);
 $body.='</td>';
 $body.='</tr>';
 
