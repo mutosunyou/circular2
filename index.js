@@ -42,16 +42,12 @@ $(function() {
         });
     },
     'onCancel' : function(file){ console.log(file)},
-    'onAddQueueItem': function(file){ console.log(file)}
+    'onQueueComplete': function(uploads){ console.log(uploads)}
   });
 
   //ボタン==================================================
   //送信内容確認ボタンクリック
   $("#sendbtn").click(function (){
-    $('#file_upload').uploadifive({
-      'onAddQueueItem': function(file){ console.log(file)}
-    });
-
     copytoqarray();
     //登録データ
     sheetarray=[];
