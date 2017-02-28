@@ -2,6 +2,7 @@ var AllUserArray;
 var sheetarray = new Array();//入力欄の内容
 var qarray     = new Array();///質問の内容。２次元配列
 var memarray   = new Array();
+var filearray  = new Array();
 var wait;
 
 //初期動作====================================================
@@ -41,13 +42,22 @@ $(function() {
           console.log(data);
         });
     },
-    'onCancel' : function(file){ console.log(file.name)},
-    'onAddQueueItem': function(file){ console.log(file.name)}
+    'onCancel' : function(file){ 
+      console.log(file.name);
+    },//ファイルを取り消したとき
+    'onAddQueueItem': function(file){ 
+      console.log(file.name);
+    }//ファイルを選択したとき
   });
 
   //ボタン==================================================
   //送信内容確認ボタンクリック
   $("#sendbtn").click(function (){
+ $('#file_upload').uploadifive({
+  'onQueueComplete' : function(uploads) {
+    console.log(uploads);
+  }
+ });
     copytoqarray();
     //登録データ
     sheetarray=[];
