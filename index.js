@@ -22,8 +22,8 @@ $(function() {
   $('#file_upload').uploadifive({
     'auto'             : false,
     'checkScript'      : 'check-exists.php',
-    'onUpload'         : function(file) {},
     'queueID'          : 'queue',
+    'fileObjName'      : 'the_files',
     'buttonClass'      : 'urlbtn',
     'uploadScript'     : 'uploadifive.php',
     'onUpload'         : function(file) {},

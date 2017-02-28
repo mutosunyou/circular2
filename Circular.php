@@ -4,8 +4,6 @@ require_once('Member.php');
 require_once('File.php');
 require_once('Question.php');
 
-
-
 class Circular 
 {
   public $id;//id
