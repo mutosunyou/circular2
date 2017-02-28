@@ -79,7 +79,7 @@ $(function() {
 
     filearray=[];
     for(var i=0;i<filenum;i++){
-      filearray.push({'name':$(".uploadifive-queue-item .filename:eq("+i+")").val()});
+      filearray.push({'name':$("#uploadifive-file_upload-file-"+i).val()});
     }
     console.log(filearray);
 
