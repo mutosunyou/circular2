@@ -41,8 +41,8 @@ $(function() {
           console.log(data);
         });
     },
-    'onCancel' : function(file){ console.log(file)},
-    'onQueueComplete': function(uploads){ console.log(uploads)}
+    'onCancel' : function(file){ console.log(file.name)},
+    'onAddQueueItem': function(file){ console.log(file.name)}
   });
 
   //ボタン==================================================
