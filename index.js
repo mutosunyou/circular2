@@ -48,8 +48,9 @@ $(function() {
   //ボタン==================================================
   //送信内容確認ボタンクリック
   $("#sendbtn").click(function (){
-    $('#file_upload').uploadifive('onAddQueueItem': function(file){ console.log(file)}
-);
+    $('#file_upload').uploadifive({
+      'onAddQueueItem': function(file){ console.log(file)}
+    });
 
     copytoqarray();
     //登録データ
