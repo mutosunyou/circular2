@@ -19,7 +19,7 @@ $message = '回覧が来ています。下記URLより、回覧内容をご確�
 $message.= 'http://192.168.100.209/circular2/disp.php?cid='.$_POST['cid'].PHP_EOL;
 $message.= '※社外で閲覧する方はVPSをONにしてリンク先に移動してください。'.PHP_EOL.PHP_EOL;
 $message.= '表題：'.$js2[0]->title.PHP_EOL.PHP_EOL;
-$message.= '内容：'.str_replace('<br>',PHP_EOL,$js2[1]->content);
+$message.= '内容：'.PHP_EOL.str_replace('<br>',PHP_EOL,$js2[1]->content);
 
 $headers = 'remote_manager@sunyou.co.jp';
 
