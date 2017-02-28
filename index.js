@@ -42,9 +42,7 @@ $(function() {
         });
     },
     'onCancel' : function(file){ console.log(file)},
-    'onQueueComplete': function(file){
-console.log(file)
-    }
+    'onProgress': function(file){ console.log(file)}
   });
 
   //ボタン==================================================
