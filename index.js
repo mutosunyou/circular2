@@ -75,6 +75,7 @@ $(function() {
     JSON3 = $.toJSON(memarray);
 
     var filenum=$('#file_upload').uploadifive('debug').fileID;
+    console.log(filenum);
     filearray=[];
     for(var i=0;i<filenum;i++){
       filearray.push({'name':$(".uploadifive-queue-item .filename:eq("+i+")").val()});
