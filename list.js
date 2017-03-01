@@ -20,8 +20,9 @@ $(function() {
   $('.tabs').tabslet();
   $('#finderfld').val(localStorage.cirSearchKey);
   $('#ppi').val(localStorage.cirppi);
-  reloadyet();
   reloadall();
+
+  reloadyet();
 
   //表のソート
   $('#lister,#own').on('click', '.sorter', function (ev){
@@ -130,5 +131,3 @@ function reloadall(){
     }
   );
 }
-
-
