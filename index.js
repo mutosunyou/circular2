@@ -40,7 +40,7 @@ $(function() {
           'cid' : $('#cid').val()
         },
         function(data){
-          console.log(data);
+          //console.log(data);
         });
     },
     'onCancel' : function(file){ 
@@ -115,7 +115,7 @@ $(function() {
           },
           function(dat){
             //$('#ppp').html(dat);
-            console.log(dat);
+            //console.log(dat);
           }
         );
       }
