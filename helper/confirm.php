@@ -44,7 +44,7 @@ $body.='<tr>';
 $body.='<td>';
 $body.='メンバー';
 $body.='</td>';
-$body.='<td><span style="float:left;">'.;
+$body.='<td><span style="float:left;">';
 for($i=0;$i<count($jsmem);$i++){
   $body.=shortNameFromUserID($jsmem[$i]->num);
   if($i!=(count($jsmem)-1)){
