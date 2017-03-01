@@ -30,7 +30,7 @@ class File
     $fp = str_replace('/Volumes','http://192.168.100.209/mnt',$filepath);
     $sql = 'insert into files (id,circularID, filepath, uptime,isalived) values (null,'.$cid.',"'.$fp.'","'.date('Y-m-d H:i:s').'",1)';
  //   $this->id=insertAI3("circular2", $sql);
-    $this->reload();
+ //   $this->reload();
   }
 
   //伝票IDを入れてリロードする。
