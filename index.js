@@ -334,7 +334,8 @@ function confirmation(){
     "helper/confirm.php",
     {
       "qarray":JSON2,
-      "mem":JSON3
+      "mem":JSON3,
+      "farray":filearray
     },
     function(data){
       $('#confirm').html(data);

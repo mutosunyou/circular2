@@ -4,6 +4,7 @@ require_once('../Circular.php');
 
 $js = json_decode($_POST['qarray']);
 $jsmem = json_decode($_POST['mem']);
+$jsfile= json_decode($_POST['farray']);
 
 $body.='<div class="c" style="background:white;padding:50px 50px 50px 50px;">';
 $body.='<h3>回覧内容確認</h3><hr>';
@@ -33,10 +34,10 @@ $body.='<td>';
 $body.='添付';
 $body.='</td>';
 $body.='<td>';
-/*
-for($i=0;$i<count($);$i++){
-  $body.='';
-}*/
+
+for($i=0;$i<count($jsfile);$i++){
+  $body.=$jsfile[$i]->name.'<br>';
+}
 var_dump($_FILES['the_files']);
 $body.='</td>';
 $body.='</tr>';
