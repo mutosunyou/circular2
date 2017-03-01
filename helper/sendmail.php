@@ -23,5 +23,5 @@ $message.= '内容：'.PHP_EOL.str_replace('<br>',PHP_EOL,$js2[1]->content);
 
 $headers = 'remote_manager@sunyou.co.jp';
 
-sendmail($to,'',$subject,$message,$headers);
+sendmail($to,'',myescape($subject),myescape($message),$headers);
 
