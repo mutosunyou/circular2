@@ -31,7 +31,6 @@ class File
     $sql = 'insert into files (id,circularID, filepath, uptime,isalived) values (null,'.$cid.',"'.$fp.'","'.date('Y-m-d H:i:s').'",1)';
     deleteFrom2(DB_NAME, $sql);
     $this->reload();
-    return $sql;
   }
   
   //伝票IDを入れてリロードする。
