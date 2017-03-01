@@ -11,7 +11,7 @@ $(function(){
     },
     function(data){
       a=$.parseJSON(data);
-      
+
       for(var i=0;i<a.questions.length;i++){
         var sum= new Array();
         var darr=new Array();
@@ -24,42 +24,42 @@ $(function(){
           }
           darr.push({name:a.questions[i].candidates[j],y:sum[j]});
         }
-    //    console.log(a);
+        //console.log(a);
         if(a.questions[i].answers.length>0){
-        if(a.questions[i].answers[0].answer!=null){
-        $('.charts'+i).highcharts({
-          chart: {
-            width:500,
-            height:300,
-            type:'pie'
-          },
-          title: {
-            text: a.questions[i].content,
-          },
-          tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-          },
-          plotOptions: {
-            pie: {
-              allowPointSelect: true,
-              cursor: 'pointer',
-              dataLabels: {
-                enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                style: {
-                  color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+          if(a.questions[i].answers[0].answer!=null){
+            $('.charts'+i).highcharts({
+              chart: {
+                width:500,
+                height:300,
+                type:'pie'
+              },
+              title: {
+                text: a.questions[i].content,
+              },
+              tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+              },
+              plotOptions: {
+                pie: {
+                  allowPointSelect: true,
+                  cursor: 'pointer',
+                  dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                      color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                  }
                 }
-              }
-            }
-          },
-          series: [{
-            name: 'Questionaire',
-            colorByPoint: true,
-            data: darr
-          }]
-        });//highcharts終わり
+              },
+              series: [{
+                name: 'Questionaire',
+                colorByPoint: true,
+                data: darr
+              }]
+            });//highcharts終わり
+          }
         }
-      }
       }//for i終わり
     });//postスクリプトで送る内容終わり
 
@@ -89,7 +89,7 @@ $(function(){
         }
       }
       if($('#replylist input[name="fs'+i+'"]').val()!=null){
-          qarray.push({qid:$('#replylist input[name="fs'+i+'"]').attr('qid'),desc:$('#replylist input[name="fs'+i+'"]').val()});
+        qarray.push({qid:$('#replylist input[name="fs'+i+'"]').attr('qid'),desc:$('#replylist input[name="fs'+i+'"]').val()});
       }
     }
     console.log(qarray);

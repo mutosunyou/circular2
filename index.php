@@ -4,7 +4,6 @@ session_start();
 require_once('master/prefix.php');
 require_once('MemberList.php');
 
-
 //ログイン処理======================================
 $sql = "SELECT * FROM employee";
 $rst = selectData('master',$sql);
@@ -164,21 +163,6 @@ $body.='<div style="display:inline-block;width:370px;vertical-align:top;">';
 $body .= '<h3> 添付資料<small>　添付資料があれば選択してください</small></h3>';
 
 //fileのアップロード=================================
-/*
-$uploaded = selectData(DB_NAME,'select filepath from files where id = '.$_GET['id']);
-if(!empty($uploaded)){
-  $body .='<ul>';
-  for($i=0;$i<count($uploaded);$i++){
-    $body .='<li><a href="'.$uploaded[$i]['filepath'].'">'.$uploaded[$i]['filepath'].'</a></li>';
-  }
-  $body .='</ul>';
-}
-$rst = selectData(DB_NAME,'select max(id) from files');
-$fid = $rst[0]['max(id)'];
-$fid++;
-$body.='<input type="hidden" id="fid" value="'.$fid.'">';
- */
-
 $rst = selectData(DB_NAME,'select max(id) from circular');
 $cid = $rst[0]['max(id)'];
 $cid++;

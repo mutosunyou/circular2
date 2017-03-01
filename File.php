@@ -29,7 +29,7 @@ class File
     $ext = $arr[(count($arr) - 1)];
     $fp = str_replace('/Volumes','http://192.168.100.209/mnt',$filepath);
     $sql = 'insert into files (id,circularID, filepath, uptime,isalived) values (null,'.$cid.',"'.$fp.'","'.date('Y-m-d H:i:s').'",1)';
-
+    var_dump($sql);
     deleteFrom2(DB_NAME, $sql);
     $this->reload();
   }
