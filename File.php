@@ -14,7 +14,7 @@ class File
   {
     $this->id= $id;
     $sql = 'select * from files where id = '.$this->id;
-    $rst = selectData("circular2", $sql);
+    $rst = selectData5("circular2", $sql);
     if($rst!=null){
       $this->circularID = $rst[0]['circularID'];
       $this->filepath = $rst[0]['filepath'];
@@ -29,8 +29,7 @@ class File
     $ext = $arr[(count($arr) - 1)];
     $fp = str_replace('/Volumes','http://192.168.100.209/mnt',$filepath);
     $sql = 'insert into files (id,circularID, filepath, uptime,isalived) values (null,'.$cid.',"'.$fp.'","'.date('Y-m-d H:i:s').'",1)';
-    //  $this->id=insertAI3("circular2", $sql);
-    $this->id=68;
+    $this->id=insertAI3("circular2", $sql);
     $this->reload();
   }
 
@@ -69,4 +68,38 @@ function deleteFrom2($db, $sql){
     $addresult = $mysqli->query($sql) or die("クエリの送信に失敗しました。<br />SQL:".$sql);
     $mysqli->close();
     return $addresult;
+}
+
+function selectData5($db, $sql){
+  //接続
+  //return DB_PASSWORD;
+    $mysqli = new mysqli("localhost", "root", "root", $db);
+    /* 接続状況をチェックします */
+    $mysqli->set_charset("utf8");
+    if ($mysqli->connect_errno) {
+        printf("Connect failed: %s\n", $mysqli->connect_error);
+        exit();
+    }
+    if ($result = $mysqli->query($sql)) {
+      
+        $bigArray = array();
+       
+        while($col = $result->fetch_array(MYSQLI_ASSOC)){
+        
+            $smallArray = array();
+            foreach ($col as $key => $value){
+                $smallArray[$key] = $value;
+            }
+            $bigArray[] = $smallArray;
+            
+        }
+        
+        $result->close();
+        $mysqli->close();
+        return $bigArray;
+        
+    }
+    
+    $mysqli->close();
+    
 }
