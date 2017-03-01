@@ -98,7 +98,7 @@ $body.='<div class="panel panel-default">';
 $body.='<div class="panel-heading">添付資料</div>';
 $body.='<div class="panel-body">';
 for($i=0;$i<count($p->files);$i++){
-  $body.=$p->files[$i]->filepath;
+  $body.='<a href="'.$p->files[$i]->filepath.'">'.$p->files[$i]->filepath.'</a><br>';
 }
 $body.='</div>';
 $body.='</div>';
