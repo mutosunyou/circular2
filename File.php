@@ -1,6 +1,10 @@
 <?php
 session_start();
-require_once('master/config.php');
+//require_once('master/config.php');
+define('DB_HOST', "localhost");
+define('DB_USER', "root");
+define('DB_PASSWORD', "root");
+define('DB_NAME', "circular2");
 class File
 {
   public $id;
