@@ -34,11 +34,9 @@ $body.='<td>';
 $body.='添付';
 $body.='</td>';
 $body.='<td>';
-
 for($i=0;$i<count($jsfile);$i++){
   $body.=$jsfile[$i]->name.'<br>';
 }
-var_dump($_FILES['the_files']);
 $body.='</td>';
 $body.='</tr>';
 
