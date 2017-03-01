@@ -35,7 +35,7 @@ $body.='添付';
 $body.='</td>';
 $body.='<td style="align:left;">';
 for($i=0;$i<count($jsfile);$i++){
-  $body.=$jsfile[$i]->name.'<br>';
+  $body.='<span style="float:left;">'.$jsfile[$i]->name.'</span><br>';
 }
 $body.='</td>';
 $body.='</tr>';
