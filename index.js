@@ -81,7 +81,7 @@ $(function() {
     for(var i=0;i<filenum;i++){
       filearray.push({'name':$('.filename:eq('+i+')').text()});
     }
-    console.log(filearray);
+    //console.log(filearray);
     JSON4 = $.toJSON(filearray);
     confirmation();
     $('#hiddenwall').show(); 
@@ -119,7 +119,7 @@ $(function() {
         );
       }
     );
-    //location.href="./list.php";
+    location.href="./list.php";
   } //回覧開始ボタンの終わり
 
   $('*').change(function(){
