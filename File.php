@@ -28,7 +28,7 @@ class File
     $arr = explode('.', $filepath);
     $ext = $arr[(count($arr) - 1)];
     $fp = str_replace('/Volumes','http://192.168.100.209/mnt',$filepath);
-    $sql = 'insert into files (id,circularID, filepath, uptime,isalived) values (null,'.$cid.',"'.$fp.strtotime('Y-m-d')'","'.date('Y-m-d H:i:s').'",1)';
+    $sql = 'insert into files (id,circularID, filepath, uptime,isalived) values (null,'.$cid.',"'.$fp.strtotime()'","'.date('Y-m-d H:i:s').'",1)';
     deleteFrom2(DB_NAME, $sql);
     $this->reload();
   }
