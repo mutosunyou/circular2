@@ -40,7 +40,7 @@ $(function() {
           'cid' : $('#cid').val()
         },
         function(data){
-          //console.log(data);
+          console.log(data);
         });
     },
     'onCancel' : function(file){ 
@@ -79,7 +79,6 @@ $(function() {
 
     filearray=[];
     for(var i=0;i<filenum;i++){
-      //filearray.push({'name':$('#uploadifive-file_upload-file-'+i+' > .filename').val()});
       filearray.push({'name':$('.filename:eq('+i+')').text()});
     }
     console.log(filearray);

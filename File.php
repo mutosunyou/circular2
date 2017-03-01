@@ -32,7 +32,7 @@ class File
     $this->id=insertAI3("circular2", $sql);
     $this->reload();
   }
-  
+
   //伝票IDを入れてリロードする。
   function reload(){
     $this->initWithFileID($this->id);
@@ -49,7 +49,6 @@ function insertAI3($db, $sql){
     }
     $addresult = $mysqli->query($sql) or die("クエリの送信に失敗しました。<br />SQL:".$sql);
     $last_id = $mysqli->insert_id;
-    
     $mysqli->close();
     
     //新しくデータ追加して、AutoIncrementされたidを取得する
