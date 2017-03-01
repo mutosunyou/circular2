@@ -29,7 +29,7 @@ class File
     $ext = $arr[(count($arr) - 1)];
     $fp = str_replace('/Volumes','http://192.168.100.209/mnt',$filepath);
     $sql = 'insert into files (id,circularID, filepath, uptime,isalived) values (null,'.$cid.',"'.$fp.'","'.date('Y-m-d H:i:s').'",1)';
-    deleteFrom2("circular2", $sql);
+    $this->id=insertAI3("circular2", $sql);
     $this->reload();
   }
   
@@ -37,6 +37,24 @@ class File
   function reload(){
     $this->initWithFileID($this->id);
   }
+}
+
+function insertAI3($db, $sql){
+    //接続
+    $mysqli = new mysqli("localhost", "root", "root", $db);
+    /* 接続状況をチェックします */
+    if ($mysqli->connect_errno) {
+        printf("Connect failed: %s\n", $mysqli->connect_error);
+        exit();
+    }
+    $addresult = $mysqli->query($sql) or die("クエリの送信に失敗しました。<br />SQL:".$sql);
+    $last_id = $mysqli->insert_id;
+    
+    $mysqli->close();
+    
+    //新しくデータ追加して、AutoIncrementされたidを取得する
+    $arr = array($addresult, $last_id);
+    return $arr;
 }
 
 function deleteFrom2($db, $sql){
