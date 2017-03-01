@@ -15,7 +15,7 @@ class Member
     $this->id= $id;
 
     $sql = 'select * from member where id = '.$this->id;
-    $rst = selectData2(DB_NAME, $sql);
+    $rst = selectData(DB_NAME, $sql);
     if($rst!=null){
       $this->circularID = $rst[0]['circularID'];
       $this->userID = $rst[0]['userID'];
@@ -33,13 +33,13 @@ class Member
         $sql.=',';
       }
     }
-    $this->id=insertAI2(DB_NAME,$sql);
+    $this->id=insertAI(DB_NAME,$sql);
     $this->reload();
   }
 
   function setCheckflg($cid){
     $sql='update member set checked=1 where circularID='.$cid.' and userID='.$_SESSION['loginid'];
-    deleteFrom3(DB_NAME,$sql);
+    deleteFrom(DB_NAME,$sql);
   }
 
   function reload(){
@@ -47,69 +47,4 @@ class Member
   }
 }
 
-function deleteFrom3($db, $sql){
-    //接続
-    $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, $db);
-    /* 接続状況をチェックします */
-    if ($mysqli->connect_errno) {
-        printf("Connect failed: %s\n", $mysqli->connect_error);
-        exit();
-    }
-    $addresult = $mysqli->query($sql) or die("クエリの送信に失敗しました。<br />SQL:".$sql);
-    
-    $mysqli->close();
-    
-    return $addresult;
-}
 
-function insertAI2($db, $sql){
-    //接続
-    $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, $db);
-    /* 接続状況をチェックします */
-    if ($mysqli->connect_errno) {
-        printf("Connect failed: %s\n", $mysqli->connect_error);
-        exit();
-    }
-    $addresult = $mysqli->query($sql) or die("クエリの送信に失敗しました。<br />SQL:".$sql);
-    $last_id = $mysqli->insert_id;
-    
-    $mysqli->close();
-    
-    //新しくデータ追加して、AutoIncrementされたidを取得する
-    $arr = array($addresult, $last_id);
-    return $arr;
-}
-
-function selectData2($db, $sql){
-  //接続
-  //return DB_PASSWORD;
-    $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, $db);
-    /* 接続状況をチェックします */
-    $mysqli->set_charset("utf8");
-    if ($mysqli->connect_errno) {
-        printf("Connect failed: %s\n", $mysqli->connect_error);
-        exit();
-    }
-    if ($result = $mysqli->query($sql)) {
-      
-        $bigArray = array();
-       
-        while($col = $result->fetch_array(MYSQLI_ASSOC)){
-        
-            $smallArray = array();
-            foreach ($col as $key => $value){
-                $smallArray[$key] = $value;
-            }
-            $bigArray[] = $smallArray;
-            
-        }
-        
-        $result->close();
-        $mysqli->close();
-        return $bigArray;
-        
-    }
-    
-    $mysqli->close();
-    
-}

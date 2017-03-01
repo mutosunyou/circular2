@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once('master/prefix.php');
 require_once('../Circular.php');
 
 //回覧メンバーに選ばれている回覧IDを検索する

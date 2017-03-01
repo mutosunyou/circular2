@@ -1,5 +1,5 @@
 <?php
-
+require_once('../master/prefix.php');
 require_once('../File.php');
 
 $ev = new File();

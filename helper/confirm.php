@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once('../master/prefix.php');
 require_once('../Circular.php');
 
 $js = json_decode($_POST['qarray']);
