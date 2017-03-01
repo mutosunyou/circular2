@@ -83,7 +83,7 @@ $(function() {
       filearray.push({'name':$('.filename:eq('+i+')').text()});
     }
     console.log(filearray);
-
+    JSON4 = $.toJSON(filearray);
     confirmation();
     $('#hiddenwall').show(); 
   });
@@ -335,7 +335,7 @@ function confirmation(){
     {
       "qarray":JSON2,
       "mem":JSON3,
-      "farray":filearray
+      "farray":JSON4
     },
     function(data){
       $('#confirm').html(data);
