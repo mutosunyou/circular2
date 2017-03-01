@@ -16,7 +16,7 @@ $body.='<td style="width:80px;">';
 $body.='表題';
 $body.='</td>';
 $body.='<td>';
-$body.=$js[0]->title;
+$body.='<span style="float:left;">'.$js[0]->title.'</span>';
 $body.='</td>';
 $body.='</tr>';
 
@@ -25,7 +25,7 @@ $body.='<td>';
 $body.='内容';
 $body.='</td>';
 $body.='<td>';
-$body.=$js[1]->content;
+$body.='<span style="float:left;">'.$js[1]->content.'</span>';
 $body.='</td>';
 $body.='</tr>';
 
