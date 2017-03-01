@@ -115,12 +115,12 @@ $(function() {
           },
           function(dat){
             //$('#ppp').html(dat);
-            //console.log(dat);
+            console.log(dat);
           }
         );
       }
     );
-    location.href="./list.php";
+    //location.href="./list.php";
   } //回覧開始ボタンの終わり
 
   $('*').change(function(){
