@@ -48,8 +48,6 @@ function deleteFrom2($db, $sql){
         exit();
     }
     $addresult = $mysqli->query($sql) or die("クエリの送信に失敗しました。<br />SQL:".$sql);
-    
     $mysqli->close();
-    
     return $addresult;
 }
