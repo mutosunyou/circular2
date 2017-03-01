@@ -80,7 +80,7 @@ $(function() {
     filearray=[];
     for(var i=0;i<filenum;i++){
       //filearray.push({'name':$('#uploadifive-file_upload-file-'+i+' > .filename').val()});
-      filearray.push({'name':$('.uploadifive-queue-item.filename:eq('+i+')').text()});
+      filearray.push({'name':$('.filename:eq('+i+')').text()});
     }
     console.log(filearray);
 
