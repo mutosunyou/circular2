@@ -1,10 +1,6 @@
 <?php
 session_start();
-//require_once('master/config.php');
-define('DB_HOST', "localhost");
-define('DB_USER', "root");
-define('DB_PASSWORD', "root");
-define('DB_NAME', "circular2");
+
 class File
 {
   public $id;
@@ -18,7 +14,7 @@ class File
   {
     $this->id= $id;
     $sql = 'select * from files where id = '.$this->id;
-    $rst = selectData(DB_NAME, $sql);
+    $rst = selectData("circular2", $sql);
     if($rst!=null){
       $this->circularID = $rst[0]['circularID'];
       $this->filepath = $rst[0]['filepath'];
@@ -33,7 +29,7 @@ class File
     $ext = $arr[(count($arr) - 1)];
     $fp = str_replace('/Volumes','http://192.168.100.209/mnt',$filepath);
     $sql = 'insert into files (id,circularID, filepath, uptime,isalived) values (null,'.$cid.',"'.$fp.'","'.date('Y-m-d H:i:s').'",1)';
-    deleteFrom2(DB_NAME, $sql);
+    deleteFrom2("circular2", $sql);
     $this->reload();
   }
   
@@ -45,7 +41,7 @@ class File
 
 function deleteFrom2($db, $sql){
     //接続
-    $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, $db);
+    $mysqli = new mysqli("localhost", "root", "root", $db);
     /* 接続状況をチェックします */
     if ($mysqli->connect_errno) {
         printf("Connect failed: %s\n", $mysqli->connect_error);
