@@ -33,7 +33,7 @@ $body.='<tr>';
 $body.='<td>';
 $body.='添付';
 $body.='</td>';
-$body.='<td>';
+$body.='<td style="float:left;">';
 for($i=0;$i<count($jsfile);$i++){
   $body.=$jsfile[$i]->name.'<br>';
 }
