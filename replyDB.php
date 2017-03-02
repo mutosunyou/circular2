@@ -28,7 +28,7 @@ for($i=0;$i<count($js);$i++){
 $m = new Member();
 $m->setCheckflg($_POST['cid']);
 
-$sql = 'select * from member where circularID='.$_POST['cid'] .'and checked=0';
+$sql = 'select * from member where circularID='.$_POST['cid'] .' and checked=0';
 if(selectData(DB_NAME,$sql)==null){
   $sql = 'update circular set status=1 where id='.$_POST['cid'];
   deleteFrom(DB_NAME,$sql);
