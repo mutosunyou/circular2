@@ -162,30 +162,32 @@ if($p->secret==0 || $p->ownerID==$_SESSION['loginid']){//公開もしくは自�
             $body.='<div class="charttitle'.$k.'" value="'.$p->questions[$j]->candidates[$k].'">'.$p->questions[$j]->candidates[$k].'</div>';
             $body.='</td>';
             $body.='<td style="font-size:small;">';
-              //k番目の回答を選択したメンバーの名前を羅列する。
-              $sql='select memberID from answer where questionID='.$p->questions[$j]->id.' and answer='.$k;
+            //k番目の回答を選択したメンバーの名前を羅列する。
+            $sql='select memberID from answer where questionID='.$p->questions[$j]->id.' and answer='.$k;
             if($author==0){
-                $sql.=' and memberID='.$_SESSION['loginid'];
-              }
-              $rst=selectData(DB_NAME,$sql);
-              for($l=0;$l<count($rst);$l++){
-                if($rst[$l]['answer']==$i){
-                  $body.=shortNameFromUserID($rst[$l]['memberID']);
-                  if($l!=(count($rst)-1)){
-                    $body.=', ';
-                  }
+              $sql.=' and memberID='.$_SESSION['loginid'];
+            }
+            $rst=selectData(DB_NAME,$sql);
+            for($l=0;$l<count($rst);$l++){
+              if($rst[$l]['answer']==$i){
+                $body.=shortNameFromUserID($rst[$l]['memberID']);
+                if($l!=(count($rst)-1)){
+                  $body.=', ';
                 }
               }
+            }
             $body.='</td>';
             $body.='</tr>';
           }
         }
-        if($p->questions[$j]->freespace==1 && $author==1){
+        if($p->questions[$j]->freespace==1){
           $body.='<tr><td colspan="3" class="info">自由記入欄</td></tr>';
           for($k=0;$k<count($p->questions[$j]->answers);$k++){
             if($p->questions[$j]->answers[$k]->description!=null){
               $body.='<tr><td colspan="3">';
-              $body.=shortNameFromUserID($p->questions[$j]->answers[$k]->memberID).': '.$p->questions[$j]->answers[$k]->description;
+              if($author==1 || $p->questions[$j]->answers[$k]->memberID==$_SESSION['loginid']){
+                $body.=shortNameFromUserID($p->questions[$j]->answers[$k]->memberID).': '.$p->questions[$j]->answers[$k]->description;
+              }
               $body.='</td></tr>';
             }
           }
