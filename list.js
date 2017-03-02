@@ -18,7 +18,7 @@ $(function() {
   localStorage.cirpage = 1;
   ownerflg=1;
   $('.tabs').tabslet();
-  $('#finderfld').val(localStorage.cirSearchKey);
+  $('.finderfld').val(localStorage.cirSearchKey);
   $('#ppi').val(localStorage.cirppi);
   reloadall();
   reloadyet();
@@ -54,16 +54,16 @@ $(function() {
   });
 
   //検索ボタン押された
-  $('#lister,#own').on('click','#finderbtn', function (){
-    localStorage.circSearchKey = $('#finderfld').val();
+  $('#lister,#own').on('click','.finderbtn', function (){
+    localStorage.circSearchKey = $('.finderfld').val();
     localStorage.cirpage = 1;
     reloadall();
   });
 
   //検索フィールドでエンター押された
-  $('#lister,#own').on('keypress','#finderfld', function (e) {
+  $('#lister,#own').on('keypress','.finderfld', function (e) {
     if ( e.which == 13 ) {
-      localStorage.circSearchKey = $('#finderfld').val();
+      localStorage.circSearchKey = $('.finderfld').val();
       localStorage.cirpage = 1;
       reloadall();
       return false;
