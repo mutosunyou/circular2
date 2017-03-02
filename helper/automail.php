@@ -7,7 +7,7 @@ $result = selectData('circular2', $sql);
 
 $to='';
 for($i=0;$i<count($result);$i++){
-  $to = mailAddress($result[$i]['userID']);
+  $to = mailFromUserID($js3[$i]->num);
   if($i!=(count($)-1)){
     $to.=', ';
   }

@@ -76,9 +76,6 @@ $author=0;
 if($p->secret==0 || $p->ownerID==$_SESSION['loginid']){//公開もしくは自分が作成者
   $author=1;
 }
-echo $p->secret;
-echo $p->ownerID;
-echo $author;
 //クラスと変数=====================================
 $body.='<input id="userID" class="hidden" value="'.$_SESSION['loginid'].'">';
 $body.='<input id="cid" class="hidden" value="'.$p->id.'">';
