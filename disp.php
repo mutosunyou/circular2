@@ -113,6 +113,7 @@ for($i=0;$i<count($p->files);$i++){
 $body.='</div>';
 $body.='</div>';
 $body.='<hr>';
+if(count($p->questions)>0){
 $body.='<h3>アンケート: ';
 if($p->secret==1){
   $body.='<span>非公開</span><span class="glyphicon glyphicon-lock" aria-hidden="true" style="margin:0px 0 0 10px;"></span></h4><br><div class="clearfix"></div>';
@@ -120,6 +121,7 @@ if($p->secret==1){
   $body.='<span>公開</span><span class="glyphicon glyphicon-globe" aria-hidden="true" style="margin:0px 0 0 10px;"></span></h4><br><div class="clearfix"></div>';
 }
 $body.='</h3>';
+}
 //アンケート集計結果
 for($i=0;$i<count($p->members);$i++){
   //質問が１個以上で、作成者もしくは回覧メンバーに入っていて回答済みのとき結果を見せる
