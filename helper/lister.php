@@ -44,7 +44,7 @@ $body .= '<div class="pull-right form-inline" style="float:right;margin:0 0 10px
 $countofpage = ceil($cr/intval($_POST['itemsPerPage']));
 //$body .= '<br>';
 
-$body .= '表示：<select class="form-control" id="ppi">';
+$body .= '表示：<select class="form-control ppi">';
 $body .= '<option value="10">10</option>';
 for ($i=1; $i < 11; $i++) {
   $body .= '<option value="'.($i * 20).'"';

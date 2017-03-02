@@ -19,7 +19,7 @@ $(function() {
   ownerflg=1;
   $('.tabs').tabslet();
   $('.finderfld').val(localStorage.cirSearchKey);
-  $('#ppi').val(localStorage.cirppi);
+  $('.ppi').val(localStorage.cirppi);
   reloadall();
   reloadyet();
 
@@ -41,8 +41,8 @@ $(function() {
 
   //ボタン==================================================
   //ページあたりの表示数変更
-  $('#lister,#own').on('change','#ppi', function (){
-    localStorage.cirppi = $('#ppi').val();
+  $('#lister,#own').on('change','.ppi', function (){
+    localStorage.cirppi = $('.ppi').val();
     localStorage.cirpage = 1;
     reloadall();
   });
