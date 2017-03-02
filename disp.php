@@ -145,7 +145,7 @@ for($i=0;$i<count($p->members);$i++){
         $body.='<tr><th style="width:100px;">集計</th><th>項目</th><th>メンバー</th></tr>';
       }
       $body.='</thead>';
-
+echo $author;
       $body.='<tbody>';
       //k番目の回答とその数を数える
       if($chartflg==1){
