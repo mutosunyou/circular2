@@ -6,7 +6,6 @@ require_once('../Circular.php');
 //本文========================================================
 $body='';
 
-
 //回覧メンバーに選ばれている回覧IDを検索する
 $sql='select * from member where userID='.$_SESSION['loginid'];
 $sql.=' and checked=0';

@@ -41,29 +41,50 @@ $(function() {
 
   //ボタン==================================================
   //ページあたりの表示数変更
-  $('#lister,#own').on('change','.ppi', function (){
-    localStorage.cirppi = $('.ppi').val();
+  $('#lister').on('change','.ppi', function (){
+    localStorage.cirppi = $('#lister > .ppi').val();
     localStorage.cirpage = 1;
     reloadall();
   });
-
+  $('#own').on('change','.ppi', function (){
+    localStorage.cirppi = $('#own > .ppi').val();
+    localStorage.cirpage = 1;
+    reloadall();
+  });
   //ページ切り替え
-  $('#lister,#own').on('click','.pagebtn', function (ev){
+  $('#lister').on('click','.pagebtn', function (ev){
+    localStorage.cirpage = $(ev.target).attr('name');
+    reloadall();
+  });
+  $('#own').on('click','.pagebtn', function (ev){
     localStorage.cirpage = $(ev.target).attr('name');
     reloadall();
   });
 
   //検索ボタン押された
-  $('#lister,#own').on('click','.finderbtn', function (){
-    localStorage.circSearchKey = $('.finderfld').val();
+  $('#lister').on('click','.finderbtn', function (){
+    localStorage.circSearchKey = $('#lister > .finderfld').val();
+    localStorage.cirpage = 1;
+    reloadall();
+  });
+  $('#own').on('click','.finderbtn', function (){
+    localStorage.circSearchKey = $('#own > .finderfld').val();
     localStorage.cirpage = 1;
     reloadall();
   });
 
   //検索フィールドでエンター押された
-  $('#lister,#own').on('keypress','.finderfld', function (e) {
+  $('#lister').on('keypress','.finderfld', function (e) {
     if ( e.which == 13 ) {
-      localStorage.circSearchKey = $('.finderfld').val();
+      localStorage.circSearchKey = $('#lister > .finderfld').val();
+      localStorage.cirpage = 1;
+      reloadall();
+      return false;
+    }
+  });
+  $('#own').on('keypress','.finderfld', function (e) {
+    if ( e.which == 13 ) {
+      localStorage.circSearchKey = $('#own > .finderfld').val();
       localStorage.cirpage = 1;
       reloadall();
       return false;
