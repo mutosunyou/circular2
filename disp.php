@@ -173,10 +173,12 @@ for($i=0;$i<count($p->members);$i++){
           }
           $rst=selectData(DB_NAME,$sql);
           for($l=0;$l<count($rst);$l++){
+            if($rst[$l]['answer']==$i){
               $body.=shortNameFromUserID($rst[$l]['memberID']);
               if($l!=(count($rst)-1)){
                 $body.=', ';
               }
+            }
           }
           $body.='</td>';
           $body.='</tr>';
