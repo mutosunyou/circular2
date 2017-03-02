@@ -209,7 +209,7 @@ if($yetanswer==1 && count($p->questions)>0){
     $body.='<div class="panel panel-default">';
     $body.='<div class="panel-heading">アンケート</div>';
     $body.='<table class="table table-bordered">';
-    $body.='<thead><tr><td colspan="2" class="info">'.$p->questions[$j]->content.'</td></tr></thead>';
+    $body.='<thead><tr><td colspan="2">'.$p->questions[$j]->content.'</td></tr></thead>';
     $body.='<tbody>';
     for($k=0;$k<count($p->questions[$j]->candidates);$k++){
       $body.='<tr>';
