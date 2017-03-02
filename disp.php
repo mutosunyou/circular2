@@ -127,14 +127,18 @@ if($p->secret==0 || $p->ownerID==$_SESSION['loginid']){//公開もしくは自�
           }
         }
         $body.='<thead>';
-        $body.='<tr><td colspan="3">'.$p->questions[$j]->content.'</td></tr>';
+        $body.='<tr><td colspan="3">'.$p->questions[$j]->content;
+        if($p->questions[$j]->style==1){
+          $body.='　※複数回答可';
+        }
+        $body.='</td></tr>';
         if($author==1 && $chartflg==1){
           $body.='<tr><td colspan="3" class="info">グラフ</td></tr>';
           $body.='<tr><td colspan="3"><div class="charts'.$j.'"></div></td></tr>';
         }
         if($chartflg==1){
-        $body.='<tr><td colspan="3" class="info">集計結果</td></tr>';
-        $body.='<tr><th style="width:100px;">集計</th><th>項目</th><th>メンバー</th></tr>';
+          $body.='<tr><td colspan="3" class="info">集計結果</td></tr>';
+          $body.='<tr><th style="width:100px;">集計</th><th>項目</th><th>メンバー</th></tr>';
         }
         $body.='</thead>';
 
@@ -155,12 +159,14 @@ if($p->secret==0 || $p->ownerID==$_SESSION['loginid']){//公開もしくは自�
             }
             $body.='</td>';
             $body.='<td>';
-              $body.='<div class="charttitle'.$k.'" value="'.$p->questions[$j]->candidates[$k].'">'.$p->questions[$j]->candidates[$k].'</div>';
+            $body.='<div class="charttitle'.$k.'" value="'.$p->questions[$j]->candidates[$k].'">'.$p->questions[$j]->candidates[$k].'</div>';
             $body.='</td>';
             $body.='<td style="font-size:small;">';
-            if($author==1){
               //k番目の回答を選択したメンバーの名前を羅列する。
               $sql='select memberID from answer where questionID='.$p->questions[$j]->id.' and answer='.$k;
+            if($author==0){
+                $sql.=' and memberID='.$_SESSION['loginid'];
+              }
               $rst=selectData(DB_NAME,$sql);
               for($l=0;$l<count($rst);$l++){
                 if($rst[$l]['answer']==$i){
@@ -170,7 +176,6 @@ if($p->secret==0 || $p->ownerID==$_SESSION['loginid']){//公開もしくは自�
                   }
                 }
               }
-            }
             $body.='</td>';
             $body.='</tr>';
           }
