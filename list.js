@@ -102,7 +102,7 @@ $(function() {
 
   $('#yettab').click(function(e){
     ownerflg= 0;
-    reloadall();
+    reloadyet();
   });
 
 });
