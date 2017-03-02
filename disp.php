@@ -175,7 +175,7 @@ if($p->secret==0 || $p->ownerID==$_SESSION['loginid']){//公開もしくは自�
             $body.='</tr>';
           }
         }
-        if($p->questions[$j]->freespace==1){
+        if($p->questions[$j]->freespace==1 && $author==1){
           $body.='<tr><td colspan="3" class="info">自由記入欄</td></tr>';
           for($k=0;$k<count($p->questions[$j]->answers);$k++){
             if($p->questions[$j]->answers[$k]->description!=null){
