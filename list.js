@@ -5,7 +5,7 @@ localStorage.circSearchKey = '';
 localStorage.cirSortKey = "submitDate";
 //並べ替えの昇順降順
 if (!localStorage.circSortOrder) {
-  localStorage.circSortOrder = 'asc';
+  localStorage.circSortOrder = 'desc';
 }
 if (!localStorage.cirppi) {
   localStorage.cirppi = 20;
