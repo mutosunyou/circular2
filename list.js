@@ -21,7 +21,6 @@ $(function() {
   $('#finderfld').val(localStorage.cirSearchKey);
   $('#ppi').val(localStorage.cirppi);
   reloadall();
-
   reloadyet();
 
   //表のソート
@@ -73,8 +72,7 @@ $(function() {
 
   $('#lister,#own,#yet').on('click','.dispcontents', function (e) {
     location.href='disp.php?cid='+$(e.target).attr('name');
-});
-
+  });
 
   $('#owntab,#alltab').click(function(e){
     ownerflg= 1;
@@ -128,6 +126,5 @@ function reloadall(){
           $(arr[i]).html($(arr[i]).html() + mark);
         }
       }
-    }
-  );
+    });
 }

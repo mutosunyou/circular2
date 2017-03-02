@@ -103,6 +103,7 @@ for($i=0;$i<count($p->files);$i++){
 }
 $body.='</div>';
 $body.='</div>';
+$body.='<hr>';
 
 //アンケート集計結果
 if($p->secret==0){
@@ -115,7 +116,7 @@ if($p->secret==0){
         $body.='<div class="panel panel-default">';
         $body.='<div class="panel-heading">アンケート結果 '.($j+1).'</div>';
         $body.='<table class="table table-bordered">';
-        $chartflg=0;
+        $chartflg=0;//
         for($k=0;$k<count($p->questions[$j]->answers);$k++){
           if($p->questions[$j]->answers[$k]->answer!=null){
             $chartflg=1;
@@ -180,6 +181,7 @@ if($p->secret==0){
     }
   }
 }
+$body.='<hr>';
 
 $author=0;
 for($i=0;$i<count($p->members);$i++){
