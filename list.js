@@ -16,7 +16,7 @@ if (!localStorage.cirpage) {
 
 $(function() {
   localStorage.cirpage = 1;
-  ownerflg=1;
+  ownerflg=0;
   $('.tabs').tabslet();
   $('.finderfld').val(localStorage.cirSearchKey);
   $('.ppi').val(localStorage.cirppi);
