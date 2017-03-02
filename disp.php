@@ -172,14 +172,11 @@ for($i=0;$i<count($p->members);$i++){
             $sql.=' and memberID='.$_SESSION['loginid'];
           }
           $rst=selectData(DB_NAME,$sql);
-                    var_dump($rst);
           for($l=0;$l<count($rst);$l++){
-            if($rst[$l]['answer']==$i){
               $body.=shortNameFromUserID($rst[$l]['memberID']);
               if($l!=(count($rst)-1)){
                 $body.=', ';
               }
-            }
           }
           $body.='</td>';
           $body.='</tr>';
