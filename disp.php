@@ -131,9 +131,9 @@ if($p->secret==0 || $p->ownerID==$_SESSION['loginid']){//公開もしくは自�
         if($author==1 && $chartflg==1){
           $body.='<tr><td colspan="3" class="info">グラフ</td></tr>';
           $body.='<tr><td colspan="3"><div class="charts'.$j.'"></div></td></tr>';
+        }
           $body.='<tr><td colspan="3" class="info">集計結果</td></tr>';
           $body.='<tr><th style="width:100px;">集計</th><th>項目</th><th>メンバー</th></tr>';
-        }
         $body.='</thead>';
 
         $body.='<tbody>';
@@ -153,9 +153,7 @@ if($p->secret==0 || $p->ownerID==$_SESSION['loginid']){//公開もしくは自�
             }
             $body.='</td>';
             $body.='<td>';
-            if($author==1){
               $body.='<div class="charttitle'.$k.'" value="'.$p->questions[$j]->candidates[$k].'">'.$p->questions[$j]->candidates[$k].'</div>';
-            }
             $body.='</td>';
             $body.='<td style="font-size:small;">';
             if($author==1){
