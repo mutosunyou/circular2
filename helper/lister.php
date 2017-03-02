@@ -20,7 +20,7 @@ for($i=0;$i<count($rst);$i++){
 }
 $sql.='))';
 if($_POST['own']==1){
-  $sql.=' and ownerID='.$_SESSION['login'];
+  $sql.=' and ownerID='.$_SESSION['loginid'];
 }
 if (isset($_POST['searchKey']) && strlen($_POST['searchKey']) > 0) {
   $sql .= ' and (title like "%'.$_POST['searchKey'].'%" or content like "%'.$_POST['searchKey'].'%")';
