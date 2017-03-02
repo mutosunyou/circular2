@@ -134,7 +134,13 @@ if($p->secret==0 || $p->ownerID==$_SESSION['loginid']){//公開もしくは自�
           $body.='<tr><td colspan="3"><div class="charts'.$j.'"></div></td></tr>';
         }
         if($chartflg==1){
-          $body.='<tr><td colspan="3" class="info">集計結果</td></tr>';
+          $body.='<tr><td colspan="3" class="info">';
+          if($author==1){
+            $body.='集計結果';
+          }else{
+            $body.='回答結果';
+          }
+          $body.='</td></tr>';
           $body.='<tr><th style="width:100px;">集計</th><th>項目</th><th>メンバー</th></tr>';
         }
         $body.='</thead>';
@@ -181,11 +187,11 @@ if($p->secret==0 || $p->ownerID==$_SESSION['loginid']){//公開もしくは自�
           $body.='<tr><td colspan="3" class="info">自由記入欄</td></tr>';
           for($k=0;$k<count($p->questions[$j]->answers);$k++){
             if($p->questions[$j]->answers[$k]->description!=null){
-              $body.='<tr><td colspan="3">';
               if($author==1 || $p->questions[$j]->answers[$k]->memberID==$_SESSION['loginid']){
+                $body.='<tr><td colspan="3">';
                 $body.=shortNameFromUserID($p->questions[$j]->answers[$k]->memberID).': '.$p->questions[$j]->answers[$k]->description;
+                $body.='</td></tr>';
               }
-              $body.='</td></tr>';
             }
           }
         }
