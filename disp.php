@@ -113,7 +113,7 @@ for($i=0;$i<count($p->files);$i++){
 $body.='</div>';
 $body.='</div>';
 $body.='<hr>';
-$body.='<h3>アンケート';
+$body.='<h3>アンケート: ';
 if($p->secret==1){
   $body.='<span>非公開</span><span class="glyphicon glyphicon-lock" aria-hidden="true" style="margin:0px 0 0 10px;"></span></h4><br><div class="clearfix"></div>';
 }else{
