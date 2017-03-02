@@ -128,7 +128,7 @@ if($p->secret==0 || $p->ownerID==$_SESSION['loginid']){//公開もしくは自�
         }
         $body.='<thead>';
         $body.='<tr><td colspan="3">'.$p->questions[$j]->content.'</td></tr>';
-        if($author==1){
+        if($author==1 && $chartflg==1){
           $body.='<tr><td colspan="3" class="info">グラフ</td></tr>';
           $body.='<tr><td colspan="3"><div class="charts'.$j.'"></div></td></tr>';
           $body.='<tr><td colspan="3" class="info">集計結果</td></tr>';
@@ -207,7 +207,7 @@ if($yetanswer==1 && count($p->questions)>0){
   $body.='<div id="replylist">';
   for($j=0;$j<count($p->questions);$j++){
     $body.='<div class="panel panel-default">';
-    $body.='<div class="panel-heading">アンケート</div>';
+    $body.='<div class="panel-heading">アンケート'.($j+1).'</div>';
     $body.='<table class="table table-bordered">';
     $body.='<thead><tr><td colspan="2">'.$p->questions[$j]->content.'</td></tr></thead>';
     $body.='<tbody>';
