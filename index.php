@@ -210,7 +210,7 @@ $body.='</div>';//container
 
 //確認画面
 $body.='<div id="hiddenwall" style="display:none;width:100%;height:100%;background-color:rgba(10,10,10,0.5);position:fixed;top:0px;z-index:99;">';
-$body.='<div id="confirm" style="margin-top:1%;text-align:center;width:750px;height:1000px;margin-left:auto;margin-right:auto;overflow:auto;">';
+$body.='<div id="confirm" style="margin-top:1%;text-align:center;width:750px;height:700px;margin-left:auto;margin-right:auto;overflow:auto;">';
 $body.='</div>';
 $body.='</div>';//確認画面終わり
 

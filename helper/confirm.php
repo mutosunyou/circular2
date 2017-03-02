@@ -75,7 +75,7 @@ if(count($js[4])>0){
     $body.='質問';
     $body.='</td>';
     $body.='<td>';
-    $body.=$js[4][$i][0]->question;
+    $body.='<span style="float:left;">'.$js[4][$i][0]->question.'</span>';
     $body.='</td>';
     $body.='</tr>';
     for($j=1;$j<count($js[4][$i]);$j++){
@@ -84,7 +84,7 @@ if(count($js[4])>0){
       $body.='回答'.$j;
       $body.='</td>';
       $body.='<td>';
-      $body.=$js[4][$i][$j]->answer;
+      $body.='<span style="float:left;">'.$js[4][$i][$j]->answer.'</span>';
       $body.='</td>';
       $body.='</tr>';
     }
