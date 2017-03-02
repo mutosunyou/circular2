@@ -58,7 +58,7 @@ $body.='</ul>';
 //右側
 $body.='<ul class="nav navbar-nav pull-right">';
 $body.='<li><a href="./master/logout.php">ログアウト</a></li>';
-$body.='<li><a tabindex="-1">login-name '.$_SESSION['login_name'].'</a></li>';
+$body.='<li><a tabindex="-1">'.$_SESSION['login_name'].'</a></li>';
 $body.='</ul>';
 
 $body.='</div>';
@@ -84,7 +84,7 @@ $body.='<h2 class="toptitle">回覧リスト</h2><br>';
 $body.='<ul class="horizontal" style="margin:0 0 0 0;">';
 $body.='<li id="alltab"><a href="#lister">全部</a></li>';
 $body.='<li id="yettab"><a href="#yet">未確認</a></li>';
-$body.='<li id="owntab"><a href="#own">発信済み</a></li>';
+$body.='<li id="owntab"><a href="#own">自分が作成</a></li>';
 $body.='</ul>';
 
 $body.='<hr style="margin:0 0 0 0;">';

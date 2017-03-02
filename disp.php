@@ -59,7 +59,7 @@ $body.='</ul>';
 //右側
 $body.='<ul class="nav navbar-nav pull-right">';
 $body.='<li><a href="./master/logout.php">ログアウト</a></li>';
-$body.='<li><a tabindex="-1">login-name '.$_SESSION['login_name'].'</a></li>';
+$body.='<li><a tabindex="-1">'.$_SESSION['login_name'].'</a></li>';
 $body.='</ul>';
 
 $body.='</div>';
