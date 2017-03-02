@@ -20,7 +20,7 @@ $(function() {
   $('.tabs').tabslet();
   $('.finderfld').val(localStorage.cirSearchKey);
   $('.ppi').val(localStorage.cirppi);
-  reloadall();
+
   reloadyet();
 
   //表のソート
