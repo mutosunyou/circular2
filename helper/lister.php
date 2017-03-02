@@ -19,7 +19,7 @@ for($i=0;$i<count($rst);$i++){
   }
 }
 $sql.='))';
-if($_POST['ownerflg']==1){
+if($_POST['own']==1){
   $sql.=' and ownerID='.$_SESSION['login'];
 }
 if (isset($_POST['searchKey']) && strlen($_POST['searchKey']) > 0) {
