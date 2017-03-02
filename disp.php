@@ -171,8 +171,8 @@ for($i=0;$i<count($p->members);$i++){
           if($author==0){
             $sql.=' and memberID='.$_SESSION['loginid'];
           }
-          var_dump($sql);
           $rst=selectData(DB_NAME,$sql);
+                    var_dump($rst);
           for($l=0;$l<count($rst);$l++){
             if($rst[$l]['answer']==$i){
               $body.=shortNameFromUserID($rst[$l]['memberID']);
