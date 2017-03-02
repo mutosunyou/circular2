@@ -128,9 +128,6 @@ if($p->secret==0 || $p->ownerID==$_SESSION['loginid']){//公開もしくは自�
         }
         $body.='<thead>';
         $body.='<tr><td colspan="3">'.$p->questions[$j]->content;
-        if($p->questions[$j]->stype==1){
-          $body.='　※複数回答可';
-        }
         $body.='</td></tr>';
         if($author==1 && $chartflg==1){
           $body.='<tr><td colspan="3" class="info">グラフ</td></tr>';
