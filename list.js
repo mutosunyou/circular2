@@ -95,11 +95,14 @@ $(function() {
     location.href='disp.php?cid='+$(e.target).attr('name');
   });
 
-  $('#owntab,#alltab').click(function(e){
+  $('#owntab').click(function(e){
     ownerflg= 1;
     reloadall();
   });
-
+  $('#alltab').click(function(e){
+    ownerflg= 0;
+    reloadall();
+  });
   $('#yettab').click(function(e){
     ownerflg= 0;
     reloadyet();
