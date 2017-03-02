@@ -1,11 +1,9 @@
 <?php
-require_once("../master/prefix.php");
+
+require_once('../master/prefix.php');
 
 $sql = 'select distinct userID from member where checked = 0';
 $result = selectData('circular2', $sql);
-
-mb_language("Japanese");
-mb_internal_encoding("UTF-8");
 
 $to='';
 for($i=0;$i<count($result);$i++){
@@ -20,11 +18,4 @@ $message = '未確認の回覧があります。システムで確認してく�
 $message.= 'http://192.168.100.209/circular2/list.php'."\r\n";
 $headers = 'From: System<remote_manager@sunyou.co.jp>'."\r\n";
 
-mb_send_mail($to, $subject, $message, $headers);
-
-function mailAddress($id){
-  $sql = 'select mail from employee where id = '.$id;
-  $res = selectData('master', $sql);
-  return $res[0]['mail'];
-}
-
+sendmail(str_replace('\'','’',$to),'',str_replace('\'','’',$subject),str_replace('\'','’',$message),$headers);
