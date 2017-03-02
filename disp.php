@@ -112,8 +112,6 @@ $body.='</div>';
 $body.='<hr>';
 
 //アンケート集計結果
-
-
 for($i=0;$i<count($p->members);$i++){
   //質問が１個以上で、作成者もしくは回覧メンバーに入っていて回答済みのとき結果を見せる
   if(($_SESSION['loginid']==$p->ownerID || ($_SESSION['loginid']==$p->members[$i]->userID && $p->members[$i]->checked==1)) && count($p->questions)>0){
