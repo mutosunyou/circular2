@@ -93,8 +93,10 @@ foreach($pname as $key => $value){
 $p=new Circular();
 for($i=0;$i<count($cst);$i++){//指定されたuserIDのデータ全て
   $p->initWithID($cst[$i]['id']);
+  $sql='select checked from member where circularID='.$p->id.' and userID='.$_SESSION['loginid'];
+  $rst=selectData(DB_NAME,$sql);
   $body .= '<tr';
-  if($p->status==1){
+  if($rst[0]['checked']==1){
     $body .= ' style="background:silver;"';
   }
   $body .= '>';
