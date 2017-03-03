@@ -1,10 +1,10 @@
 <?php
-
+echo "req before";
 require_once('../master/prefix.php');
-
+echo "req after";
 $sql = 'select distinct userID from member where checked = 0';
 $result = selectData('circular2', $sql);
-
+echo "sql after";
 $to='';
 for($i=0;$i<count($result);$i++){
   $to .= mailFromUserID($js3[$i]->num);
