@@ -18,4 +18,9 @@ $message = '未確認の回覧があります。システムで確認してく�
 $message.= 'http://192.168.100.209/circular2/list.php'."\r\n";
 $headers = 'From: System<remote_manager@sunyou.co.jp>'."\r\n";
 
+echo $to;
+echo $subject;
+echo $message;
+echo $headers;
+
 sendmail(str_replace('\'','’',$to),'',str_replace('\'','’',$subject),str_replace('\'','’',$message),$headers);
