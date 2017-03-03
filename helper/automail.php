@@ -1,5 +1,6 @@
 <?php
 echo "req before";
+/*
 require_once('../master/prefix.php');
 echo "req after";
 $sql = 'select distinct userID from member where checked = 0';
@@ -24,3 +25,5 @@ echo $message;
 echo $headers;
 
 sendmail(str_replace('\'','’',$to),'',str_replace('\'','’',$subject),str_replace('\'','’',$message),$headers);
+
+ */
