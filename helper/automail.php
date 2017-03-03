@@ -4,7 +4,8 @@ require_once('../master/prefix.php');
 
 $sql = 'select distinct userID from member where checked = 0';
 $result = selectData('circular2', $sql);
-
+var_dump($result);
+/*
 $to='';
 for($i=0;$i<count($result);$i++){
   $to .= mailFromUserID($result[$i]['userID']);
@@ -25,4 +26,4 @@ echo $headers;
 
 sendmail(str_replace('\'','’',$to),'',str_replace('\'','’',$subject),str_replace('\'','’',$message),$headers);
 
- 
+ */
