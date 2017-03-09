@@ -34,6 +34,7 @@ $(function() {
     'onUpload'         : function(file) {},
     'onUploadError'    : function (){},
     'onUploadComplete' : function(file, data) {
+      console.log(cid);
       $.post(
         'helper/addfile.php',
         {
