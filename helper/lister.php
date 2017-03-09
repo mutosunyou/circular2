@@ -103,10 +103,10 @@ for($i=0;$i<count($cst);$i++){//指定されたuserIDのデータ全て
   $body .= '<td style="nowrap"><button  name="'.$p->id.'" class="dispcontents btn btn-default btn-xs">表示</button></td>';
   $body .= '<td style="nowrap">'.$p->title.'</td>';
   $body .= '<td style="nowrap">';
-  if($p->status==1){
-    $body .= '回覧済み';
+  if($rst[0]['checked']==1){
+    $body .= '既読';
   }else{
-    $body .= '<font color="red">回覧中</font>';
+    $body .= '<font color="red">未読</font>';
   }
   $body .= '</td>';
   if($_POST['own']==0){
