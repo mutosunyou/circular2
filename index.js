@@ -5,6 +5,7 @@ var memarray   = new Array();
 var filearray  = new Array();
 var wait;
 var filenum=0;
+var cid;
 
 //初期動作====================================================
 $(function() {
@@ -37,7 +38,7 @@ $(function() {
         'helper/addfile.php',
         {
           'path': file.xhr.responseText,
-          'cid' : $('#cid').val()
+          'cid' : cid
         },
         function(data){
           console.log(data);
@@ -93,7 +94,6 @@ $(function() {
   });
 
   function send(){
-    $('#file_upload').uploadifive('upload');
     JSON2 = $.toJSON(sheetarray);
     JSON3 = $.toJSON(memarray);
     //DB入力
@@ -104,6 +104,9 @@ $(function() {
         "mem":JSON3
       },
       function(data){
+        console.log(data);
+        cid=data;
+        $('#file_upload').uploadifive('upload');
         //メール送信
         $.post(
           "helper/sendmail.php",
