@@ -163,14 +163,6 @@ $body.='<div style="display:inline-block;width:370px;vertical-align:top;">';
 //添付資料===========================================
 $body .= '<h3> 添付資料<small>　添付資料があれば選択してください</small></h3>';
 
-/*
-//fileのアップロード=================================
-$rst = selectData(DB_NAME,'select max(id) from circular');
-$cid = $rst[0]['max(id)'];
-$cid++;
-$body.='<input type="hidden" id="cid" value="'.$cid.'">';
- */
-
 $body.='<div id="queue" class="well" style="border: 1px solid #E5E5E5;overflow: auto;margin-bottom: 10px;padding: 0 3px 3px;min-height:150px;">';
 $body.='<span style="font-weight:bold">ここにファイルをドロップしてください(複数可)';
 $body.='</span></div>';

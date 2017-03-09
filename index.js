@@ -34,7 +34,6 @@ $(function() {
     'onUpload'         : function(file) {},
     'onUploadError'    : function (){},
     'onUploadComplete' : function(file, data) {
-      console.log(cid);
       $.post(
         'helper/addfile.php',
         {
@@ -105,7 +104,6 @@ $(function() {
         "mem":JSON3
       },
       function(data){
-        console.log(data);
         cid=data;
         $('#file_upload').uploadifive('upload');
         //メール送信
@@ -118,7 +116,7 @@ $(function() {
           },
           function(dat){
             //$('#ppp').html(dat);
-            console.log(data);
+           // console.log(data);
           }
         );
       }
