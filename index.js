@@ -32,7 +32,7 @@ $(function() {
       console.log(queue);
     },
     'onUpload'         : function(file) {},
-    'onUploadError'    : function (){},
+    'onError'    : function (errorType){alert('The error was: ' + errorType);},
     'onUploadComplete' : function(file, data) {
       console.log(cid);
       $.post(
@@ -110,7 +110,7 @@ $(function() {
         cid=data;
         console.log("before upload");
         $('#file_upload').uploadifive('upload');
-console.log("after upload");
+        console.log("after upload");
 
         //メール送信
         $.post(
