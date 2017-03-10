@@ -31,8 +31,12 @@ $(function() {
     'onSelect' : function(queue) {
       console.log(queue);
     },
-    'onUpload'         : function(filesToUpload) {console.log(filesToUpload);},
-    'onError'    : function (errorType){alert('The error was: ' + errorType);},
+    'onUpload'         : function(filesToUpload) {
+      console.log(filesToUpload);
+    },
+    'onError'    : function (errorType){
+      alert('The error was: ' + errorType);
+    },
     'onUploadComplete' : function(file, data) {
       console.log(cid);
       $.post(
@@ -108,6 +112,7 @@ $(function() {
       },
       function(data){
         cid=data;
+        console.log(cid);
         console.log("before upload");
         $('#file_upload').uploadifive('upload');
         console.log("after upload");
