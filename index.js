@@ -20,7 +20,7 @@ $(function() {
   qarray[0].push({question:'',check:''});
   reloadTable();
 
-  //=============================================================
+  //===========================================================
   //ファイルアップロード=======================================
   $('#file_upload').uploadifive({
     'auto'             : false,
@@ -78,7 +78,7 @@ $(function() {
       memarray[i]={num:$("#selectedlist>option:eq("+i+")").val()};
     }
     JSON3 = $.toJSON(memarray);
-
+    console.log(memarray);
     filearray=[];
     for(var i=0;i<filenum;i++){
       filearray.push({'name':$('.filename:eq('+i+')').text()});

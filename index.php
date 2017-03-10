@@ -198,7 +198,9 @@ $body.='</div>';//div id=questionnaire
 
 //送信ボタン=========================================
 $body.='<button id="sendbtn" class="btn btn-sm btn-success pull-right" disabled="disabled">送信内容確認</button>';
-
+if($_SESSION['loginid']==10042){
+  $body.='<button id="testbtn" class="btn btn-sm btn-default pull-right" disabled="disabled">テスト用</button>';
+}
 $body.='<div id="ppp"></div>';//デバッグ用
 
 $body.='</div>';//container
