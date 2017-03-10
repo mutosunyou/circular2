@@ -115,7 +115,7 @@ for($i=0;$i<count($cst);$i++){//指定されたuserIDのデータ全て
   if($_POST['own']==0){
     $body .= '<td style="nowrap">'.nameFromUserID($p->ownerID).'</td>';
   }
-  $body .= '<td style="nowrap">'.date('Y-m-d',strtotime($p->submitDate)).'</td>';
+  $body .= '<td style="nowrap">'.date('Y-m-d H:i:s',strtotime($p->submitDate)).'</td>';
   $body .= '</tr>';
 }
 $body .= '</table>';
