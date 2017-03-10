@@ -42,7 +42,7 @@ $(function() {
           'cid' : cid
         },
         function(data){
-          console.log(data);
+          console.log("file DB uploaded");
         });
     },
     'onCancel' : function(file){ 
@@ -121,7 +121,6 @@ $(function() {
             console.log(dat);
           }
         );
-        
       }
     );
     location.href="./list.php";
