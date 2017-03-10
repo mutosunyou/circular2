@@ -112,7 +112,6 @@ if(count($js[4])>0){
       }
       $body.='</td></tr>';
     }
-
     $body.='</table>';
   }
 }
