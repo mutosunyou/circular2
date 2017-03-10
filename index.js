@@ -79,6 +79,7 @@ $(function() {
     }
     JSON3 = $.toJSON(memarray);
     console.log(memarray);
+
     filearray=[];
     for(var i=0;i<filenum;i++){
       filearray.push({'name':$('.filename:eq('+i+')').text()});
