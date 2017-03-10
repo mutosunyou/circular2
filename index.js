@@ -106,6 +106,7 @@ $(function() {
       },
       function(data){
         cid=data;
+        console.log(cid);
         $('#file_upload').uploadifive('upload');
         //メール送信
         $.post(
