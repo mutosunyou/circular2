@@ -101,6 +101,7 @@ $body.='<div class="panel-heading">内容</div>';
 $body.='<div class="panel-body">'.$p->content.'</div>';
 $body.='</div>';
 
+if(count($p->files)>0){
 $body.='<div class="panel panel-default">';
 $body.='<div class="panel-heading">添付資料</div>';
 $body.='<div class="panel-body">';
@@ -108,6 +109,7 @@ for($i=0;$i<count($p->files);$i++){
   $body.='<a href="'.$p->files[$i]->filepath.'">'.$p->files[$i]->filepath.'</a><br>';
 }
 $body.='</div>';
+}
 $body.='</div>';
 $body.='<hr>';
 if(count($p->questions)>0){
