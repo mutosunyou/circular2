@@ -31,7 +31,7 @@ $(function() {
     'onSelect' : function(queue) {
       console.log(queue);
     },
-    'onUpload'         : function(file) {},
+    'onUpload'         : function(filesToUpload) {console.log(filesToUpload);},
     'onError'    : function (errorType){alert('The error was: ' + errorType);},
     'onUploadComplete' : function(file, data) {
       console.log(cid);
@@ -41,7 +41,7 @@ $(function() {
           'path': file.xhr.responseText,
           'cid' : cid
         },
-        function(data){
+        function(dat){
           console.log("file DB uploaded");
         });
     },
