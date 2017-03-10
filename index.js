@@ -118,7 +118,7 @@ $(function() {
           },
           function(dat){
             //$('#ppp').html(dat);
-           // console.log(data);
+            console.log(dat);
           }
         );
       }

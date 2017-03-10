@@ -24,3 +24,4 @@ $headers = 'remote_manager@sunyou.co.jp';
 
 sendmail(str_replace('\'','’',$to),'',str_replace('\'','’',$subject),str_replace('\'','’',$message),$headers);
 
+echo $to;
