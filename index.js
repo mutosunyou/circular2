@@ -86,6 +86,7 @@ $(function() {
     }
     //console.log(filearray);
     JSON4 = $.toJSON(filearray);
+    console.log(filearray);
     confirmation();
     $('#hiddenwall').show(); 
   });
@@ -107,7 +108,10 @@ $(function() {
       },
       function(data){
         cid=data;
+        console.log("before upload");
         $('#file_upload').uploadifive('upload');
+console.log("after upload");
+
         //メール送信
         $.post(
           "helper/sendmail.php",
