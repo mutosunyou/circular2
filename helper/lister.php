@@ -85,7 +85,7 @@ $pname = array(
 if($_POST['own']==0){
   $pname["作成者"]="ownerID".' style="text-align:left;width:100px;"';
 }
-$pname["回覧開始日"]="submitDate".' style="text-align:left;width:100px;"';
+$pname["回覧開始日"]="submitDate".' style="text-align:left;width:130px;"';
 
 //表
 $body .= '<table class="table table-condensed">';
@@ -115,7 +115,7 @@ for($i=0;$i<count($cst);$i++){//指定されたuserIDのデータ全て
   if($_POST['own']==0){
     $body .= '<td style="nowrap">'.nameFromUserID($p->ownerID).'</td>';
   }
-  $body .= '<td style="nowrap">'.date('Y-m-d H:i:s',strtotime($p->submitDate)).'</td>';
+  $body .= '<td style="nowrap">'.date('Y-m-d H:i',strtotime($p->submitDate)).'</td>';
   $body .= '</tr>';
 }
 $body .= '</table>';
