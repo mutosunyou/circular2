@@ -107,6 +107,7 @@ $(function() {
       },
       function(data){
         cid=data;
+        $('#file_upload').uploadifive('upload');
         //メール送信
         $.post(
           "helper/sendmail.php",
@@ -120,7 +121,7 @@ $(function() {
             console.log(dat);
           }
         );
-        $('#file_upload').uploadifive('upload');
+        
       }
     );
     location.href="./list.php";
