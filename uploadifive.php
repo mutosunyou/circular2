@@ -10,7 +10,7 @@ setlocale(LC_ALL, 'ja_JP.UTF-8');
 $fileParts = $_FILES['Filedata']['name'];
 $tempFile  =$_FILES['Filedata']['tmp_name'].'_'.time().'.'.$fileParts['extension'];
 $fname =$fileParts['filename'].'_'.time().'.'.$fileParts['extension'];
-$targetFile =  mb_convert_encoding($uploadDir.$fname,"SJIS","auto");
+$targetFile =  mb_convert_encoding($uploadDir.$fname,"UTF-8","auto");
 move_uploaded_file($tempFile, $targetFile);
 echo $targetFile;
 ?>
