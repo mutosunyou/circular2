@@ -80,7 +80,7 @@ $body .= '</div>';
 $pname = array(
   " "=>"action".' style="text-align:left;width:50px;"',
   "表題"=>"title".' style="text-align:left;"',
-  "状態"=>"status".' style="text-align:left;width:80px;"');
+  "状態"=>"status".' style="text-align:left;width:100px;"');
 if($_POST['own']==0){
   $pname["作成者"]="ownerID".' style="text-align:left;width:100px;"';
 }
