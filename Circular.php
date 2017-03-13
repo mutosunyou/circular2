@@ -77,7 +77,6 @@ class Circular
     $this->reload();
   }
 
-
   //伝票IDを入れてリロードする。
   function reload(){
     $this->initWithID($this->id);

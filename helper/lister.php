@@ -47,7 +47,6 @@ $body = '';
 //検索
 $body .= '<div class="pull-right form-inline" style="float:right;margin:0 0 10px 0;">';
 $countofpage = ceil($cr/intval($_POST['itemsPerPage']));
-//$body .= '<br>';
 
 $body .= '表示：<select class="form-control ppi">';
 $body .= '<option value="10">10</option>';
@@ -81,11 +80,11 @@ $body .= '</div>';
 $pname = array(
   " "=>"action".' style="text-align:left;width:50px;"',
   "表題"=>"title".' style="text-align:left;"',
-  "状態"=>"status".' style="text-align:left;width:70px;"');
+  "状態"=>"status".' style="text-align:left;width:80px;"');
 if($_POST['own']==0){
   $pname["作成者"]="ownerID".' style="text-align:left;width:100px;"';
 }
-$pname["回覧開始日"]="submitDate".' style="text-align:left;width:130px;"';
+$pname["回覧開始日"]="submitDate".' style="text-align:left;width:150px;"';
 
 //表
 $body .= '<table class="table table-condensed">';
@@ -98,7 +97,7 @@ for($i=0;$i<count($cst);$i++){//指定されたuserIDのデータ全て
   $p->initWithID($cst[$i]['id']);
   $read=0;
   for($j=0;$j<count($p->members);$j++){
-    if(($p->members[$j]['userID']==$_SESSION['loginid']) && ($p->members[$j]['checked']==1)){
+    if(($p->members[$j]->userID==$_SESSION['loginid']) && ($p->members[$j]->checked==1)){
       $read=1;
     }
   }
@@ -119,7 +118,7 @@ for($i=0;$i<count($cst);$i++){//指定されたuserIDのデータ全て
   if($_POST['own']==0){
     $body .= '<td style="nowrap">'.nameFromUserID($p->ownerID).'</td>';
   }
-  $body .= '<td style="nowrap">'.date('Y-m-d H:i',strtotime($p->submitDate)).'</td>';
+  $body .= '<td style="nowrap">'.date('Y-m-d H:i:s',strtotime($p->submitDate)).'</td>';
   $body .= '</tr>';
 }
 $body .= '</table>';
