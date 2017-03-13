@@ -1,4 +1,5 @@
 <?php
+phpinfo;
 session_start();
 require_once('../master/prefix.php');
 require_once('../Circular.php');
