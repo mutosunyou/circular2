@@ -96,17 +96,21 @@ foreach($pname as $key => $value){
 $p=new Circular();
 for($i=0;$i<count($cst);$i++){//指定されたuserIDのデータ全て
   $p->initWithID($cst[$i]['id']);
-  $sql='select checked from member where circularID='.$p->id.' and userID='.$_SESSION['loginid'];
-  $rst=selectData(DB_NAME,$sql);
+  $read=0;
+  for($j=0;$j<count($p->members);$j++){
+    if(($p->members->userID==$_SESSION['loginid']) && ($p->members->checked==1)){
+      $read=1;
+    }
+  }
   $body .= '<tr';
-  if($rst[0]['checked']==1){
+  if($read==1){
     $body .= ' style="background:silver;"';
   }
   $body .= '>';
   $body .= '<td style="nowrap"><button  name="'.$p->id.'" class="dispcontents btn btn-default btn-xs">表示</button></td>';
   $body .= '<td style="nowrap">'.$p->title.'</td>';
   $body .= '<td style="nowrap">';
-  if($rst[0]['checked']==1){
+  if($read==1){
     $body .= '既読';
   }else{
     $body .= '<font color="red">未読</font>';
