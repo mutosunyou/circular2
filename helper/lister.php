@@ -82,7 +82,7 @@ $pname = array(
   "表題"=>"title".' style="text-align:left;"',
   "状態"=>"status".' style="text-align:left;width:100px;"');
 if($_POST['own']==0){
-  $pname["作成者"]="ownerID".' style="text-align:left;width:100px;"';
+  $pname["作成者"]="ownerID".' style="text-align:left;width:110px;"';
 }
 $pname["回覧開始日"]="submitDate".' style="text-align:left;width:150px;"';
 
