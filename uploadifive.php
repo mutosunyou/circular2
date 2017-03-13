@@ -4,7 +4,7 @@ require_once("master/prefix.php");
 $uploadDir = '/Volumes/share/system/circular/';
 
 // Set the allowed file extensions
-$fileTypes = array('jpg', 'jpeg', 'gif', 'png', 'pdf'); // Allowed file extensions
+$fileTypes = array('jpg', 'jpeg', 'gif', 'png', 'pdf','key','xlsx'); // Allowed file extensions
 
 setlocale(LC_ALL, 'ja_JP.UTF-8');
 $fileParts = pathinfo($_FILES['Filedata']['name']);
