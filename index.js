@@ -39,7 +39,7 @@ $(function() {
     },
     'onUploadComplete' : function(file, data) {
       console.log(file.xhr);
-            console.log(file.xhr.responsText);
+            console.log(file.xhr.responseText);
       console.log(cid);
       $.post(
         'helper/addfile.php',
