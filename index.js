@@ -39,7 +39,7 @@ $(function() {
     },
     'onUploadComplete' : function(file, data) {
       console.log(file.xhr);
-            console.log(file.xhr.responseText);
+      console.log(file.xhr.responseText);
       console.log(cid);
       $.post(
         'helper/addfile.php',
@@ -51,6 +51,21 @@ $(function() {
           console.log("file DB uploaded");
         });
     },
+    'onQueueComplete': function(file){
+           //メール送信
+        $.post(
+          "helper/sendmail.php",
+          {
+            "cid":data,
+            "id" :JSON2,
+            "mem":JSON3
+          },
+          function(dat){
+            console.log(dat);
+            location.href="./list.php";
+          }
+        );
+    }
     'onCancel' : function(file){ 
       console.log(file.name);
       filenum--;
@@ -119,19 +134,7 @@ $(function() {
         $('#file_upload').uploadifive('upload');
         console.log("after upload");
 
-        //メール送信
-        $.post(
-          "helper/sendmail.php",
-          {
-            "cid":data,
-            "id" :JSON2,
-            "mem":JSON3
-          },
-          function(dat){
-            console.log(dat);
-            location.href="./list.php";
-          }
-        );
+
       }
     );
     
