@@ -11,6 +11,7 @@ $fileParts = pathinfo($_FILES['Filedata']['name']);
 $tempFile  =$_FILES['Filedata']['tmp_name'].'_'.time().'.'.$fileParts['extension'];
 $fname =$fileParts['filename'].'_'.time().'.'.$fileParts['extension'];
 $targetFile =  $uploadDir.$fname;
+var_dump($_FILES);
 move_uploaded_file($tempFile, $targetFile);
 echo $targetFile;
 ?>
