@@ -7,7 +7,7 @@ $uploadDir = '/Volumes/share/system/circular/';
 $fileTypes = array('jpg', 'jpeg', 'gif', 'png', 'pdf','key','xlsx'); // Allowed file extensions
 
 setlocale(LC_ALL, 'ja_JP.UTF-8');
-$fileParts = $_FILES['Filedata']['name'];
+$fileParts = pathinfo($_FILES['Filedata']['name']);
 $tempFile  =$_FILES['Filedata']['tmp_name'].'_'.time().'.'.$fileParts['extension'];
 $fname =$fileParts['filename'].'_'.time().'.'.$fileParts['extension'];
 $targetFile =  $uploadDir.$fname;
