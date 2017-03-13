@@ -98,7 +98,7 @@ for($i=0;$i<count($cst);$i++){//指定されたuserIDのデータ全て
   $p->initWithID($cst[$i]['id']);
   $read=0;
   for($j=0;$j<count($p->members);$j++){
-    if(($p->members['userID']==$_SESSION['loginid']) && ($p->members['checked']==1)){
+    if(($p->members[$j]['userID']==$_SESSION['loginid']) && ($p->members[$j]['checked']==1)){
       $read=1;
     }
   }
