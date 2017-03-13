@@ -96,9 +96,13 @@ $p=new Circular();
 for($i=0;$i<count($cst);$i++){//指定されたuserIDのデータ全て
   $p->initWithID($cst[$i]['id']);
   $read=0;
+  $countread=0;
   for($j=0;$j<count($p->members);$j++){
-    if(($p->members[$j]->userID==$_SESSION['loginid']) && ($p->members[$j]->checked==1)){
-      $read=1;
+    if($p->members[$j]->checked==1){
+      $countread++;
+      if($p->members[$j]->userID==$_SESSION['loginid']){
+        $read=1;
+      }
     }
   }
   $body .= '<tr';
@@ -114,7 +118,7 @@ for($i=0;$i<count($cst);$i++){//指定されたuserIDのデータ全て
   }else{
     $body .= '<font color="red">未読</font>';
   }
-  $body .= '</td>';
+  $body .= $countread.'/'.count($p->members).'</td>';
   if($_POST['own']==0){
     $body .= '<td style="nowrap">'.nameFromUserID($p->ownerID).'</td>';
   }
