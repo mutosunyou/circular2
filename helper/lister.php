@@ -118,7 +118,7 @@ for($i=0;$i<count($cst);$i++){//指定されたuserIDのデータ全て
   }else{
     $body .= '<font color="red">未読</font>';
   }
-  $body .= $countread.'/'.count($p->members).'</td>';
+  $body .= '('.$countread.'/'.count($p->members).')</td>';
   if($_POST['own']==0){
     $body .= '<td style="nowrap">'.nameFromUserID($p->ownerID).'</td>';
   }
