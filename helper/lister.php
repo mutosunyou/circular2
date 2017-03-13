@@ -114,11 +114,11 @@ for($i=0;$i<count($cst);$i++){//指定されたuserIDのデータ全て
   $body .= '<td style="nowrap">'.$p->title.'</td>';
   $body .= '<td style="nowrap">';
   if($read==1){
-    $body .= '既読';
+    $body .= '既読 ';
   }else{
-    $body .= '<font color="red">未読</font>';
+    $body .= '<font color="red">未読 </font>';
   }
-  $body .= '('.$countread.'/'.count($p->members).')</td>';
+  $body .= '('.$countread.'／'.count($p->members).')</td>';
   if($_POST['own']==0){
     $body .= '<td style="nowrap">'.nameFromUserID($p->ownerID).'</td>';
   }
