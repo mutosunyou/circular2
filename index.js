@@ -67,9 +67,9 @@ $(function() {
     sheetarray=[];
     sheetarray.push({'title':$('#title').val().replace(/\r?\n/g, '<br>')});//[0]表題
     sheetarray.push({'content':$('#cont').val().replace(/\r?\n/g, '<br>')});//[1]内容
-    sheetarray.push({"userID":$('#userID').val()});//[2]投稿者
+    sheetarray.push({'userID':$('#userID').val()});//[2]投稿者
     sheetarray.push({'secret':$('#secret').prop('checked')});//[3]隠すか否か
-    if($("#enablequestionnaire").prop('checked')){
+    if($('#enablequestionnaire').prop('checked')){
       if(qarray[0][0]['question']!='""'){
         sheetarray.push(qarray);//[4]アンケートの内容
       }
@@ -111,7 +111,7 @@ $(function() {
         "mem":JSON3
       },
       function(data){
-        cid=data;
+        cid=data;//DBinputで回覧IDを取得
         console.log(cid);
         console.log("before upload");
         $('#file_upload').uploadifive('upload');
@@ -126,7 +126,6 @@ $(function() {
             "mem":JSON3
           },
           function(dat){
-            //$('#ppp').html(dat);
             console.log(dat);
           }
         );
