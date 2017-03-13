@@ -56,7 +56,7 @@ $(function() {
         $.post(
           "helper/sendmail.php",
           {
-            "cid":data,
+            "cid":cid,
             "id" :JSON2,
             "mem":JSON3
           },
