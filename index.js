@@ -65,7 +65,7 @@ $(function() {
             location.href="./list.php";
           }
         );
-    }
+    },
     'onCancel' : function(file){ 
       console.log(file.name);
       filenum--;
