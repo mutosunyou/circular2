@@ -38,7 +38,7 @@ $(function() {
       alert('The error was: ' + errorType);
     },
     'onUploadComplete' : function(file, data) {
-      console.log(data);
+      console.log(file);
       console.log(cid);
       $.post(
         'helper/addfile.php',
