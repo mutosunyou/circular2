@@ -130,11 +130,11 @@ $body.='</td>';
 
 $body.='<td align="center" style="width:100px;">';
 $body.='<a id="addAllItem" class="btn btn-xs btn-default">←全追加</a>';
-$body.='<br><br>';
+$body.='<br><br><br>';
 $body.='<a id="addSelectedItem" class="btn btn-sm btn-default">←追加</a>';
 $body.='<br><br>';
 $body.='<a id="removeSelectedItem" class="btn btn-sm btn-default">削除→</a>';
-$body.='<br><br>';
+$body.='<br><br><br>';
 $body.='<a id="removeAllItem" class="btn btn-xs btn-default">全削除→</a>';
 $body.='</td>';
 
