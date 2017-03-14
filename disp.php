@@ -286,7 +286,7 @@ $body.='</div>';//パネル終わり
 
 //送信ボタン=========================================
 if($yetanswer==1){
-  $body.='<button id="sendbtn" class="btn btn-sm btn-primary">確認</button>';
+  $body.='<button id="sendbtn" class="btn btn-sm btn-primary pull-right">確認</button>';
 }
 
 $body.='</div>';//container
