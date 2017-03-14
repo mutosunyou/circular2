@@ -99,7 +99,7 @@ for($i=0;$i<count($rst);$i++){
   $body.='<option name='.$rst[$i]['userID'].'>'.nameFromUserID($rst[$i]['userID']).'</option>';
 }
 $body.='</select>';
-
+$body.='<div class="clearfix"></div>';
 //送信ボタン=========================================
   $body.='<button id="forcebtn" class="btn btn-sm btn-primary pull-left">既読</button>';
 
