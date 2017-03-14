@@ -10,11 +10,11 @@ $(function(){
 
 
   $('#forcebtn').click(function(){
-    console.log($('#forceread > option').val());
+    console.log($('#forceread>option:selected').attr('name'));
     $.post(
       "foeceread.php",
       {
-        "member":$('#forceread > option').attr('name')
+        "member":$('#forceread>option:selected').attr('name')
       },
       function(){
         location.href="list.php";

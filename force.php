@@ -94,14 +94,16 @@ $body.='</h2><hr />';
 $sql='select distinct(userID) from member where checked=0';
 $rst=selectData(DB_NAME,$sql);
 $body.='<p>選択したメンバーをすべての回覧について強制的に既読にします。</p>';
+
 $body.='<select id="forceread" class="from-control">';
 for($i=0;$i<count($rst);$i++){
   $body.='<option name='.$rst[$i]['userID'].'>'.nameFromUserID($rst[$i]['userID']).'</option>';
 }
 $body.='</select>';
+
 $body.='<div class="clearfix"></div>';
 //送信ボタン=========================================
-  $body.='<button id="forcebtn" class="btn btn-sm btn-primary pull-left">既読</button>';
+  $body.='<button id="forcebtn" class="btn btn-sm btn-primary pull-left" style="top:20px;">既読</button>';
 
 $body.='</div>';//container
 $body.='</div>';//container-fluid
