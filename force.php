@@ -48,12 +48,12 @@ $body.='<a class="navbar-brand" href="/php/menu" tabindex="-1"><img alt="Brand" 
 $body.='</div>';
 $body.='<div class="collapse navbar-collapse" id="nav-menu-1">';
 
-$author=0;
+$author2=0;
 $sql='select * from author';
 $rst=selectData(DB_NAME,$sql);
 for($i=0;$i<count($rst);$i++){
   if($rst[$i]['userID']==$_SESSION['loginid']){
-    $author=1;
+    $author2=1;
   }
 }
 
@@ -62,7 +62,7 @@ $body.='<ul class="nav navbar-nav">';
 $body.='<li id="listrun" class="bankmenu"><a tabindex="-1">回覧板</a></li>';
 $body.='<li id="list" class="applymenu"><a href="index.php" tabindex="-1">新規作成</a></li>';
 $body.='<li id="input" class="applymenu"><a href="list.php" tabindex="-1">回覧リスト</a></li>';
-if($author==1){
+if($author2==1){
   $body.='<li id="input" class="active applymenu"><a href="#" tabindex="-1">強制既読</a></li>';
 }
 $body.='</ul>';
@@ -103,8 +103,9 @@ $body.='</select>';
 
 $body.='<div class="clearfix"></div>';
 //送信ボタン=========================================
-  $body.='<button id="forcebtn" class="btn btn-sm btn-primary pull-left" style="top:20px;">既読</button>';
-
+if($author2==1){
+  $body.='<button id="forcebtn" class="btn btn-sm btn-primary pull-left" style="margin-top:20px;">既読</button>';
+}
 $body.='</div>';//container
 $body.='</div>';//container-fluid
 
