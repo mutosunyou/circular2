@@ -101,7 +101,7 @@ for($i=0;$i<count($rst);$i++){
 $body.='</select>';
 
 //送信ボタン=========================================
-  $body.='<button id="forcebtn" class="btn btn-sm btn-primary pull-right">既読</button>';
+  $body.='<button id="forcebtn" class="btn btn-sm btn-primary pull-left">既読</button>';
 
 $body.='</div>';//container
 $body.='</div>';//container-fluid
