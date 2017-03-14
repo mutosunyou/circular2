@@ -91,7 +91,17 @@ $body.='<h2 class="toptitle">';
 $body.='強制既読';
 $body.='</h2><hr />';
 
-$sql='select distinct(userID) from member where checked=0';
+$sql='select * from employee where kairan=0';
+$rst=selectData('master',$sql);
+
+$sql='select distinct(userID) from member where checked=0 and userID in (';
+for($i=0;$i<count($rst);$i++){
+  $sql.=$rst[$i]['id'];
+  if($i!=(count($rst)-1)){
+    $sql.=',';
+  }
+}
+$sql.=')';
 $rst=selectData(DB_NAME,$sql);
 $body.='<p>選択したメンバーをすべての回覧について強制的に既読にします。</p>';
 
