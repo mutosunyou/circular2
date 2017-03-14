@@ -80,54 +80,29 @@ $body.='</nav>';
 //隙間調整=========================================
 $body.='<div id="topspace" style="height:70px;"></div>';
 
-$p = new Circular();
-$p->initWithID($_GET['cid']);
-
-$author=0;
-if($p->secret==0 || $p->ownerID==$_SESSION['loginid']){//公開もしくは自分が作成者
-  $author=1;
-}
 //クラスと変数=====================================
 $body.='<input id="userID" class="hidden" value="'.$_SESSION['loginid'].'">';
-$body.='<input id="cid" class="hidden" value="'.$p->id.'">';
-$body.='<input id="qcount" class="hidden" value="'.count($p->questions).'">';
-$body.='<input id="author" class="hidden" value="'.$author.'">';
 
 //本文/////////////////////////////////////////////
 //タイトル=========================================
 $body.='<div class="container-fluid">';
 $body.='<div class="container">';
 $body.='<h2 class="toptitle">';
-$body.='回覧内容';
+$body.='強制既読';
 $body.='</h2><hr />';
 
+$sql='select distinct(userID) from member where checked=0';
+$rst=selectData(DB_NAME,$sql);
 
-//閲覧済みチェック//////////////////////////
-$body.='<div class="panel panel-default">';
-$body.='<div class="panel-heading">閲覧確認</div>';
-$body.='<table class="table table-bordered">';
-$body.='<tr><th width="50%">閲覧済み</th><th>未確認</th></tr>';
-$body.='<tr><td>';
-for($i=0;$i<count($p->members);$i++){
-  if($p->members[$i]->checked==1){
-    $body.=nameFromUserID($p->members[$i]->userID).'<br>';
-  }
+$body.='<select class="from-control">';
+for($i=0;$i<count($rst);$i++){
+  $body.='<option name='.$rst[$i]['userID'].'>'.nameFromUserID($rst[$i]['userID']).'</option>';
 }
-$body.='</td>';
-$body.='<td>';
-for($i=0;$i<count($p->members);$i++){
-  if($p->members[$i]->checked==0){
-    $body.=nameFromUserID($p->members[$i]->userID).'<br>';
-  }
-}
-$body.='</td></tr>';
-$body.='</table>';
-
-$body.='</div>';//パネル終わり
+$body.='</select>';
 
 //送信ボタン=========================================
 if($yetanswer==1){
-  $body.='<button id="sendbtn" class="btn btn-sm btn-primary pull-right">確認</button>';
+  $body.='<button id="deletebtn" class="btn btn-sm btn-primary pull-right">確認</button>';
 }
 
 $body.='</div>';//container
