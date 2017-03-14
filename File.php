@@ -25,12 +25,6 @@ class File
 
   //ファイル追加
   function addFile($cid,$filepath){
-    /*
-    $arr = explode('.', $filepath);
-    var_dump($arr);
-    $ext = $arr[(count($arr) - 1)];
-    var_dump($ext);
-     */
     $fp = str_replace('/Volumes','http://192.168.100.209/mnt',$filepath);
     $sql = 'insert into files (id,circularID, filepath, uptime,isalived) values (null,'.$cid.',"'.$fp.'","'.date('Y-m-d H:i:s').'",1)';
     $this->id=insertAI("circular2", $sql);
