@@ -158,7 +158,9 @@ $body.='<select id="userlist" multiple size="8" style="width:150px;">';
 
 $members = $mem->memberList(0);
 for($i=0;$i<count($members);$i++){
-  $body.=' <option value="'.$members[$i]['id'].'" bumon="'.$members[$i]['bumon_code'].'">'.$members[$i]['short_name'].'</option>';
+  if($members[$i]['id']!=79){
+    $body.=' <option value="'.$members[$i]['id'].'" bumon="'.$members[$i]['bumon_code'].'">'.$members[$i]['short_name'].'</option>';
+  }
 }
 $body.='</select>';
 $body.='</td>';
