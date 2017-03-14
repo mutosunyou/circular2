@@ -10,7 +10,7 @@ $(function(){
 
 
   $('#forcebtn').click(function(){
-    console.log($('#forceread > option').attr('name'));
+    console.log($('#forceread > option').val());
     $.post(
       "foeceread.php",
       {
