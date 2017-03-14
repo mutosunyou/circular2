@@ -107,7 +107,7 @@ $body.='</div>';//container
 $body.='</div>';//container-fluid
 
 //ヘッダー===========================================
-$header ='<script type="text/javascript" src="disp.js"></script>';
+$header ='<script type="text/javascript" src="force.js"></script>';
 $header.='<style type="text/css">';
 $header.='<!--
   .input-group{

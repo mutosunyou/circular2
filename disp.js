@@ -115,16 +115,3 @@ $(function(){
   });//送信ボタンクリック動作終わり
 });//スクリプト終わり
 
-$('#forcebtn').click(function(){
-  console.log($('#forceread > option').attr('name'));
-  $.post(
-    "foeceread.php",
-    {
-      "member":$('#forceread > option').attr('name')
-    },
-    function(){
-      location.href="list.php";
-    }
-  );
-});
-
