@@ -12,7 +12,7 @@ $(function(){
   $('#forcebtn').click(function(){
     console.log($('#forceread>option:selected').attr('name'));
     $.post(
-      "foeceread.php",
+      "helper/foeceread.php",
       {
         "member":$('#forceread>option:selected').attr('name')
       },
