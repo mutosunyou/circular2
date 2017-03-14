@@ -92,6 +92,11 @@ $body.='</h2><hr />';
 
 //一番上のエリア
 $body.='<div class="panel panel-default">';
+$body.='<div class="panel-heading">作成者</div>';
+$body.='<div class="panel-body">'.nameFromUserID($p->ownerID).'</div>';
+$body.='</div>';
+
+$body.='<div class="panel panel-default">';
 $body.='<div class="panel-heading">タイトル</div>';
 $body.='<div class="panel-body">'.$p->title.'</div>';
 $body.='</div>';
