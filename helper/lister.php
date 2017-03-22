@@ -22,9 +22,13 @@ $sql.='))';
 if($_POST['own']==1){
   $sql.=' and ownerID='.$_SESSION['loginid'];
 }
+
+//デバッグ用
+/*
 if($_SESSION['loginid']==10042){
   $sql='select id from circular where 1';
 }
+ */
 if (isset($_POST['searchKey']) && strlen($_POST['searchKey']) > 0) {
   $sql .= ' and (title like "%'.$_POST['searchKey'].'%" or content like "%'.$_POST['searchKey'].'%")';
 }
@@ -92,11 +96,20 @@ foreach($pname as $key => $value){
   $body .= '<th class="sorter" name='.$value.'>'.$key.'</th>';
 }
 
-$p=new Circular();
+//$p=new Circular();
 for($i=0;$i<count($cst);$i++){//指定されたuserIDのデータ全て
-  $p->initWithID($cst[$i]['id']);
-  $read=0;
-  $countread=0;
+//  $p->initWithID($cst[$i]['id']);
+//  $read=0;
+  //  $countread=0;
+  $sql='select title,ownerID,submitDate from circular where id='.$cst[$i]['id'];
+  $rst_circular=selectData(DB_NAME,$sql);
+
+  $sql='select * from member where circularID='.$cst[$i]['id'];
+  $rst_member=selectData(DB_NAME,$sql);
+  $sql.=' and checked=1';
+  $rst_read=selectData(DB_NAME,$sql);
+
+  /*
   for($j=0;$j<count($p->members);$j++){
     if($p->members[$j]->checked==1){
       $countread++;
@@ -105,24 +118,26 @@ for($i=0;$i<count($cst);$i++){//指定されたuserIDのデータ全て
       }
     }
   }
+  */
+
   $body .= '<tr';
   if($read==1){
     $body .= ' style="background:silver;"';
   }
   $body .= '>';
-  $body .= '<td style="nowrap"><button  name="'.$p->id.'" class="dispcontents btn btn-default btn-xs">表示</button></td>';
-  $body .= '<td style="nowrap">'.$p->title.'</td>';
+  $body .= '<td style="nowrap"><button  name="'.$cst[$i]['id'].'" class="dispcontents btn btn-default btn-xs">表示</button></td>';
+  $body .= '<td style="nowrap">'.$rst_circular[0]['title'].'</td>';
   $body .= '<td style="nowrap">';
   if($read==1){
     $body .= '既読 ';
   }else{
     $body .= '<font color="red">未読 </font>';
   }
-  $body .= '('.$countread.'／'.count($p->members).')</td>';
+  $body .= '('.count($rst_read).'／'.count($rst_member).')</td>';
   if($_POST['own']==0){
-    $body .= '<td style="nowrap">'.nameFromUserID($p->ownerID).'</td>';
+    $body .= '<td style="nowrap">'.nameFromUserID($rst_circular[0]['ownerID']).'</td>';
   }
-  $body .= '<td style="nowrap">'.date('Y-m-d H:i:s',strtotime($p->submitDate)).'</td>';
+  $body .= '<td style="nowrap">'.date('Y-m-d H:i:s',strtotime($rst_circular[0]['submitDate'])).'</td>';
   $body .= '</tr>';
 }
 $body .= '</table>';
