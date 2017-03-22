@@ -108,7 +108,12 @@ for($i=0;$i<count($cst);$i++){//指定されたuserIDのデータ全て
   $rst_member=selectData(DB_NAME,$sql);
   $sql.=' and checked=1';
   $rst_read=selectData(DB_NAME,$sql);
+  $sql.=' and userID='.$_SESSION['loginid'];
+  $rst_man=selectData(DB_NAME,$sql);
 
+  if(count($rst_man)==1){
+    $read=1;
+  }
   /*
   for($j=0;$j<count($p->members);$j++){
     if($p->members[$j]->checked==1){
