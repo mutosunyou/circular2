@@ -5,7 +5,9 @@ var a;
 var available=0;
 
 $(function(){ 
-  $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
+  if($('#qcount').val()>0){
+    $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
+  }
   $.post(
     "jsondata.php",
     {
