@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once('master/prefix.php');
-require_once('Circular.php');
+require_once('../master/prefix.php');
+require_once('../Circular.php');
 
 $sql='select circularID from member where userID='.$_POST['member'] .'and checked=0';
 $rst=selectData(DB_NAME,$sql);
