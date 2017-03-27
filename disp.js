@@ -2,8 +2,10 @@ var qarray = new Array();///質問の内容。２次元配列
 var j;
 var obj;
 var a;
+var available=0;
 
 $(function(){ 
+  $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
   $.post(
     "jsondata.php",
     {
@@ -11,7 +13,7 @@ $(function(){
     },
     function(data){
       a=$.parseJSON(data);
-
+      console.log(a);
       for(var i=0;i<a.questions.length;i++){
         var sum= new Array();
         var darr=new Array();
@@ -63,8 +65,6 @@ $(function(){
       }//for i終わり
     });//postスクリプトで送る内容終わり
 
-
-
   $(window).resize(function(){
     var w = $(window).width();
     if (w <= 980) {
@@ -76,18 +76,30 @@ $(function(){
 
   $('#replylist input').change(function(){
     qarray=[];
+    var flg1,flg2;
     j=0;
+    available=1;
     for(var i=0;i<$('#qcount').val();i++){
       if($('#replylist input[name="optionsRadios'+i+'"]:radio').attr('qid')==null){
         //チェックボックスのとき→チェックが入っている項目を全部配列に入れる（質問ID、回答ID)
+        flg1=0;
         $('#replylist input[name="optionsRadios'+i+'"]:checked').each(function(){
           qarray.push({qid:$('#replylist input[name="optionsRadios'+i+'"]:checked').attr('qid'),cid:$('#replylist input[name="optionsRadios'+i+'"]:checked:eq('+j+')').val()});
           j=j+1;
+          flg1=1;
         });
+        if(a.questions[i].nothaveto==0 && flg1==0){
+          available=0;
+        }
       }else{
         //ラジオボタンのとき→配列にチェックが入っている情報のみ入れる
+        flg2=0;
         if($('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid')!=null){
           qarray.push({qid:$('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid'),cid:$('#replylist input[name="optionsRadios'+i+'"]:radio:checked').val()});
+          flg2=1;
+        }
+        if(a.questions[i].nothaveto==0 && flg2==0){
+          available=0;
         }
       }
       if($('#replylist input[name="fs'+i+'"]').val()!=null){
@@ -113,5 +125,22 @@ $(function(){
       }
     );
   });//送信ボタンクリック動作終わり
+
+  $('*').change(function(){
+    if(available==1){
+      $('#sendbtn').removeAttr('disabled');
+    }else{
+      $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
+    }
+  });
+
+  $('*').click(function(){
+    if(available==1){
+      $('#sendbtn').removeAttr('disabled');
+    }else{
+      $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
+    }
+  });
+
 });//スクリプト終わり
 

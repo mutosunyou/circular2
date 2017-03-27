@@ -1,6 +1,4 @@
 <?php
-//初期==============================================
-session_start();
 $js = json_decode($_POST['qarray']);
 
 $body=' ';
@@ -50,7 +48,14 @@ for($i=0;$i<count($js);$i++){
   }else{
     $checked='';
   }
+  if($js[$i][0]->nothaveto=="true"){
+    $nothaveto='checked';
+  }else{
+    $nothaveto='';
+  }
+
   $body.='<input type="checkbox" class="checkask" check='.$i.' '.$checked.'>自由解答欄を設ける';
+  $body.='<input type="checkbox" class="nothaveto" check='.$i.' '.$nothaveto.' style="margin:0 0 0 30px;">無回答OKにする';
   $body.='</div>';
   $body.='</div>';
 }

@@ -1,5 +1,4 @@
 <?php
-//初期==============================================
 session_start();
 require_once('master/prefix.php');
 require_once('Circular.php');
@@ -88,6 +87,7 @@ $author=0;
 if($p->secret==0 || $p->ownerID==$_SESSION['loginid']){//公開もしくは自分が作成者
   $author=1;
 }
+
 //クラスと変数=====================================
 $body.='<input id="userID" class="hidden" value="'.$_SESSION['loginid'].'">';
 $body.='<input id="cid" class="hidden" value="'.$p->id.'">';
@@ -241,7 +241,11 @@ if($yetanswer==1 && count($p->questions)>0){
   $body.='<div id="replylist">';
   for($j=0;$j<count($p->questions);$j++){
     $body.='<div class="panel panel-default">';
-    $body.='<div class="panel-heading">アンケート'.($j+1).'</div>';
+    $body.='<div class="panel-heading">アンケート'.($j+1);
+    if($p->questions[$j]->nothaveto==0){
+      $body.='<font color="red">　　※回答必須</font>';
+    }
+    $body.='</div>';
     $body.='<table class="table table-bordered">';
     $body.='<thead><tr><td colspan="2">'.$p->questions[$j]->content.'</td></tr></thead>';
     $body.='<tbody>';

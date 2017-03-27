@@ -13,15 +13,15 @@ $(function() {
   var userID = $('#userID').val();
   $('#questionnaire').hide();
   $('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});//カレンダーから日付を選ぶ
+
   //回覧メンバー
   AllUserArray = $('#userlist>option');
   //はじめにqarray
   qarray[0]=[];
-  qarray[0].push({question:'',check:''});
+  qarray[0].push({question:'',check:'',nothaveto:'',stype:''});
   reloadTable();
 
-  //===========================================================
-  //ファイルアップロード=======================================
+//ファイルアップロード=======================================
   $('#file_upload').uploadifive({
     'auto'             : false,
     'checkScript'      : 'check-exists.php',
@@ -133,8 +133,6 @@ $(function() {
         console.log("before upload");
         $('#file_upload').uploadifive('upload');
         console.log("after upload");
-
-
       }
     );
     
@@ -187,7 +185,7 @@ $(function() {
     var n=qarray.length;
     //最後尾に空の質問を追加
     qarray[n]=[];
-    qarray[n].push({question:'',check:'',stype:0});
+    qarray[n].push({question:'',check:'',nothaveto:'',stype:0});
     reloadTable();
   });
 
@@ -224,7 +222,7 @@ $(function() {
       }else{
         selecttype=0;//ラジオボタンであれば0もしくは初期値は0
       }
-      qarray[i][0]={stype:selecttype,check:$(".checkask:eq("+i+")").prop('checked'),question:$(".question:eq("+i+")").val()};
+      qarray[i][0]={stype:selecttype,check:$(".checkask:eq("+i+")").prop('checked'),nothaveto:$(".nothaveto:eq("+i+")").prop('checked'),question:$(".question:eq("+i+")").val()};
       for(var j=0;j<m;j++){
         qarray[i][j+1]=[];
         qarray[i][j+1]={answer:$(".answer:eq("+tmpsum+")").val()};

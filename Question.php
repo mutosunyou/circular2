@@ -8,6 +8,7 @@ class Question
   public $circularID;//回覧id
   public $content;//質問文
   public $freespace;//自由記入
+  public $nothaveto;//無回答許容
   public $stype;//回答方式radio:0, check:1
   public $candidates;//回答候補
   public $answers;//答え
@@ -21,6 +22,7 @@ class Question
       $this->circularID = $rst[0]['circularID'];
       $this->content = $rst[0]['content'];
       $this->freespace = $rst[0]['freespace'];
+      $this->nothaveto = $rst[0]['nothaveto'];
       $this->stype = $rst[0]['stype'];
 
       $sql1 = 'select item from candidate where qid = '.$this->id;
@@ -44,13 +46,14 @@ class Question
   function AddQuestion($cid,$qarray)
   {
     for($i=0;$i<count($qarray);$i++){
-      if($qarray[$i][0]->check==true){
-        $check=1;
-      }else{
-        $check=0;
-      }
       $sql='insert into question values (null,'.$cid.',"'.myescape($qarray[$i][0]->question).'",';
       if($qarray[$i][0]->check==true){
+        $sql.=1;
+      }else{
+        $sql.=0;
+      }
+      $sql.=',';
+      if($qarray[$i][0]->nothaveto==true){
         $sql.=1;
       }else{
         $sql.=0;
@@ -60,7 +63,6 @@ class Question
       $this->reload();
       if(count($qarray[$i])>1){
         $sql='insert into candidate values ';
-        
         for($j=1;$j<count($qarray[$i]);$j++){
           $sql.='(null,'.$this->id[1].',"'.myescape($qarray[$i][$j]->answer).'")';
           if($j!=(count($qarray[$i])-1)){

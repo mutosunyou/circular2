@@ -98,8 +98,8 @@ foreach($pname as $key => $value){
 
 //$p=new Circular();
 for($i=0;$i<count($cst);$i++){//指定されたuserIDのデータ全て
-//  $p->initWithID($cst[$i]['id']);
-//  $read=0;
+  //  $p->initWithID($cst[$i]['id']);
+  //  $read=0;
   //  $countread=0;
   $sql='select title,ownerID,submitDate from circular where id='.$cst[$i]['id'];
   $rst_circular=selectData(DB_NAME,$sql);
