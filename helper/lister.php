@@ -137,12 +137,17 @@ for($i=0;$i<count($cst);$i++){//指定されたuserIDのデータ全て
   $body .= '<td style="nowrap"><button  name="'.$cst[$i]['id'].'" class="dispcontents btn btn-default btn-xs">表示</button></td>';
   $body .= '<td style="nowrap">'.$rst_circular[0]['title'].'</td>';
   $body .= '<td style="nowrap">';
+  if(count($rst_read)!=count($rst_member)){
   if($read==1){
     $body .= '既読 ';
   }else{
     $body .= '<font color="red">未読 </font>';
   }
-  $body .= '('.count($rst_read).'／'.count($rst_member).')</td>';
+  $body .= '('.count($rst_read).'／'.count($rst_member).')';
+  }else{
+    $body .= '完';
+  }
+  $body.='</td>';
   if($_POST['own']==0){
     $body .= '<td style="nowrap">'.nameFromUserID($rst_circular[0]['ownerID']).'</td>';
   }
