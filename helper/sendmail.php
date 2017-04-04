@@ -15,9 +15,11 @@ for($i=0;$i<count($js3);$i++){
 
 $subject = '【回覧通知】'.$js2[0]->title;
 $message = '回覧が来ています。下記URLより、回覧内容をご確認ください'.PHP_EOL.PHP_EOL;
-$message.= 'http://192.168.100.209/circular2/disp.php?cid='.$_POST['cid'].PHP_EOL;
+$message.= 'http://192.168.100.209/workflow/index.php?goto=/circular2/disp.php?cid='.$_POST['cid'].PHP_EOL;
 $message.= '※社外で閲覧する方はVPNをONにしてリンク先に移動してください。'.PHP_EOL.PHP_EOL;
+
 $message.= '表題：'.$js2[0]->title.PHP_EOL.PHP_EOL;
+
 $message.= '内容：'.PHP_EOL.str_replace('<br>',PHP_EOL,$js2[1]->content);
 
 $headers = 'remote_manager@sunyou.co.jp';
