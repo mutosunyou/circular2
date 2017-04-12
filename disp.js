@@ -7,6 +7,8 @@ var available=0;
 $(function(){ 
   if($('#qcount').val()>0){
     $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
+  }else{
+    available=1;
   }
   $.post(
     "jsondata.php",
@@ -108,9 +110,7 @@ $(function(){
           available=0;
         }
       }
-      if(tmp==1){
-        available=1;
-      }
+
       if($('#replylist input[name="fs'+i+'"]').val()!=null){
         qarray.push({qid:$('#replylist input[name="fs'+i+'"]').attr('qid'),desc:$('#replylist input[name="fs'+i+'"]').val()});
       }
