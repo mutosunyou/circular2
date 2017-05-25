@@ -24,6 +24,7 @@ $(function(){
         var sum= new Array();
         var darr=new Array();
         console.log(a.questions[i].nothaveto);
+        console.log(tempava);
         if(a.questions[i].nothaveto==0){
           tempava=0;
         }
