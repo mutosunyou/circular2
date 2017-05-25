@@ -72,6 +72,9 @@ $(function(){
           }
         }
       }//for i終わり
+      if(tempava==1){
+        available=1;
+      }
     });//postスクリプトで送る内容終わり
 
   $(window).resize(function(){
