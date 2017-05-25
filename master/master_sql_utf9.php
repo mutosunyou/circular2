@@ -66,7 +66,31 @@ function selectData($db, $sql){
     $mysqli->close();
     
 }
-
+function selectData2($db, $sql){
+  //接続
+  //return DB_PASSWORD;
+    $mysqli = new mysqli("192.168.100.208", DB_USER, DB_PASSWORD, $db);
+    /* 接続状況をチェックします */
+    $mysqli->set_charset("utf8");
+    if ($mysqli->connect_errno) {
+        printf("Connect failed: %s\n", $mysqli->connect_error);
+        exit();
+    }
+    if ($result = $mysqli->query($sql)) {
+        $bigArray = array();
+        while($col = $result->fetch_array(MYSQLI_ASSOC)){
+            $smallArray = array();
+            foreach ($col as $key => $value){
+                $smallArray[$key] = $value;
+            }
+            $bigArray[] = $smallArray;
+        }
+        $result->close();
+        $mysqli->close();
+        return $bigArray;
+    }
+    $mysqli->close();
+}
 function writeData($db, $tableName, $dict){
     //接続
     $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, $db);

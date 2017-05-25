@@ -52,13 +52,13 @@ class Question
       }else{
         $sql.=0;
       }
-      $sql.=',';
+       $sql.=','.$qarray[$i][0]->stype.',';
       if($qarray[$i][0]->nothaveto==true){
         $sql.=1;
       }else{
         $sql.=0;
       }
-      $sql.=','.$qarray[$i][0]->stype.')';
+     $sql.=')';
       $this->id=insertAI(DB_NAME,$sql);
       $this->reload();
       if(count($qarray[$i])>1){
