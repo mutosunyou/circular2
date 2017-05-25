@@ -3,10 +3,12 @@ var j;
 var obj;
 var a;
 var available=0;
+var tempava=1;
 
 $(function(){ 
   if($('#qcount').val()>0){
     $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
+    tempava=1;
   }else{
     available=1;
   }
@@ -21,6 +23,9 @@ $(function(){
       for(var i=0;i<a.questions.length;i++){
         var sum= new Array();
         var darr=new Array();
+        if(a.questions[i].nothaveto==0){
+          tempava=0;
+        }
         for(var j=0;j<a.questions[i].candidates.length;j++){
           sum[j]=0;
           for(var k=0;k<a.questions[i].answers.length;k++){
