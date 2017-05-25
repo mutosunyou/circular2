@@ -77,6 +77,7 @@ $(function(){
       if(tempava==1){
         available=1;
       }
+      console.log(available);
     });//postスクリプトで送る内容終わり
 
   $(window).resize(function(){
