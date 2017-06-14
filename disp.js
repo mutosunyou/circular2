@@ -96,9 +96,11 @@ $(function(){
     qarray=[];
     var flg1;//チェックボックス用
     var flg2;//ラジオボックス用
+    var tmp;
     j=0;
     available=1;
     for(var i=0;i<$('#qcount').val();i++){
+      tmp=1;
       if($('#replylist input[name="optionsRadios'+i+'"]:radio').attr('qid')==null){
         //チェックボックスのとき→チェックが入っている項目を全部配列に入れる（質問ID、回答ID)
         console.log("チェックボックス");
@@ -109,7 +111,7 @@ $(function(){
           flg1=1;
         });
         if(a.questions[i].nothaveto==0 && flg1==0){//無回答ダメでflg1=0（チェックなし）
-          available=0;
+          tmp=0;
         }
       }else{
         //ラジオボタンのとき→配列にチェックが入っている情報のみ入れる, 自由解答欄のとき
@@ -120,13 +122,15 @@ $(function(){
           flg2=1;
         }
         if(a.questions[i].nothaveto==0 && flg2==0){//無回答ダメでflg2=0（チェックなし）もしくは自由解答欄に記入なし
-          available=0;
+          tmp=0;
         }
       }
-
       if($('#replylist input[name="fs'+i+'"]').val()!=null){
         qarray.push({qid:$('#replylist input[name="fs'+i+'"]').attr('qid'),desc:$('#replylist input[name="fs'+i+'"]').val()});
-        available=1;
+        tmp=1;
+      }
+      if(tmp==0){
+        available=0;
       }
     }
     console.log(qarray);
