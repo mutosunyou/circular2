@@ -117,7 +117,7 @@ $(function(){
           qarray.push({qid:$('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid'),cid:$('#replylist input[name="optionsRadios'+i+'"]:radio:checked').val()});
           flg2=1;
         }
-        if(a.questions[i].nothaveto==0 && (flg2==0 || ($('#replylist input[name="fs'+i+'"]').val()==null))){//無回答ダメでflg2=0（チェックなし）もしくは自由解答欄に記入なし
+        if(a.questions[i].nothaveto==0 && flg2==0 && ($('#replylist input[name="fs'+i+'"]').val()==null)){//無回答ダメでflg2=0（チェックなし）もしくは自由解答欄に記入なし
           available=0;
         }
       }
