@@ -3,7 +3,7 @@ var j;
 var obj;
 var a;
 var available=0;
-var tempava=1;
+var tempava=1;//アンケートあるときのavailable監視用
 
 $(function(){ 
   if($('#qcount').val()>0){
@@ -77,11 +77,11 @@ $(function(){
       if(tempava==1){
         available=1;
       }
-         if(available==1){
-      $('#sendbtn').removeAttr('disabled');
-    }else{
-      $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
-    }    });//postスクリプトで送る内容終わり
+      if(available==1){
+        $('#sendbtn').removeAttr('disabled');
+      }else{
+        $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
+      }    });//postスクリプトで送る内容終わり
 
   $(window).resize(function(){
     var w = $(window).width();
@@ -94,33 +94,30 @@ $(function(){
 
   $('#replylist input').change(function(){
     qarray=[];
-    var flg1,flg2;
-    var tmp;//選択式の項目があるかないか
+    var flg1;//チェックボックス用
+    var flg2;//ラジオボックス用
     j=0;
     available=1;
     for(var i=0;i<$('#qcount').val();i++){
-      tmp=0;
       if($('#replylist input[name="optionsRadios'+i+'"]:radio').attr('qid')==null){
         //チェックボックスのとき→チェックが入っている項目を全部配列に入れる（質問ID、回答ID)
         flg1=0;
-        tmp=1;
-        $('#replylist input[name="optionsRadios'+i+'"]:checked').each(function(){
+        $('#replylist input[name="optionsRadios'+i+'"]:checked').each(function(){//チェックボックスにチェックされたものがあれば処理 flg1=1
           qarray.push({qid:$('#replylist input[name="optionsRadios'+i+'"]:checked').attr('qid'),cid:$('#replylist input[name="optionsRadios'+i+'"]:checked:eq('+j+')').val()});
           j=j+1;
           flg1=1;
         });
-        if(a.questions[i].nothaveto==0 && flg1==0){
+        if(a.questions[i].nothaveto==0 && flg1==0){//無回答ダメでflg1=0（チェックなし）
           available=0;
         }
       }else{
-        //ラジオボタンのとき→配列にチェックが入っている情報のみ入れる
+        //ラジオボタンのとき→配列にチェックが入っている情報のみ入れる, 自由解答欄のとき
         flg2=0;
-        tmp=1;
-        if($('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid')!=null){
+        if($('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid')!=null){//何かしらチェックあり flg2=1
           qarray.push({qid:$('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid'),cid:$('#replylist input[name="optionsRadios'+i+'"]:radio:checked').val()});
           flg2=1;
         }
-        if(a.questions[i].nothaveto==0 && flg2==0){
+        if(a.questions[i].nothaveto==0 && (flg2==0 || ($('#replylist input[name="fs'+i+'"]').val()==null))){//無回答ダメでflg2=0（チェックなし）もしくは自由解答欄に記入なし
           available=0;
         }
       }
