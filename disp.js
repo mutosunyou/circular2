@@ -96,7 +96,7 @@ $(function(){
     qarray=[];
     var flg1;//チェックボックス用
     var flg2;//ラジオボックス用
-    var tmp;
+    var tmp;//確認ボタンの有効フラグ
     j=0;
     available=1;
     for(var i=0;i<$('#qcount').val();i++){
