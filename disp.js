@@ -81,7 +81,8 @@ $(function(){
         $('#sendbtn').removeAttr('disabled');
       }else{
         $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
-      }    });//postスクリプトで送る内容終わり
+      }
+    });//postスクリプトで送る内容終わり
 
   $(window).resize(function(){
     var w = $(window).width();
@@ -90,8 +91,9 @@ $(function(){
     }else{
       $('#topspace').show();
     }
-  }); 
+  });
 
+  //ラジオボタン、チェックボックス、自由記入欄に入力の変化があったとき
   $('#replylist input').change(function(){
     qarray=[];
     var flg1;//チェックボックス用
@@ -99,6 +101,7 @@ $(function(){
     var tmp;//確認ボタンの有効フラグ
     j=0;
     available=1;
+
     for(var i=0;i<$('#qcount').val();i++){
       tmp=1;
       if($('#replylist input[name="optionsRadios'+i+'"]:radio').attr('qid')==null){
@@ -117,7 +120,7 @@ $(function(){
         //ラジオボタンのとき→配列にチェックが入っている情報のみ入れる, 自由解答欄のとき
         console.log("ラジオボタン");
         flg2=0;
-        if($('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid')!=null){//何かしらチェックあり flg2=1
+        if($('#replylist input[na me="optionsRadios'+i+'"]:radio:checked').attr('qid')!=null){//何かしらチェックあり flg2=1
           qarray.push({qid:$('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid'),cid:$('#replylist input[name="optionsRadios'+i+'"]:radio:checked').val()});
           flg2=1;
         }
@@ -132,6 +135,11 @@ $(function(){
       if(tmp==0){
         available=0;
       }
+    }
+    if(available==1){
+      $('#sendbtn').removeAttr('disabled');
+    }else{
+      $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
     }
     console.log(qarray);
   });
@@ -153,6 +161,7 @@ $(function(){
     );
   });//送信ボタンクリック動作終わり
 
+  /*
   $('*').change(function(){
     if(available==1){
       $('#sendbtn').removeAttr('disabled');
@@ -168,6 +177,6 @@ $(function(){
       $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
     }
   });
-
+*/
 });//スクリプト終わり
 
