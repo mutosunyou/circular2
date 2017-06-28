@@ -152,13 +152,11 @@ for($i=0;$i<count($p->members);$i++){
           $chartflg=1;//j番目の質問に回答があればchartflg=1
         }
       }
-      if($_SESSION['loginid']==10042){
-      var_dump($p);
-      }
+
       $body.='<thead>';
       $body.='<tr><td colspan="3">'.$p->questions[$j]->content;
       $body.='</td></tr>';
-      if($author==1 && $chartflg==1){
+      if($author==1){
         $body.='<tr><td colspan="3" class="info">グラフ</td></tr>';
         $body.='<tr><td colspan="3"><div class="charts'.$j.'"></div></td></tr>';
       }
