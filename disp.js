@@ -74,13 +74,9 @@ $(function(){
           }
         }
       }//for i終わり
+      console.log(tempava);
       if(tempava==1){
-        available=1;
-      }
-      if(available==1){
         $('#sendbtn').removeAttr('disabled');
-      }else{
-        $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
       }
     });//postスクリプトで送る内容終わり
 
