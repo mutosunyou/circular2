@@ -39,6 +39,7 @@ $(function(){
         }
         //console.log(a);
         if(a.questions[i].answers.length>0){
+          console.log(a);
           if(a.questions[i].answers[0].answer!=null && $('#author').val()==1){
             $('.charts'+i).highcharts({
               chart: {
