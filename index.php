@@ -62,9 +62,9 @@ $body.='<li id="listrun" class="bankmenu"><a tabindex="-1">回覧板</a></li>';
 $body.='<li id="list" class="active applymenu"><a href="#" tabindex="-1">新規作成</a></li>';
 $body.='<li id="input" class="applymenu"><a href="list.php" tabindex="-1">回覧リスト</a></li>';
 if($author2==1){
-  $body.='<li id="input" class="applymenu"><a href="force.php" tabindex="-1">強制既読</a></li>';
+  $body.='<li id="force" class="applymenu"><a href="force.php" tabindex="-1">強制既読</a></li>';
 }
-$body.='<li id="input" class="applymenu"><a href="../circular/index.php" tabindex="-1">旧回覧板</a></li>';
+//$body.='<li id="input" class="applymenu"><a href="../circular/index.php" tabindex="-1">旧回覧板</a></li>';
 $body.='</ul>';
 
 //右側
