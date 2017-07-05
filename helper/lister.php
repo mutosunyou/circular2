@@ -104,7 +104,16 @@ for($i=0;$i<count($cst);$i++){//指定されたuserIDのデータ全て
   $sql='select title,ownerID,submitDate from circular where id='.$cst[$i]['id'];
   $rst_circular=selectData(DB_NAME,$sql);
 
-  $sql='select * from member where circularID='.$cst[$i]['id'];
+  $rst_kairan=selectData('master','select * from employee where kairan=1');
+  
+  $sql='select * from member where circularID='.$cst[$i]['id']' and userID in(';
+  for($j=0;$j<count($rst_kairan);$j++){
+    $sql.=$rst_kairan[$j]['id'];
+    if($j!=(count($rst_kairan)-1)){
+      $sql.=',';
+    }
+  }
+  $sql.=')';
   $rst_member=selectData(DB_NAME,$sql);
 
   $sql.=' and checked=1';
