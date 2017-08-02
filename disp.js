@@ -6,7 +6,7 @@ var available=0;
 var tempava=1;//アンケートあるときのavailable監視用
 
 $(function(){ 
-  if($('#qcount').val()>0){
+  if($('#qcount').val()>0){//質問の数
     $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
     tempava=1;
   }else{
@@ -117,7 +117,7 @@ $(function(){
         //ラジオボタンのとき→配列にチェックが入っている情報のみ入れる, 自由解答欄のとき
         console.log("ラジオボタン");
         flg2=0;
-        if($('#replylist input[na me="optionsRadios'+i+'"]:radio:checked').attr('qid')!=null){//何かしらチェックあり flg2=1
+        if($('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid')!=null){//何かしらチェックあり flg2=1
           qarray.push({qid:$('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid'),cid:$('#replylist input[name="optionsRadios'+i+'"]:radio:checked').val()});
           flg2=1;
         }
