@@ -60,7 +60,7 @@ for($i=0;$i<count($rst);$i++){
 $body.='<ul class="nav navbar-nav">';
 $body.='<li id="listrun" class="bankmenu"><a tabindex="-1">回覧板</a></li>';
 $body.='<li id="list" class="active applymenu"><a href="#" tabindex="-1">新規作成</a></li>';
-$body.='<li id="input" class="applymenu"><a href="list.php" tabindex="-1">回覧リスト</a></li>';
+$body.='<li id="input" class="applymenu"><a href="list.php?sun='.time().'" tabindex="-1">回覧リスト</a></li>';
 $body.='<li id="input" class="applymenu"><a href="../circular/index.php" tabindex="-1">旧回覧板</a></li>';
 
 if($author2==1){
