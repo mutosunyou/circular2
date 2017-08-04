@@ -37,7 +37,6 @@ $(function(){
           }
           darr.push({name:a.questions[i].candidates[j],y:sum[j]});
         }
-        //console.log(a);
         if(a.questions[i].answers.length>0){
           console.log(a);
           if(a.questions[i].answers[0].answer!=null && $('#author').val()==1){
@@ -98,16 +97,15 @@ $(function(){
     var tmp;//確認ボタンの有効フラグ
     j=0;
     available=1;
-
+    tmp=1;
     for(var i=0;i<$('#qcount').val();i++){
-      tmp=1;
       if($('#replylist input[name="optionsRadios'+i+'"]:radio').attr('qid')==null){
         //チェックボックスのとき→チェックが入っている項目を全部配列に入れる（質問ID、回答ID)
         console.log("チェックボックス");
         flg1=0;
         $('#replylist input[name="optionsRadios'+i+'"]:checked').each(function(){//チェックボックスにチェックされたものがあれば処理 flg1=1
           qarray.push({qid:$('#replylist input[name="optionsRadios'+i+'"]:checked').attr('qid'),cid:$('#replylist input[name="optionsRadios'+i+'"]:checked:eq('+j+')').val()});
-          j=j+1;
+          j++;
           flg1=1;
         });
         if(a.questions[i].nothaveto==0 && flg1==0){//無回答ダメでflg1=0（チェックなし）
@@ -133,11 +131,11 @@ $(function(){
         available=0;
       }
     }
-    //if(available==1){
+    if(available==1){
       $('#sendbtn').removeAttr('disabled');
-   // }else{
-     // $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
-   // }
+    }else{
+      $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
+    }
     console.log(qarray);
   });
 
@@ -174,6 +172,6 @@ $(function(){
       $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
     }
   });
-*/
+  */
 });//スクリプト終わり
 

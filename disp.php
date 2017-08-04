@@ -6,6 +6,7 @@ require_once('Circular.php');
 //ログイン処理======================================
 $sql = "SELECT * FROM employee";
 $rst = selectData('master',$sql);
+
 if (isset($_SESSION["login_name"])){
   $sessionCounter = 0;
   for($i = 0; $i < count($rst); $i++) {
@@ -47,6 +48,7 @@ $body.='<a class="navbar-brand" href="/php/menu" tabindex="-1"><img alt="Brand" 
 $body.='</div>';
 $body.='<div class="collapse navbar-collapse" id="nav-menu-1">';
 
+//author2は強制既読の項目にのみかかる
 $author2=0;
 $sql='select * from author';
 $rst=selectData(DB_NAME,$sql);
@@ -82,13 +84,14 @@ $body.='<div id="topspace" style="height:70px;"></div>';
 
 $p = new Circular();
 $p->initWithID($_GET['cid']);
-
 $author=0;
+
 for($i=0;$i<count($p->members);$i++){
-  if(($_SESSION['loginid']==$p->ownerID || ($p->secret==0 && $_SESSION['loginid']==$p->members[$i]->userID && $p->members[$i]->checked==1)) && count($p->questions)>0){
+  if($_SESSION['loginid']==$p->ownerID || ($p->secret==0 && $_SESSION['loginid']==$p->members[$i]->userID && $p->members[$i]->checked==1) && count($p->questions)>0){
     $author=1;
   }
 }
+
 //クラスと変数=====================================
 $body.='<input id="userID" class="hidden" value="'.$_SESSION['loginid'].'">';
 $body.='<input id="cid" class="hidden" value="'.$p->id.'">';
@@ -129,14 +132,15 @@ $body.='</div>';
 $body.='</div>';
 $body.='<hr>';
 if(count($p->questions)>0){
-$body.='<h3>アンケート: ';
-if($p->secret==1){
-  $body.='<span>非公開</span><span class="glyphicon glyphicon-lock" aria-hidden="true" style="margin:0px 0 0 10px;"></span></h4><br><div class="clearfix"></div>';
-}else{
-  $body.='<span>公開</span><span class="glyphicon glyphicon-globe" aria-hidden="true" style="margin:0px 0 0 10px;"></span></h4><br><div class="clearfix"></div>';
+  $body.='<h3>アンケート: ';
+  if($p->secret==1){
+    $body.='<span>非公開</span><span class="glyphicon glyphicon-lock" aria-hidden="true" style="margin:0px 0 0 10px;"></span></h4><br><div class="clearfix"></div>';
+  }else{
+    $body.='<span>公開</span><span class="glyphicon glyphicon-globe" aria-hidden="true" style="margin:0px 0 0 10px;"></span></h4><br><div class="clearfix"></div>';
+  }
+  $body.='</h3>';
 }
-$body.='</h3>';
-}
+
 //アンケート集計結果
 for($i=0;$i<count($p->members);$i++){
   //質問が１個以上で、作成者もしくは回覧メンバーに入っていて回答済みのとき結果を見せる
@@ -199,10 +203,10 @@ for($i=0;$i<count($p->members);$i++){
           }
           $rst=selectData(DB_NAME,$sql);
           for($l=0;$l<count($rst);$l++){
-              $body.=shortNameFromUserID($rst[$l]['memberID']);
-              if($l!=(count($rst)-1)){
-                $body.=', ';
-              }
+            $body.=shortNameFromUserID($rst[$l]['memberID']);
+            if($l!=(count($rst)-1)){
+              $body.=', ';
+            }
           }
           $body.='</td>';
           $body.='</tr>';
@@ -230,7 +234,6 @@ for($i=0;$i<count($p->members);$i++){
   }
 }
 
-$author=0;
 for($i=0;$i<count($p->members);$i++){
   if(($_SESSION['loginid']==$p->members[$i]->userID) && $p->members[$i]->checked==0){
     $yetanswer=1;
@@ -307,7 +310,7 @@ $body.='</table>';
 $body.='</div>';//パネル終わり
 
 //送信ボタン=========================================
-if($yetanswer==1){
+if($yetanswer==1){//回答がまだなら確認ボタン表示
   $body.='<button id="sendbtn" class="btn btn-sm btn-primary pull-right">確認</button>';
 }
 

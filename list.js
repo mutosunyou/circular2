@@ -1,4 +1,6 @@
 var ownerflg;
+DD = new Date();
+
 //検索キーワード
 localStorage.circSearchKey = '';
 //並べ替えのキー値
@@ -92,7 +94,7 @@ $(function() {
   });
 
   $('#lister,#own,#yet').on('click','.dispcontents', function (e) {
-    location.href='disp.php?cid='+$(e.target).attr('name');
+    location.href='disp.php?cid='+$(e.target).attr('name')+ '&sec=' +DD.getSeconds();
   });
 
   $('#owntab').click(function(e){
