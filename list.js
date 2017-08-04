@@ -94,7 +94,7 @@ $(function() {
   });
 
   $('#lister,#own,#yet').on('click','.dispcontents', function (e) {
-    location.href='disp.php?cid='+$(e.target).attr('name')+ '&sec=' +DD.getSeconds();
+    location.href='disp.php?cid='+$(e.target).attr('name')+ '&refresh=' +DD.getTime();
   });
 
   $('#owntab').click(function(e){
