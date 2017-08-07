@@ -61,8 +61,8 @@ for($i=0;$i<count($rst);$i++){
 //左側
 $body.='<ul class="nav navbar-nav">';
 $body.='<li id="listrun" class="bankmenu"><a tabindex="-1">回覧板</a></li>';
-$body.='<li id="list" class="applymenu"><a href="index.php?sun='.time().'" tabindex="-1">新規作成</a></li>';
-$body.='<li id="input" class="applymenu"><a href="list.php?sun='.time().'" tabindex="-1">回覧リスト</a></li>';
+$body.='<li id="list" class="applymenu"><a href="index.php?refresh='.time().'" tabindex="-1">新規作成</a></li>';
+$body.='<li id="input" class="applymenu"><a href="list.php?refresh='.time().'" tabindex="-1">回覧リスト</a></li>';
 $body.='<li id="display" class="active applymenu"><a href="#" tabindex="-1">回覧内容確認</a></li>';
 if($author2==1){
   $body.='<li id="input" class="applymenu"><a href="force.php" tabindex="-1">強制既読</a></li>';
@@ -88,15 +88,15 @@ $author=0;
 
 for($i=0;$i<count($p->members);$i++){
   if($_SESSION['loginid']==$p->ownerID || ($p->secret==0 && $_SESSION['loginid']==$p->members[$i]->userID && $p->members[$i]->checked==1) && count($p->questions)>0){
-    $author=1;
+    $author=1;//作成者または、回覧メンバーで公開されていてアンケートが存在し、既にチェック済みである。
   }
 }
 
 //クラスと変数=====================================
-$body.='<input id="userID" class="hidden" value="'.$_SESSION['loginid'].'">';
-$body.='<input id="cid" class="hidden" value="'.$p->id.'">';
-$body.='<input id="qcount" class="hidden" value="'.count($p->questions).'">';
-$body.='<input id="author" class="hidden" value="'.$author.'">';
+$body.='<input id="userID" class="hidden" value="'.$_SESSION['loginid'].'">';//ユーザーID
+$body.='<input id="cid" class="hidden" value="'.$p->id.'">';//回覧ID
+$body.='<input id="qcount" class="hidden" value="'.count($p->questions).'">';//質問数
+$body.='<input id="author" class="hidden" value="'.$author.'">';//閲覧権限があるかどうか。あれば1、なければ0
 
 //本文/////////////////////////////////////////////
 //タイトル=========================================
@@ -175,7 +175,6 @@ for($i=0;$i<count($p->members);$i++){
         $body.='<tr><th style="width:100px;">集計</th><th>項目</th><th>メンバー</th></tr>';
       }
       $body.='</thead>';
-
       $body.='<tbody>';
       //k番目の回答とその数を数える
       if($chartflg==1){
@@ -268,7 +267,7 @@ if($yetanswer==1 && count($p->questions)>0){
       if($p->questions[$j]->stype==0){
         $body.='radio';
       }else{
-        $body.='checkbox'; 
+        $body.='checkbox';
       }
       $body.='" name="optionsRadios'.$j.'" value="'.$k.'" qid="'.$p->questions[$j]->id.'">'.$p->questions[$j]->candidates[$k].'<br>';
       $body.='</label>';

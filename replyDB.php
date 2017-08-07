@@ -3,8 +3,6 @@ session_start();
 require_once('master/prefix.php');
 require_once('Circular.php');
 
-
-
 //回答=======================================
 $js = json_decode($_POST['aarray']);
 

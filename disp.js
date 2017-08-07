@@ -1,140 +1,106 @@
 var qarray = new Array();///質問の内容。２次元配列
-var j;
-var obj;
-var a;
-var available=0;
-var tempava=1;//アンケートあるときのavailable監視用
+var a,j,obj;
 
 $(function(){ 
+  //初期動作
+  $('#sendbtn').removeAttr('disabled');//確認ボタン押せる
   if($('#qcount').val()>0){//質問の数
-    $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
-    tempava=1;
-  }else{
-    available=1;
-  }
-  $.post(
-    "jsondata.php",
-    {
-      "cid":$('#cid').val()
-    },
-    function(data){
-      a=$.parseJSON(data);
-      console.log(a);
-      for(var i=0;i<a.questions.length;i++){
-        var sum= new Array();
-        var darr=new Array();
-        console.log(a.questions[i].nothaveto);
-        console.log(tempava);
-        if(a.questions[i].nothaveto==0){
-          tempava=0;
-        }
-        for(var j=0;j<a.questions[i].candidates.length;j++){
-          sum[j]=0;
-          for(var k=0;k<a.questions[i].answers.length;k++){
-            if(a.questions[i].answers[k].answer==j){
-              sum[j]++;
-            }
+    $.post(
+      "jsondata.php",
+      {
+        "cid":$('#cid').val()
+      },
+      function(data){
+        a=$.parseJSON(data);
+        console.log(a);
+        for(var i=0;i<a.questions.length;i++){
+          var sum= new Array();
+          var darr=new Array();
+          if(a.questions[i].nothaveto==0){
+            $('#sendbtn').attr('disabled', 'disabled');//一つでも回答必須があれば確認ボタン押せない。
           }
-          darr.push({name:a.questions[i].candidates[j],y:sum[j]});
-        }
-        if(a.questions[i].answers.length>0){
-          console.log(a);
-          if(a.questions[i].answers[0].answer!=null && $('#author').val()==1){
-            $('.charts'+i).highcharts({
-              chart: {
-                width:500,
-                height:300,
-                type:'pie'
-              },
-              title: {
-                text: a.questions[i].content,
-              },
-              tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-              },
-              plotOptions:{
-                pie: {
-                  allowPointSelect: true,
-                  cursor: 'pointer',
-                  dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                    style: {
-                      color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+          for(var j=0;j<a.questions[i].candidates.length;j++){//i番目の質問のj番目の回答候補について
+            sum[j]=0;
+            for(var k=0;k<a.questions[i].answers.length;k++){
+              if(a.questions[i].answers[k].answer==j){
+                sum[j]++;//j番目の回答候補の回答数
+              }
+            }
+            darr.push({name:a.questions[i].candidates[j],y:sum[j]});
+          }
+          if(a.questions[i].answers.length>0){//i個目の回答数が0以上なら
+            if(a.questions[i].answers[0].answer!=null && $('#author').val()==1){
+              $('.charts'+i).highcharts({
+                chart: {
+                  width:500,
+                  height:300,
+                  type:'pie'
+                },
+                title: {
+                  text: a.questions[i].content,
+                },
+                tooltip: {
+                  pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions:{
+                  pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                      enabled: true,
+                      format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                      style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                      }
                     }
                   }
-                }
-              },
-              series: [{
-                name: 'Questionaire',
-                colorByPoint: true,
-                data: darr
-              }]
-            });//highcharts終わり
+                },
+                series: [{
+                  name: 'Questionaire',
+                  colorByPoint: true,
+                  data: darr
+                }]
+              });//highcharts終わり
+            }
           }
-        }
-      }//for i終わり
-      console.log(tempava);
-      if(tempava==1){
-        $('#sendbtn').removeAttr('disabled');
+        }//for i終わり
       }
-    });//postスクリプトで送る内容終わり
-
-  $(window).resize(function(){
-    var w = $(window).width();
-    if (w <= 980) {
-      $('#topspace').hide();
-    }else{
-      $('#topspace').show();
-    }
-  });
+    );//postスクリプトで送る内容終わり
+  }//初期動作終わり
 
   //ラジオボタン、チェックボックス、自由記入欄に入力の変化があったとき
   $('#replylist input').change(function(){
     qarray=[];
-    var flg1;//チェックボックス用
-    var flg2;//ラジオボックス用
-    var tmp;//確認ボタンの有効フラグ
+    var flg=1;
     j=0;
-    available=1;
-    tmp=1;
+    $('#sendbtn').removeAttr('disabled');
     for(var i=0;i<$('#qcount').val();i++){
-      if($('#replylist input[name="optionsRadios'+i+'"]:radio').attr('qid')==null){
-        //チェックボックスのとき→チェックが入っている項目を全部配列に入れる（質問ID、回答ID)
-        console.log("チェックボックス");
-        flg1=0;
-        $('#replylist input[name="optionsRadios'+i+'"]:checked').each(function(){//チェックボックスにチェックされたものがあれば処理 flg1=1
-          qarray.push({qid:$('#replylist input[name="optionsRadios'+i+'"]:checked').attr('qid'),cid:$('#replylist input[name="optionsRadios'+i+'"]:checked:eq('+j+')').val()});
-          j++;
-          flg1=1;
-        });
-        if(a.questions[i].nothaveto==0 && flg1==0){//無回答ダメでflg1=0（チェックなし）
-          tmp=0;
+      if(a.questions[i].nothaveto==0){//回答必須のとき
+        console.log($('#replylist input[name="optionsRadios'+i+'"]').attr('type'));
+        if($('#replylist input[name="optionsRadios'+i+'"]').attr('type')=="checkbox"){
+          //チェックボックスのとき→チェックが入っている項目を全部配列に入れる（質問ID、回答ID)
+          flg=0;
+          $('#replylist input[name="optionsRadios'+i+'"]:checked').each(function(){//チェックボックスにチェックされたものがあれば処理 flg=1
+            qarray.push({qid:$('#replylist input[name="optionsRadios'+i+'"]:checked').attr('qid'),cid:$('#replylist input[name="optionsRadios'+i+'"]:checked:eq('+j+')').val()});
+            j++;
+            flg=1;
+          });
+        }else if($('#replylist input[name="optionsRadios'+i+'"]').attr('type')=="radio"){
+          //ラジオボタンのとき→配列にチェックが入っている情報のみ入れる, 自由解答欄のとき
+          flg=0;
+          if($('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid')!=null){//何かしらチェックあり flg=1
+            qarray.push({qid:$('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid'),cid:$('#replylist input[name="optionsRadios'+i+'"]:radio:checked').val()});
+            flg=1;
+          }
         }
-      }else{
-        //ラジオボタンのとき→配列にチェックが入っている情報のみ入れる, 自由解答欄のとき
-        console.log("ラジオボタン");
-        flg2=0;
-        if($('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid')!=null){//何かしらチェックあり flg2=1
-          qarray.push({qid:$('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid'),cid:$('#replylist input[name="optionsRadios'+i+'"]:radio:checked').val()});
-          flg2=1;
+        if($('#replylist input[name="fs'+i+'"]').val()!=null){//自由回答記入欄に何か文字が打ってある(回答必須条件には影響を与えない仕様にする)
+          qarray.push({qid:$('#replylist input[name="fs'+i+'"]').attr('qid'),desc:$('#replylist input[name="fs'+i+'"]').val()});
+          flg=1;//チェックいれてない状態でも自由記入欄に埋めていれば回答必須条件満たす
         }
-        if(a.questions[i].nothaveto==0 && flg2==0){//無回答ダメでflg2=0（チェックなし）もしくは自由解答欄に記入なし
-          tmp=0;
+        if(flg==0){
+          $('#sendbtn').attr('disabled', 'disabled');//確認ボタン押せなくする
         }
       }
-      if($('#replylist input[name="fs'+i+'"]').val()!=null){
-        qarray.push({qid:$('#replylist input[name="fs'+i+'"]').attr('qid'),desc:$('#replylist input[name="fs'+i+'"]').val()});
-        tmp=1;
-      }
-      if(tmp==0){
-        available=0;
-      }
-    }
-    if(available==1){
-      $('#sendbtn').removeAttr('disabled');
-    }else{
-      $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
     }
     console.log(qarray);
   });
@@ -156,22 +122,13 @@ $(function(){
     );
   });//送信ボタンクリック動作終わり
 
-  /*
-  $('*').change(function(){
-    if(available==1){
-      $('#sendbtn').removeAttr('disabled');
+  $(window).resize(function(){
+    var w = $(window).width();
+    if (w <= 980) {
+      $('#topspace').hide();
     }else{
-      $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
+      $('#topspace').show();
     }
   });
-
-  $('*').click(function(){
-    if(available==1){
-      $('#sendbtn').removeAttr('disabled');
-    }else{
-      $('#sendbtn').attr('disabled', 'disabled');//disabled属性を付与する
-    }
-  });
-  */
 });//スクリプト終わり
 
