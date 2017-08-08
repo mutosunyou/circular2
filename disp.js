@@ -72,34 +72,36 @@ $(function(){
   $('#replylist input').change(function(){
     qarray=[];
     var flg=1;
-    j=0;
     $('#sendbtn').removeAttr('disabled');
     for(var i=0;i<$('#qcount').val();i++){
+      j=0;
       if(a.questions[i].nothaveto==0){//回答必須のとき
-        console.log($('#replylist input[name="optionsRadios'+i+'"]').attr('type'));
-        if($('#replylist input[name="optionsRadios'+i+'"]').attr('type')=="checkbox"){
-          //チェックボックスのとき→チェックが入っている項目を全部配列に入れる（質問ID、回答ID)
-          flg=0;
-          $('#replylist input[name="optionsRadios'+i+'"]:checked').each(function(){//チェックボックスにチェックされたものがあれば処理 flg=1
-            qarray.push({qid:$('#replylist input[name="optionsRadios'+i+'"]:checked').attr('qid'),cid:$('#replylist input[name="optionsRadios'+i+'"]:checked:eq('+j+')').val()});
-            j++;
-            flg=1;
-          });
-        }else if($('#replylist input[name="optionsRadios'+i+'"]').attr('type')=="radio"){
-          //ラジオボタンのとき→配列にチェックが入っている情報のみ入れる, 自由解答欄のとき
-          flg=0;
-          if($('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid')!=null){//何かしらチェックあり flg=1
-            qarray.push({qid:$('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid'),cid:$('#replylist input[name="optionsRadios'+i+'"]:radio:checked').val()});
-            flg=1;
-          }
+        flg=0;
+      }
+      if(a.questions[i].candidates.length>0 && a.questions[i].stype==1){
+        //if($('#replylist input[name="optionsRadios'+i+'"]').attr('type')=="checkbox"){
+        //チェックボックスのとき→チェックが入っている項目を全部配列に入れる（質問ID、回答ID)
+        $('#replylist input[name="optionsRadios'+i+'"]:checked').each(function(){//チェックボックスにチェックされたものがあれば処理 flg=1
+          qarray.push({qid:$('#replylist input[name="optionsRadios'+i+'"]:checked').attr('qid'),cid:$('#replylist input[name="optionsRadios'+i+'"]:checked:eq('+j+')').val()});
+          j++;
+          console.log(j);
+          flg=1;
+        });
+      }else if(a.questions[i].candidates.length>0 && a.questions[i].stype==0){
+        //}else if($('#replylist input[name="optionsRadios'+i+'"]').attr('type')=="radio"){
+        //ラジオボタンのとき→配列にチェックが入っている情報のみ入れる, 自由解答欄のとき
+        if($('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid')!=null){//何かしらチェックあり flg=1
+          qarray.push({qid:$('#replylist input[name="optionsRadios'+i+'"]:radio:checked').attr('qid'),cid:$('#replylist input[name="optionsRadios'+i+'"]:radio:checked').val()});
+          flg=1;
         }
-        if($('#replylist input[name="fs'+i+'"]').val()!=null){//自由回答記入欄に何か文字が打ってある(回答必須条件には影響を与えない仕様にする)
-          qarray.push({qid:$('#replylist input[name="fs'+i+'"]').attr('qid'),desc:$('#replylist input[name="fs'+i+'"]').val()});
-          flg=1;//チェックいれてない状態でも自由記入欄に埋めていれば回答必須条件満たす
-        }
-        if(flg==0){
-          $('#sendbtn').attr('disabled', 'disabled');//確認ボタン押せなくする
-        }
+      }
+      if(a.questions[i].freespace==1 && $('#replylist input[name="fs'+i+'"]').val().length>0){//自由回答記入欄に何か文字が打ってある(回答必須条件には影響を与えない仕様にする)
+        console.log($('#replylist input[name="fs'+i+'"]').val().length);
+        qarray.push({qid:$('#replylist input[name="fs'+i+'"]').attr('qid'),desc:$('#replylist input[name="fs'+i+'"]').val()});
+        flg=1;//チェックいれてない状態でも自由記入欄に埋めていれば回答必須条件満たす
+      }
+      if(flg==0){
+        $('#sendbtn').attr('disabled', 'disabled');//確認ボタン押せなくする
       }
     }
     console.log(qarray);

@@ -87,7 +87,7 @@ $p->initWithID($_GET['cid']);
 $author=0;
 
 for($i=0;$i<count($p->members);$i++){
-  if($_SESSION['loginid']==$p->ownerID || ($p->secret==0 && $_SESSION['loginid']==$p->members[$i]->userID && $p->members[$i]->checked==1) && count($p->questions)>0){
+  if($_SESSION['loginid']==$p->ownerID || ($p->secret==0 && $_SESSION['loginid']==$p->members[$i]->userID && $p->members[$i]->checked==1)){
     $author=1;//作成者または、回覧メンバーで公開されていてアンケートが存在し、既にチェック済みである。
   }
 }
@@ -142,95 +142,85 @@ if(count($p->questions)>0){
 }
 
 //アンケート集計結果
-for($i=0;$i<count($p->members);$i++){
-  //質問が１個以上で、作成者もしくは回覧メンバーに入っていて回答済みのとき結果を見せる
-  if(($_SESSION['loginid']==$p->ownerID || ($p->secret==0 && $_SESSION['loginid']==$p->members[$i]->userID && $p->members[$i]->checked==1)) && count($p->questions)>0){
-    $body.='<div id="resultlist">';
-    //j番目の質問とそれぞれの集計結果を示す。
-    for($j=0;$j<count($p->questions);$j++){//j: 質問番号
-      $body.='<div class="panel panel-default">';
-      $body.='<div class="panel-heading">アンケート結果 '.($j+1).'</div>';
-      $body.='<table class="table table-bordered">';
-      $chartflg=0;
-      for($k=0;$k<count($p->questions[$j]->answers);$k++){
-        if($p->questions[$j]->answers[$k]->answer!=null ){
-          $chartflg=1;//j番目の質問に回答があればchartflg=1
-        }
+//質問が１個以上で、作成者もしくは回覧メンバーに入っていて回答済みのとき結果を見せる
+if($author==1 && count($p->questions)>0){
+  $body.='<div id="resultlist">';
+  //i番目の質問とそれぞれの集計結果を示す。
+  for($i=0;$i<count($p->questions);$i++){//i: 質問番号
+    $body.='<div class="panel panel-default">';
+    $body.='<div class="panel-heading">アンケート結果 '.($i+1).'</div>';
+    $body.='<table class="table table-bordered">';
+    $chartflg=0;
+    for($j=0;$j<count($p->questions[$i]->answers);$j++){
+      if($p->questions[$i]->answers[$j]->answer!=null ){
+        $chartflg=1;//i番目の質問に回答があればchartflg=1
       }
-      $body.='<thead>';
-      $body.='<tr><td colspan="3">'.$p->questions[$j]->content;
-      $body.='</td></tr>';
-      if($author==1){
-        $body.='<tr><td colspan="3" class="info">グラフ</td></tr>';
-        $body.='<tr><td colspan="3"><div class="charts'.$j.'"></div></td></tr>';
-      }
-      if($chartflg==1){
-        $body.='<tr><td colspan="3" class="info">';
-        if($author==1){
-          $body.='集計結果';
-        }else{
-          $body.='回答結果';
-        }
-        $body.='</td></tr>';
-        $body.='<tr><th style="width:100px;">集計</th><th>項目</th><th>メンバー</th></tr>';
-      }
-      $body.='</thead>';
-      $body.='<tbody>';
-      //k番目の回答とその数を数える
-      if($chartflg==1){
-        for($k=0;$k<count($p->questions[$j]->candidates);$k++){//k: 候補番号
-          $body.='<tr>';
-          $body.='<td>';
-          if($author==1){
-            $sql='select answer,count(*) from answer where questionID='.$p->questions[$j]->id.' and answer='.$k.' group by answer';
-            $rst=selectData(DB_NAME,$sql);
-            if($rst!=null){
-              $body.=$rst[0]['count(*)'];
-            }else{
-              $body.='0';
-            }
-          }
-          $body.='</td>';
-          $body.='<td>';
-          $body.='<div class="charttitle'.$k.'" value="'.$p->questions[$j]->candidates[$k].'">'.$p->questions[$j]->candidates[$k].'</div>';
-          $body.='</td>';
-          $body.='<td style="font-size:small;">';
-          //k番目の回答を選択したメンバーの名前を羅列する。
-          $sql='select memberID from answer where questionID='.$p->questions[$j]->id.' and answer='.$k;
-          if($author==0){
-            $sql.=' and memberID='.$_SESSION['loginid'];
-          }
-          $rst=selectData(DB_NAME,$sql);
-          for($l=0;$l<count($rst);$l++){
-            $body.=shortNameFromUserID($rst[$l]['memberID']);
-            if($l!=(count($rst)-1)){
-              $body.=', ';
-            }
-          }
-          $body.='</td>';
-          $body.='</tr>';
-        }
-      }
-      if($p->questions[$j]->freespace==1){
-        $body.='<tr><td colspan="3" class="info">自由記入欄</td></tr>';
-        for($k=0;$k<count($p->questions[$j]->answers);$k++){
-          if($p->questions[$j]->answers[$k]->description!=null){
-            if($author==1 || $p->questions[$j]->answers[$k]->memberID==$_SESSION['loginid']){
-              $body.='<tr><td colspan="3">';
-              $body.=shortNameFromUserID($p->questions[$j]->answers[$k]->memberID).': '.$p->questions[$j]->answers[$k]->description;
-              $body.='</td></tr>';
-            }
-          }
-        }
-      }
-      $body.='</tbody>';
-      $body.='</table>';
-      $body.='</div>';
     }
-    $body.='<hr>';
+    $body.='<thead>';
+    $body.='<tr><td colspan="3">'.$p->questions[$i]->content;
+    $body.='</td></tr>';
+    if($chartflg==1){
+      $body.='<tr><td colspan="3" class="info">グラフ</td></tr>';
+      $body.='<tr><td colspan="3"><div class="charts'.$i.'"></div></td></tr>';
+      $body.='<tr><td colspan="3" class="info">';
+      $body.='回答結果';
+      $body.='</td></tr>';
+      $body.='<tr><th style="width:100px;">集計</th><th>項目</th><th>メンバー</th></tr>';
+    }
+    $body.='</thead>';
+    $body.='<tbody>';
+    //j番目の回答とその数を数える
+    if($chartflg==1){
+      for($j=0;$j<count($p->questions[$i]->candidates);$j++){//j: 候補番号
+        $body.='<tr>';
+        $body.='<td>';
+        $sql='select answer,count(*) from answer where questionID='.$p->questions[$i]->id.' and answer='.$j.' group by answer';
+        $rst=selectData(DB_NAME,$sql);
+        if($rst!=null){
+          $body.=$rst[0]['count(*)'];
+        }else{
+          $body.='0';
+        }
+        $body.='</td>';
+        $body.='<td>';
+        $body.='<div class="charttitle'.$j.'" value="'.$p->questions[$i]->candidates[$j].'">'.$p->questions[$i]->candidates[$j].'</div>';
+        $body.='</td>';
+        $body.='<td style="font-size:small;">';
+        //j番目の回答を選択したメンバーの名前を羅列する。
+        $sql='select memberID from answer where questionID='.$p->questions[$i]->id.' and answer='.$j;
+        if($author==0){
+          $sql.=' and memberID='.$_SESSION['loginid'];
+        }
+        $rst=selectData(DB_NAME,$sql);
+        for($l=0;$l<count($rst);$l++){
+          $body.=shortNameFromUserID($rst[$l]['memberID']);
+          if($l!=(count($rst)-1)){
+            $body.=', ';
+          }
+        }
+        $body.='</td>';
+        $body.='</tr>';
+      }
+    }
+
+    if($p->questions[$i]->freespace==1){
+      $body.='<tr><td colspan="3" class="info">自由記入欄</td></tr>';
+      for($j=0;$j<count($p->questions[$i]->answers);$j++){
+        if($p->questions[$i]->answers[$j]->description!=null){
+          if($author==1 || $p->questions[$i]->answers[$j]->memberID==$_SESSION['loginid']){
+            $body.='<tr><td colspan="3">';
+            $body.=shortNameFromUserID($p->questions[$i]->answers[$j]->memberID).': '.$p->questions[$i]->answers[$j]->description;
+            $body.='</td></tr>';
+          }
+        }
+      }
+    }
+    $body.='</tbody>';
+    $body.='</table>';
     $body.='</div>';
-    break;
   }
+  $body.='<hr>';
+  $body.='</div>';
 }
 
 for($i=0;$i<count($p->members);$i++){
